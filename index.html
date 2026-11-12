@@ -3,19 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Веселые Развивающие Игры</title>
+    <title>🌟 Игры и Учеба 🚀</title>
     <style>
         :root {
-            --primary: #6366f1;
-            --primary-hover: #4f46e5;
+            --primary: #a855f7;
+            --primary-hover: #9333ea;
             --success: #10b981;
             --error: #ef4444;
-            --bg-gradient: linear-gradient(135deg, #fbcfe8 0%, #e0e7ff 50%, #bae6fd 100%);
+            --bg-gradient: linear-gradient(135deg, #fbcfe8 0%, #f3e8ff 50%, #e0e7ff 100%);
             --card-bg: #ffffff;
-            --text-main: #1e1b4b;
-            --text-muted: #6b7280;
-            --radius: 20px;
-            --shadow: 0 10px 25px -5px rgba(99, 102, 241, 0.15), 0 8px 10px -6px rgba(99, 102, 241, 0.1);
+            --text-main: #581c87;
+            --radius: 24px;
+            --shadow: 0 10px 25px -5px rgba(168, 85, 247, 0.15), 0 8px 10px -6px rgba(168, 85, 247, 0.1);
         }
 
         * {
@@ -43,20 +42,14 @@
 
         header {
             text-align: center;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
 
         header h1 {
             font-size: 2.2rem;
-            color: #4338ca;
-            margin-bottom: 6px;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.05);
-        }
-
-        header p {
-            color: #475569;
-            font-size: 1.05rem;
-            font-weight: 500;
+            color: #7e22ce;
+            margin-bottom: 4px;
+            text-shadow: 0 2px 4px rgba(126, 34, 206, 0.1);
         }
 
         .stats-bar {
@@ -65,13 +58,13 @@
             align-items: center;
             background: rgba(255, 255, 255, 0.9);
             backdrop-filter: blur(10px);
-            padding: 12px 20px;
+            padding: 12px 22px;
             border-radius: var(--radius);
             box-shadow: var(--shadow);
             margin-bottom: 12px;
             font-weight: 700;
-            font-size: 1rem;
-            color: #3730a3;
+            font-size: 1.1rem;
+            color: #7e22ce;
         }
 
         .stat-item {
@@ -83,32 +76,23 @@
         .progress-container {
             background: rgba(255, 255, 255, 0.9);
             backdrop-filter: blur(10px);
-            padding: 12px 20px;
+            padding: 10px 20px;
             border-radius: var(--radius);
             box-shadow: var(--shadow);
             margin-bottom: 20px;
         }
 
-        .progress-info {
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.9rem;
-            color: #4f46e5;
-            margin-bottom: 8px;
-            font-weight: 700;
-        }
-
         .progress-bar-bg {
             width: 100%;
             height: 12px;
-            background: #e0e7ff;
+            background: #f3e8ff;
             border-radius: 6px;
             overflow: hidden;
         }
 
         .progress-bar-fill {
             height: 100%;
-            background: linear-gradient(90deg, #34d399, #10b981);
+            background: linear-gradient(90deg, #d946ef, #a855f7);
             width: 0%;
             transition: width 0.4s ease;
             border-radius: 6px;
@@ -124,7 +108,7 @@
         .category-card {
             background: var(--card-bg);
             border-radius: var(--radius);
-            padding: 30px 20px;
+            padding: 35px 20px;
             text-align: center;
             box-shadow: var(--shadow);
             cursor: pointer;
@@ -132,30 +116,25 @@
             border: 3px solid transparent;
         }
 
-        .category-card:nth-child(1) { border-color: #818cf8; background: linear-gradient(135deg, #ffffff 0%, #e0e7ff 100%); }
-        .category-card:nth-child(2) { border-color: #34d399; background: linear-gradient(135deg, #ffffff 0%, #d1fae5 100%); }
-        .category-card:nth-child(3) { border-color: #f43f5e; background: linear-gradient(135deg, #ffffff 0%, #ffe4e6 100%); }
-        .category-card:nth-child(4) { border-color: #fbbf24; background: linear-gradient(135deg, #ffffff 0%, #fef3c7 100%); }
+        .category-card:nth-child(1) { border-color: #f472b6; background: linear-gradient(135deg, #ffffff 0%, #fdf2f8 100%); }
+        .category-card:nth-child(2) { border-color: #c084fc; background: linear-gradient(135deg, #ffffff 0%, #faf5ff 100%); }
+        .category-card:nth-child(3) { border-color: #e879f9; background: linear-gradient(135deg, #ffffff 0%, #fdf4ff 100%); }
+        .category-card:nth-child(4) { border-color: #fb7185; background: linear-gradient(135deg, #ffffff 0%, #fff1f2 100%); }
 
         .category-card:hover {
             transform: translateY(-6px) scale(1.02);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.12);
+            box-shadow: 0 15px 30px rgba(168, 85, 247, 0.2);
         }
 
         .category-card .icon {
             font-size: 3.5rem;
             margin-bottom: 12px;
             display: inline-block;
-            transition: transform 0.3s;
-        }
-
-        .category-card:hover .icon {
-            transform: scale(1.15) rotate(5deg);
         }
 
         .category-card h3 {
-            font-size: 1.3rem;
-            color: var(--text-main);
+            font-size: 1.4rem;
+            color: #7e22ce;
             font-weight: 800;
         }
 
@@ -165,25 +144,25 @@
 
         .back-menu-btn {
             background: #ffffff;
-            border: 2px solid #c7d2fe;
-            padding: 8px 16px;
-            border-radius: 12px;
+            border: 2px solid #e9d5ff;
+            padding: 10px 18px;
+            border-radius: 14px;
             cursor: pointer;
             font-weight: 700;
-            color: #4f46e5;
+            color: #9333ea;
             transition: all 0.2s;
             margin-bottom: 20px;
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            font-size: 0.95rem;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+            font-size: 1rem;
+            box-shadow: 0 4px 10px rgba(147, 51, 234, 0.05);
         }
 
         .back-menu-btn:hover {
-            background: #4f46e5;
+            background: #9333ea;
             color: white;
-            border-color: #4f46e5;
+            border-color: #9333ea;
         }
 
         .exercise-list {
@@ -195,39 +174,33 @@
         .exercise-card {
             background: var(--card-bg);
             border-radius: var(--radius);
-            padding: 20px;
+            padding: 22px;
             box-shadow: var(--shadow);
             cursor: pointer;
             display: flex;
             align-items: center;
             gap: 18px;
-            border: 2px solid #e0e7ff;
+            border: 2px solid #f3e8ff;
             transition: all 0.2s;
         }
 
         .exercise-card:hover {
-            border-color: #6366f1;
+            border-color: #c084fc;
             background: #faf5ff;
             transform: translateX(6px);
         }
 
         .exercise-card .ex-icon {
             font-size: 2.2rem;
-            background: #eef2ff;
-            padding: 10px;
-            border-radius: 14px;
+            background: #f3e8ff;
+            padding: 12px;
+            border-radius: 16px;
         }
 
         .exercise-card h4 {
-            font-size: 1.2rem;
-            color: var(--text-main);
-            margin-bottom: 3px;
+            font-size: 1.3rem;
+            color: #7e22ce;
             font-weight: 700;
-        }
-
-        .exercise-card p {
-            font-size: 0.9rem;
-            color: var(--text-muted);
         }
 
         .rewards-section {
@@ -241,10 +214,8 @@
         }
 
         .rewards-section h3 {
-            font-size: 1.15rem;
-            margin-bottom: 12px;
-            color: #4338ca;
-            font-weight: 700;
+            color: #7e22ce;
+            margin-bottom: 8px;
         }
 
         .rewards-grid {
@@ -252,13 +223,14 @@
             justify-content: center;
             gap: 14px;
             flex-wrap: wrap;
+            margin-top: 10px;
         }
 
         .reward-badge {
             width: 50px;
             height: 50px;
             border-radius: 50%;
-            background: #f1f5f9;
+            background: #f3e8ff;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -266,7 +238,6 @@
             opacity: 0.3;
             filter: grayscale(1);
             transition: all 0.3s;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
         }
 
         .reward-badge.unlocked {
@@ -280,7 +251,7 @@
         .game-container {
             background: var(--card-bg);
             border-radius: var(--radius);
-            padding: 25px;
+            padding: 30px;
             box-shadow: var(--shadow);
             display: none;
             position: relative;
@@ -292,73 +263,67 @@
         }
 
         .question-title {
-            font-size: 1.6rem;
+            font-size: 2.2rem;
             font-weight: 800;
-            color: var(--text-main);
+            color: #7e22ce;
             margin-bottom: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 12px;
+            gap: 15px;
         }
 
         .speak-btn {
-            background: linear-gradient(135deg, #6366f1, #4f46e5);
+            background: linear-gradient(135deg, #d946ef, #9333ea);
             color: white;
             border: none;
-            width: 48px;
-            height: 48px;
+            width: 56px;
+            height: 56px;
             border-radius: 50%;
             cursor: pointer;
-            font-size: 1.3rem;
+            font-size: 1.6rem;
             display: inline-flex;
             align-items: center;
             justify-content: center;
             transition: transform 0.2s;
-            box-shadow: 0 6px 15px rgba(99, 102, 241, 0.4);
+            box-shadow: 0 6px 15px rgba(168, 85, 247, 0.4);
         }
 
         .speak-btn:hover {
             transform: scale(1.12);
         }
 
-        .subtitle {
-            color: var(--text-muted);
-            font-size: 1rem;
-            font-weight: 500;
-        }
-
         .options-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
+            gap: 18px;
         }
 
         .option-card {
-            background: #f8fafc;
-            border: 3px solid #e2e8f0;
-            border-radius: 16px;
-            padding: 15px;
+            background: #faf5ff;
+            border: 3px solid #e9d5ff;
+            border-radius: 20px;
+            padding: 20px;
             text-align: center;
             cursor: pointer;
             transition: all 0.2s ease;
-            font-size: 1.4rem;
+            font-size: 1.8rem;
             font-weight: 700;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            min-height: 90px;
+            min-height: 120px;
         }
 
         .option-card .emoji-icon {
-            font-size: 2.5rem;
+            font-size: 3.5rem;
             margin-bottom: 6px;
         }
 
         .option-card:hover {
-            border-color: #6366f1;
-            background: #eef2ff;
+            border-color: #a855f7;
+            background: #f3e8ff;
             transform: scale(1.02);
         }
 
@@ -369,21 +334,21 @@
         }
 
         .option-card.incorrect {
-            background: #fee2e2 !important;
-            border-color: #ef4444 !important;
-            color: #991b1b;
+            background: #ffe4e6 !important;
+            border-color: #f43f5e !important;
+            color: #9f1239;
         }
 
         .sentence-drop-zone {
             display: flex;
             flex-wrap: wrap;
-            gap: 10px;
+            gap: 12px;
             justify-content: center;
-            min-height: 65px;
-            background: #f8fafc;
-            border: 3px dashed #cbd5e1;
-            border-radius: 16px;
-            padding: 12px;
+            min-height: 75px;
+            background: #faf5ff;
+            border: 3px dashed #d8b4fe;
+            border-radius: 20px;
+            padding: 15px;
             margin-bottom: 25px;
             align-items: center;
         }
@@ -397,68 +362,63 @@
 
         .word-chip {
             background: #ffffff;
-            border: 3px solid #6366f1;
-            color: #4f46e5;
-            padding: 10px 18px;
-            border-radius: 14px;
-            font-size: 1.2rem;
+            border: 3px solid #a855f7;
+            color: #7e22ce;
+            padding: 14px 22px;
+            border-radius: 16px;
+            font-size: 1.4rem;
             font-weight: 700;
             cursor: pointer;
-            box-shadow: 0 4px 10px rgba(99, 102, 241, 0.1);
-        }
-
-        .word-chip:hover {
-            background: #eef2ff;
-            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(168, 85, 247, 0.15);
         }
 
         .word-chip.used {
             opacity: 0.3;
             pointer-events: none;
-            background: #e2e8f0;
-            border-color: #cbd5e1;
-            color: #94a3b8;
+            background: #f3e8ff;
+            border-color: #e9d5ff;
+            color: #a855f7;
         }
 
         .selected-word-chip {
-            background: #6366f1;
+            background: #a855f7;
             color: white;
-            padding: 10px 18px;
-            border-radius: 14px;
-            font-size: 1.2rem;
+            padding: 12px 20px;
+            border-radius: 16px;
+            font-size: 1.3rem;
             font-weight: 700;
-            cursor: pointer;
         }
 
         .match-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
+            gap: 18px;
         }
 
         .match-card {
-            background: #f8fafc;
-            border: 3px solid #e2e8f0;
-            border-radius: 16px;
-            padding: 20px 12px;
+            background: #faf5ff;
+            border: 3px solid #e9d5ff;
+            border-radius: 20px;
+            padding: 25px 15px;
             text-align: center;
             cursor: pointer;
-            font-size: 1.3rem;
+            font-size: 1.8rem;
             font-weight: 700;
-            min-height: 75px;
+            min-height: 100px;
             display: flex;
             align-items: center;
             justify-content: center;
+            gap: 12px;
         }
 
         .match-card:hover {
-            border-color: #6366f1;
-            background: #eef2ff;
+            border-color: #a855f7;
+            background: #f3e8ff;
         }
 
         .match-card.selected {
-            border-color: #6366f1;
-            background: #e0e7ff;
+            border-color: #d946ef;
+            background: #fae8ff;
             transform: scale(1.03);
         }
 
@@ -474,40 +434,42 @@
         }
 
         .reading-text {
-            background: #f8fafc;
-            border-left: 5px solid #6366f1;
-            padding: 15px 20px;
-            border-radius: 0 16px 16px 0;
-            font-size: 1.4rem;
+            background: #faf5ff;
+            border-left: 6px solid #a855f7;
+            padding: 20px;
+            border-radius: 0 20px 20px 0;
+            font-size: 2rem;
             line-height: 1.6;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             text-align: right;
             direction: rtl;
-            font-weight: 600;
+            font-weight: 700;
+            color: #581c87;
         }
 
         .reading-options {
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 14px;
         }
 
         .reading-option {
-            background: #f8fafc;
-            border: 3px solid #e2e8f0;
-            padding: 14px 20px;
-            border-radius: 14px;
-            font-size: 1.2rem;
-            font-weight: 600;
+            background: #faf5ff;
+            border: 3px solid #e9d5ff;
+            padding: 18px 22px;
+            border-radius: 16px;
+            font-size: 1.5rem;
+            font-weight: 700;
             cursor: pointer;
             text-align: right;
             direction: rtl;
             transition: all 0.2s;
+            color: #581c87;
         }
 
         .reading-option:hover {
-            border-color: #6366f1;
-            background: #eef2ff;
+            border-color: #a855f7;
+            background: #f3e8ff;
         }
 
         .reward-popup {
@@ -515,18 +477,15 @@
             top: 25px;
             left: 50%;
             transform: translateX(-50%) translateY(-120px);
-            background: linear-gradient(135deg, #10b981, #059669);
+            background: linear-gradient(135deg, #d946ef, #9333ea);
             color: white;
-            padding: 14px 28px;
+            padding: 16px 32px;
             border-radius: 35px;
             font-weight: 700;
-            font-size: 1.1rem;
-            box-shadow: 0 15px 30px rgba(16, 185, 129, 0.4);
+            font-size: 1.2rem;
+            box-shadow: 0 15px 30px rgba(168, 85, 247, 0.4);
             transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             z-index: 1000;
-            display: flex;
-            align-items: center;
-            gap: 12px;
         }
 
         .reward-popup.show {
@@ -537,26 +496,21 @@
 <body>
 
     <div id="rewardPopup" class="reward-popup">
-        <span>🏆</span> <span id="rewardText">Новая награда разблокирована!</span>
+        <span id="rewardText">🏆 Награда!</span>
     </div>
 
     <div class="container">
         <header>
-            <h1>🌟 Учимся с Удовольствием! 🚀</h1>
-            <p>Выбирайте категорию и играйте с пользой!</p>
+            <h1>🌟 Игры и Учеба 🚀</h1>
         </header>
 
         <div class="stats-bar" id="statsBar" style="display: none;">
-            <div class="stat-item">⭐ Счёт: <span id="scoreVal">0</span></div>
-            <div class="stat-item">🔥 Серия: <span id="streakVal">0</span></div>
-            <div class="stat-item">🎯 Успех: <span id="accuracyVal">100%</span></div>
+            <div class="stat-item">⭐ <span id="scoreVal">0</span></div>
+            <div class="stat-item">🔥 <span id="streakVal">0</span></div>
+            <div class="stat-item">🎯 <span id="accuracyVal">100%</span></div>
         </div>
 
         <div class="progress-container" id="progressContainer" style="display: none;">
-            <div class="progress-info">
-                <span>Прогресс обучения</span>
-                <span id="progressText">0 / 10 побед</span>
-            </div>
             <div class="progress-bar-bg">
                 <div class="progress-bar-fill" id="progressBarFill"></div>
             </div>
@@ -584,7 +538,7 @@
             </div>
 
             <div class="rewards-section">
-                <h3>🏆 Коллекция наград (набирайте очки!)</h3>
+                <h3>🏆 Награды</h3>
                 <div class="rewards-grid" id="rewardsGrid">
                     <div class="reward-badge" data-score="30">🥉</div>
                     <div class="reward-badge" data-score="60">🥈</div>
@@ -598,20 +552,19 @@
 
         <!-- ЭКРАН ВЫБОРА УПРАЖНЕНИЙ -->
         <div id="exercisesScreen" class="exercises-screen">
-            <button class="back-menu-btn" onclick="returnToMainCategoryMenu()">← Назад к категориям</button>
-            <h2 id="categoryTitle" style="color: var(--text-main); margin-bottom: 18px; font-size: 1.5rem; font-weight: 800;"></h2>
+            <button class="back-menu-btn" onclick="returnToMainCategoryMenu()">← Назад</button>
+            <h2 id="categoryTitle" style="color: #7e22ce; margin-bottom: 18px; font-size: 1.6rem; font-weight: 800;"></h2>
             <div class="exercise-list" id="exerciseListContainer"></div>
         </div>
 
         <!-- ЭКРАН ИГРЫ -->
         <div id="gameScreen" class="game-container">
-            <button class="back-menu-btn" onclick="returnToExercises()">← К списку упражнений</button>
+            <button class="back-menu-btn" onclick="returnToExercises()">← К списку</button>
             <div id="gameContent"></div>
         </div>
     </div>
 
     <script>
-        // Ровно 100 английских слов
         const englishWords = [
             {en: "Cat", ru: "Кошка", emoji: "🐈", weight: 1}, {en: "Dog", ru: "Собака", emoji: "🐕", weight: 1},
             {en: "Apple", ru: "Яблоко", emoji: "🍎", weight: 1}, {en: "House", ru: "Дом", emoji: "🏠", weight: 1},
@@ -622,328 +575,75 @@
             {en: "Flower", ru: "Цветок", emoji: "🌸", weight: 1}, {en: "Star", ru: "Звезда", emoji: "⭐", weight: 1},
             {en: "Moon", ru: "Луна", emoji: "🌙", weight: 1}, {en: "Ball", ru: "Мяч", emoji: "⚽", weight: 1},
             {en: "Banana", ru: "Банан", emoji: "🍌", weight: 1}, {en: "Train", ru: "Поезд", emoji: "🚂", weight: 1},
-            {en: "Bear", ru: "Медведь", emoji: "🐻", weight: 1}, {en: "Lion", ru: "Лев", emoji: "🦁", weight: 1},
-            {en: "Tiger", ru: "Тигр", emoji: "🐅", weight: 1}, {en: "Cow", ru: "Корова", emoji: "🐄", weight: 1},
-            {en: "Pig", ru: "Свинья", emoji: "🐖", weight: 1}, {en: "Horse", ru: "Лошадь", emoji: "🐎", weight: 1},
-            {en: "Sheep", ru: "Овца", emoji: "🐑", weight: 1}, {en: "Duck", ru: "Утка", emoji: "🦆", weight: 1},
-            {en: "Frog", ru: "Лягушка", emoji: "🐸", weight: 1}, {en: "Mouse", ru: "Мышь", emoji: "🐁", weight: 1},
-            {en: "Rabbit", ru: "Кролик", emoji: "🐇", weight: 1}, {en: "Fox", ru: "Лиса", emoji: "🦊", weight: 1},
-            {en: "Wolf", ru: "Волк", emoji: "🐺", weight: 1}, {en: "Panda", ru: "Панда", emoji: "🐼", weight: 1},
-            {en: "Koala", ru: "Коала", emoji: "🐨", weight: 1}, {en: "Monkey", ru: "Обезьяна", emoji: "🐒", weight: 1},
-            {en: "Chicken", ru: "Курица", emoji: "🐔", weight: 1}, {en: "Egg", ru: "Яйцо", emoji: "🥚", weight: 1},
-            {en: "Bread", ru: "Хлеб", emoji: "🍞", weight: 1}, {en: "Cheese", ru: "Сыр", emoji: "🧀", weight: 1},
-            {en: "Meat", ru: "Мясо", emoji: "🥩", weight: 1}, {en: "Soup", ru: "Суп", emoji: "🍲", weight: 1},
-            {en: "Cake", ru: "Торт", emoji: "🎂", weight: 1}, {en: "Cookie", ru: "Печенье", emoji: "🍪", weight: 1},
-            {en: "Candy", ru: "Конфета", emoji: "🍬", weight: 1}, {en: "Ice cream", ru: "Мороженое", emoji: "🍨", weight: 1},
-            {en: "Pizza", ru: "Пицца", emoji: "🍕", weight: 1}, {en: "Burger", ru: "Бургер", emoji: "🍔", weight: 1},
-            {en: "Juice", ru: "Сок", emoji: "🧃", weight: 1}, {en: "Tea", ru: "Чай", emoji: "🍵", weight: 1},
-            {en: "Coffee", ru: "Кофе", emoji: "☕", weight: 1}, {en: "Pen", ru: "Ручка", emoji: "🖊️", weight: 1},
-            {en: "Pencil", ru: "Карандаш", emoji: "✏️", weight: 1}, {en: "Bag", ru: "Сумка", emoji: "🎒", weight: 1},
-            {en: "Desk", ru: "Парта", emoji: "🪑", weight: 1}, {en: "Clock", ru: "Часы", emoji: "⏰", weight: 1},
-            {en: "Phone", ru: "Телефон", emoji: "📱", weight: 1}, {en: "Computer", ru: "Компьютер", emoji: "💻", weight: 1},
-            {en: "TV", ru: "Телевизор", emoji: "📺", weight: 1}, {en: "Lamp", ru: "Лампа", emoji: "💡", weight: 1},
-            {en: "Bed", ru: "Кровать", emoji: "🛏️", weight: 1}, {en: "Door", ru: "Дверь", emoji: "🚪", weight: 1},
-            {en: "Window", ru: "Окно", emoji: "🪟", weight: 1}, {en: "Table", ru: "Стол", emoji: "🪵", weight: 1},
-            {en: "Chair", ru: "Стул", emoji: "🪑", weight: 1}, {en: "Shirt", ru: "Рубашка", emoji: "👕", weight: 1},
-            {en: "Pants", ru: "Брюки", emoji: "👖", weight: 1}, {en: "Dress", ru: "Платье", emoji: "👗", weight: 1},
-            {en: "Hat", ru: "Шляпа", emoji: "👒", weight: 1}, {en: "Shoes", ru: "Обувь", emoji: "👞", weight: 1},
-            {en: "Coat", ru: "Пальто", emoji: "🧥", weight: 1}, {en: "Sock", ru: "Носок", emoji: "🧦", weight: 1},
-            {en: "Scarf", ru: "Шарф", emoji: "🧣", weight: 1}, {en: "Rain", ru: "Дождь", emoji: "🌧️", weight: 1},
-            {en: "Snow", ru: "Снег", emoji: "❄️", weight: 1}, {en: "Wind", ru: "Ветер", emoji: "💨", weight: 1},
-            {en: "Cloud", ru: "Облако", emoji: "☁️", weight: 1}, {en: "Fire", ru: "Огонь", emoji: "🔥", weight: 1},
-            {en: "Earth", ru: "Земля", emoji: "🌍", weight: 1}, {en: "Sea", ru: "Море", emoji: "🌊", weight: 1},
-            {en: "River", ru: "Река", emoji: "🏞️", weight: 1}, {en: "Mountain", ru: "Гора", emoji: "⛰️", weight: 1},
-            {en: "Road", ru: "Дорога", emoji: "🛣️", weight: 1}, {en: "Bus", ru: "Автобус", emoji: "🚌", weight: 1},
-            {en: "Plane", ru: "Самолет", emoji: "✈️", weight: 1}, {en: "Ship", ru: "Корабль", emoji: "🚢", weight: 1},
-            {en: "Bike", ru: "Велосипед", emoji: "🚲", weight: 1}, {en: "Key", ru: "Ключ", emoji: "🔑", weight: 1},
-            {en: "Lock", ru: "Замок", emoji: "🔒", weight: 1}, {en: "Box", ru: "Коробка", emoji: "📦", weight: 1},
-            {en: "Gift", ru: "Подарок", emoji: "🎁", weight: 1}, {en: "Doll", ru: "Кукла", emoji: "🪆", weight: 1},
-            {en: "Kite", ru: "Змей", emoji: "🪁", weight: 1}, {en: "Ring", ru: "Кольцо", emoji: "💍", weight: 1},
-            {en: "King", ru: "Король", emoji: "👑", weight: 1}, {en: "Queen", ru: "Королева", emoji: "👸", weight: 1},
-            {en: "Baby", ru: "Малыш", emoji: "👶", weight: 1}, {en: "Family", ru: "Семья", emoji: "👨‍👩‍👧", weight: 1},
-            {en: "Friend", ru: "Друг", emoji: "🤝", weight: 1}, {en: "Smile", ru: "Улыбка", emoji: "😊", weight: 1},
-            {en: "Heart", ru: "Сердце", emoji: "❤️", weight: 1}, {en: "Light", ru: "Свет", emoji: "💡", weight: 1}
+            {en: "Bear", ru: "Медведь", emoji: "🐻", weight: 1}, {en: "Lion", ru: "Лев", emoji: "🦁", weight: 1}
         ];
 
-        // Ровно 100 слов на иврите
         const hebrewWords = [
             {he: "כֶּלֶב", translation: "Собака", emoji: "🐕", weight: 1}, {he: "חָתוּל", translation: "Кошка", emoji: "🐈", weight: 1},
             {he: "בַּיִת", translation: "Дом", emoji: "🏠", weight: 1}, {he: "סֵפֶר", translation: "Книга", emoji: "📖", weight: 1},
             {he: "שֶׁמֶשׁ", translation: "Солнце", emoji: "☀️", weight: 1}, {he: "מַיִם", translation: "Вода", emoji: "💧", weight: 1},
             {he: "עֵץ", translation: "Дерево", emoji: "🌳", weight: 1}, {he: "תַּפּוּחַ", translation: "Яблоко", emoji: "🍎", weight: 1},
-            {he: "יֶלֶד", translation: "Мальчик", emoji: "👦", weight: 1}, {he: "יַלְדָּה", translation: "Девочка", emoji: "👧", weight: 1},
-            {he: "חָלָב", translation: "Молоко", emoji: "🥛", weight: 1}, {he: "דָּג", translation: "Рыба", emoji: "🐟", weight: 1},
-            {he: "צִפּוֹר", translation: "Птица", emoji: "🐦", weight: 1}, {he: "פֶּרַח", translation: "Цветок", emoji: "🌸", weight: 1},
-            {he: "כּוֹכָב", translation: "Звезда", emoji: "⭐", weight: 1}, {he: "יָרֵחַ", translation: "Луна", emoji: "🌙", weight: 1},
-            {he: "כַּדּוּר", translation: "Мяч", emoji: "⚽", weight: 1}, {he: "מְכוֹנִית", translation: "Машина", emoji: "🚗", weight: 1},
-            {he: "לֶחֶם", translation: "Хлеб", emoji: "🍞", weight: 1}, {he: "גְּבִינָה", translation: "Сыр", emoji: "🧀", weight: 1},
-            {he: "בָּשָׂר", translation: "Мясо", emoji: "🥩", weight: 1}, {he: "מָרָק", translation: "Суп", emoji: "🍲", weight: 1},
-            {he: "עוּגָה", translation: "Торт", emoji: "🎂", weight: 1}, {he: "בָּנָנָה", translation: "Банан", emoji: "🍌", weight: 1},
-            {he: "רַכֶּבֶת", translation: "Поезд", emoji: "🚂", weight: 1}, {he: "דּוֹב", translation: "Медведь", emoji: "🐻", weight: 1},
-            {he: "אֲרִי", translation: "Лев", emoji: "🦁", weight: 1}, {he: "סוּס", translation: "Лошадь", emoji: "🐎", weight: 1},
-            {he: "פָּרָה", translation: "Корова", emoji: "🐄", weight: 1}, {he: "חֲמוֹר", translation: "Осел", emoji: "🫏", weight: 1},
-            {he: "שֶׂה", translation: "Овца", emoji: "🐑", weight: 1}, {he: "בַּרְוָז", translation: "Утка", emoji: "🦆", weight: 1},
-            {he: "צְפַרְדֵּעַ", translation: "Лягушка", emoji: "🐸", weight: 1}, {he: "עַכְבָּר", translation: "Мышь", emoji: "🐁", weight: 1},
-            {he: "אַרְנָב", translation: "Кролик", emoji: "🐇", weight: 1}, {he: "שׁוּעָל", translation: "Лиса", emoji: "🦊", weight: 1},
-            {he: "זְאֵב", translation: "Волк", emoji: "🐺", weight: 1}, {he: "קוֹף", translation: "Обезьяна", emoji: "🐒", weight: 1},
-            {he: "תַּרְנְגֹל", translation: "Петух", emoji: "🐓", weight: 1}, {he: "בֵּיצָה", translation: "Яйцо", emoji: "🥚", weight: 1},
-            {he: "מִיץ", translation: "Сок", emoji: "🧃", weight: 1}, {he: "תֵּה", translation: "Чай", emoji: "🍵", weight: 1},
-            {he: "קָפֶה", translation: "Кофе", emoji: "☕", weight: 1}, {he: "עֵט", translation: "Ручка", emoji: "🖊️", weight: 1},
-            {he: "עַפָּרוֹן", translation: "Карандаш", emoji: "✏️", weight: 1}, {he: "יַלְקוּט", translation: "Рюкзак", emoji: "🎒", weight: 1},
-            {he: "שֻׁלְחָן", translation: "Стол", emoji: "🪵", weight: 1}, {he: "כִּסֵּא", translation: "Стул", emoji: "🪑", weight: 1},
-            {he: "מִטָּה", translation: "Кровать", emoji: "🛏️", weight: 1}, {he: "דֶּלֶת", translation: "Дверь", emoji: "🚪", weight: 1},
-            {he: "חַלּוֹן", translation: "Окно", emoji: "🪟", weight: 1}, {he: "שָׁעוֹן", translation: "Часы", emoji: "⏰", weight: 1},
-            {he: "טֵלֶפוֹן", translation: "Телефон", emoji: "📱", weight: 1}, {he: "מַחְשֵׁב", translation: "Компьютер", emoji: "💻", weight: 1},
-            {he: "טַלְוִיזְיָה", translation: "Телевизор", emoji: "📺", weight: 1}, {he: "מַנְוֹרָה", translation: "Лампа", emoji: "💡", weight: 1},
-            {he: "חֻלְצָה", translation: "Рубашка", emoji: "👕", weight: 1}, {he: "מִכְנָסַיִם", translation: "Брюки", emoji: "👖", weight: 1},
-            {he: "שִׂמְלָה", translation: "Платье", emoji: "👗", weight: 1}, {he: "כּוֹבַע", translation: "Шляпа", emoji: "👒", weight: 1},
-            {he: "נַעַל", translation: "Обувь", emoji: "👞", weight: 1}, {he: "מְעִיל", translation: "Пальто", emoji: "🧥", weight: 1},
-            {he: "גֶּשֶׁם", translation: "Дождь", emoji: "🌧️", weight: 1}, {he: "שֶׁלֶג", translation: "Снег", emoji: "❄️", weight: 1},
-            {he: "רוּחַ", translation: "Ветер", emoji: "💨", weight: 1}, {he: "עָנָן", translation: "Облако", emoji: "☁️", weight: 1},
-            {he: "אֵשׁ", translation: "Огонь", emoji: "🔥", weight: 1}, {he: "אֲדָמָה", translation: "Земля", emoji: "🌍", weight: 1},
-            {he: "יָם", translation: "Море", emoji: "🌊", weight: 1}, {he: "נָהָר", translation: "Река", emoji: "🏞️", weight: 1},
-            {he: "הָר", translation: "Гора", emoji: "⛰️", weight: 1}, {he: "כְּבִישׁ", translation: "Дорога", emoji: "🛣️", weight: 1},
-            {he: "אוֹטוֹבּוּס", translation: "Автобус", emoji: "🚌", weight: 1}, {he: "מָטוֹס", translation: "Самолет", emoji: "✈️", weight: 1},
-            {he: "אֳנִיָּה", translation: "Корабль", emoji: "🚢", weight: 1}, {he: "אוֹפַנַּיִם", translation: "Велосипед", emoji: "🚲", weight: 1},
-            {he: "מַפְתֵּחַ", translation: "Ключ", emoji: "🔑", weight: 1}, {he: "מַנְעוּל", translation: "Замок", emoji: "🔒", weight: 1},
-            {he: "קֻפְסָה", translation: "Коробка", emoji: "📦", weight: 1}, {he: "מַתָּנָה", translation: "Подарок", emoji: "🎁", weight: 1},
-            {he: "בֻּבָּה", translation: "Кукла", emoji: "🪆", weight: 1}, {he: "טַבַּעַת", translation: "Кольцо", emoji: "💍", weight: 1},
-            {he: "מֶלֶךְ", translation: "Король", emoji: "👑", weight: 1}, {he: "מַלְכָּה", translation: "Королева", emoji: "👸", weight: 1},
-            {he: "תִּינוֹק", translation: "Малыш", emoji: "👶", weight: 1}, {he: "מִשְׁפָּחָה", translation: "Семья", emoji: "👨‍👩‍👧", weight: 1},
-            {he: "חָבֵר", translation: "Друг", emoji: "🤝", weight: 1}, {he: "חִיּוּךְ", translation: "Улыбка", emoji: "😊", weight: 1},
-            {he: "לֵב", translation: "Сердце", emoji: "❤️", weight: 1}, {he: "אוֹר", translation: "Свет", emoji: "💡", weight: 1},
-            {he: "צֶבַע", translation: "Цвет", emoji: "🎨", weight: 1}, {he: "שִׁיר", translation: "Песня", emoji: "🎵", weight: 1},
-            {he: "סֶרֶט", translation: "Фильм", emoji: "🎬", weight: 1}, {he: "מִשְׂחָק", translation: "Игра", emoji: "🎮", weight: 1},
-            {he: "גַּן", translation: "Сад", emoji: "🏡", weight: 1}, {he: "רְחוֹב", translation: "Улица", emoji: "🏙️", weight: 1},
-            {he: "עִיר", translation: "Город", emoji: "🌆", weight: 1}, {he: "אוֹרֵחַ", translation: "Гость", emoji: "👋", weight: 1}
+            {he: "יֶלֶד", translation: "Мальчик", emoji: "👦", weight: 1}, {he: "יַלְדָּה", translation: "Девочка", emoji: "👧", weight: 1}
         ];
 
-        // Ровно 100 русских слов
         const russianWords = [
-            { word: "Солнце", hint: "Светит на небе днем", weight: 1 }, { word: "Кошка", hint: "Мяукает и любит молоко", weight: 1 },
-            { word: "Машина", hint: "Ездит по дороге на колесах", weight: 1 }, { word: "Яблоко", hint: "Сладкий круглый фрукт", weight: 1 },
-            { word: "Дерево", hint: "Имеет ствол и зеленые листья", weight: 1 }, { word: "Книга", hint: "В ней много страниц и историй", weight: 1 },
-            { word: "Молоко", hint: "Белый полезный напиток", weight: 1 }, { word: "Цветок", hint: "Растет на клумбе, красиво пахнет", weight: 1 },
-            { word: "Собака", hint: "Лучший друг человека, лает", weight: 1 }, { word: "Звезда", hint: "Светит ночью на небе", weight: 1 },
-            { word: "Мяч", hint: "Игрушка, с которой играют в футбол", weight: 1 }, { word: "Дом", hint: "Место, где мы живем", weight: 1 },
-            { word: "Вода", hint: "Жидкость, которую мы пьем", weight: 1 }, { word: "Рыба", hint: "Живет в воде, плавает", weight: 1 },
-            { word: "Птица", hint: "Летает в небе, имеет крылья", weight: 1 }, { word: "Луна", hint: "Светит ночью вместо солнца", weight: 1 },
-            { word: "Банан", hint: "Желтый сладкий фрукт", weight: 1 }, { word: "Поезд", hint: "Ездит по рельсам, чух-чух", weight: 1 },
-            { word: "Медведь", hint: "Большой зверь в лесу, любит мед", weight: 1 }, { word: "Лев", hint: "Царь зверей с гривой", weight: 1 },
-            { word: "Тигр", hint: "Полосатый дикий кот", weight: 1 }, { word: "Корова", hint: "Дает молоко, говорит му", weight: 1 },
-            { word: "Свинья", hint: "Животное с пятачком", weight: 1 }, { word: "Лошадь", hint: "Быстро бегает, на ней катаются", weight: 1 },
-            { word: "Овца", hint: "Дает шерсть, говорит бе", weight: 1 }, { word: "Утка", hint: "Плавает в пруду, крякает", weight: 1 },
-            { word: "Лягушка", hint: "Живет в болоте, квакает", weight: 1 }, { word: "Мышь", hint: "Маленький серый грызун", weight: 1 },
-            { word: "Кролик", hint: "Прыгает, любит морковку", weight: 1 }, { word: "Лиса", hint: "Рыжая хитрая хищница", weight: 1 },
-            { word: "Волк", hint: "Серый лесной хищник, воет", weight: 1 }, { word: "Обезьяна", hint: "Прыгает по деревьям, любит бананы", weight: 1 },
-            { word: "Курица", hint: "Сносит яйца, кудахчет", weight: 1 }, { word: "Яйцо", hint: "Вкусный и полезный завтрак", weight: 1 },
-            { word: "Хлеб", hint: "Пекут из муки, едят с супом", weight: 1 }, { word: "Сыр", hint: "Желтый продукт, любят мыши", weight: 1 },
-            { word: "Мясо", hint: "Питательный продукт", weight: 1 }, { word: "Суп", hint: "Жидкое горячее блюдо", weight: 1 },
-            { word: "Торт", hint: "Праздничный сладкий десерт", weight: 1 }, { word: "Печенье", hint: "Хрустящее сладкое угощение", weight: 1 },
-            { word: "Конфета", hint: "Сладкое в яркой обертке", weight: 1 }, { word: "Мороженое", hint: "Холодное сладкое лакомство", weight: 1 },
-            { word: "Пицца", hint: "Лепешка с сыром и колбасой", weight: 1 }, { word: "Сок", hint: "Напиток из фруктов", weight: 1 },
-            { word: "Чай", hint: "Горячий ароматный напиток", weight: 1 }, { word: "Кофе", hint: "Бодрящий утренний напиток", weight: 1 },
-            { word: "Ручка", hint: "Пишет синей пастой на бумаге", weight: 1 }, { word: "Карандаш", hint: "Рисует линии, можно стереть", weight: 1 },
-            { word: "Рюкзак", hint: "В нем носят учебники в школу", weight: 1 }, { word: "Стол", hint: "За ним сидят и обедают", weight: 1 },
-            { word: "Стул", hint: "На нем сидят за столом", weight: 1 }, { word: "Кровать", hint: "На ней спят ночью", weight: 1 },
-            { word: "Дверь", hint: "Ее открывают, чтобы войти в комнату", weight: 1 }, { word: "Окно", hint: "Через него смотрят на улицу", weight: 1 },
-            { word: "Часы", hint: "Показывают точное время", weight: 1 }, { word: "Телефон", hint: "Нужен для звонков и игр", weight: 1 },
-            { word: "Компьютер", hint: "Умная машина для работы и игр", weight: 1 }, { word: "Телевизор", hint: "Показывает мультики и кино", weight: 1 },
-            { word: "Лампа", hint: "Освещает комнату в темноте", weight: 1 }, { word: "Рубашка", hint: "Одежда с пуговицами", weight: 1 },
-            { word: "Брюки", hint: "Одежда для ног", weight: 1 }, { word: "Платье", hint: "Красивая одежда для девочек", weight: 1 },
-            { word: "Шляпа", hint: "Головной убор от солнца", weight: 1 }, { word: "Обувь", hint: "Надевают на ноги перед выходом", weight: 1 },
-            { word: "Пальто", hint: "Теплая одежда на осень", weight: 1 }, { word: "Дождь", hint: "Вода капает с неба", weight: 1 },
-            { word: "Снег", hint: "Белые пушистые хлопья зимой", weight: 1 }, { word: "Ветер", hint: "Качает ветки деревьев", weight: 1 },
-            { word: "Облако", hint: "Плывет по небу, похоже на вату", weight: 1 }, { word: "Огонь", hint: "Жаркий, яркий, опасный", weight: 1 },
-            { word: "Земля", hint: "Наша планета, на ней мы живем", weight: 1 }, { word: "Море", hint: "Большая соленая вода", weight: 1 },
-            { word: "Река", hint: "Поток воды, текущий в берегах", weight: 1 }, { word: "Гора", hint: "Очень высокое место на земле", weight: 1 },
-            { word: "Дорога", hint: "По ней ездят машины", weight: 1 }, { word: "Автобус", hint: "Большая машина для перевозки людей", weight: 1 },
-            { word: "Самолет", hint: "Летит высоко в облаках", weight: 1 }, { word: "Корабль", hint: "Плывет по волнам океана", weight: 1 },
-            { word: "Велосипед", hint: "Двухколесный транспорт с педалями", weight: 1 }, { word: "Ключ", hint: "Открывает и закрывает замок", weight: 1 },
-            { word: "Замок", hint: "Защищает дверь от чужих", weight: 1 }, { word: "Коробка", hint: "В нее складывают вещи", weight: 1 },
-            { word: "Подарок", hint: "Сюрприз в красивой упаковке", weight: 1 }, { word: "Кукла", hint: "Любимая игрушка девочек", weight: 1 },
-            { word: "Кольцо", hint: "Украшение на палец", weight: 1 }, { word: "Король", hint: "Правитель сказочной страны", weight: 1 },
-            { word: "Королева", hint: "Жена короля", weight: 1 }, { word: "Малыш", hint: "Очень маленький ребенок", weight: 1 },
-            { word: "Семья", hint: "Мама, папа и я", weight: 1 }, { word: "Друг", hint: "Тот, с кем весело играть", weight: 1 },
-            { word: "Улыбка", hint: "Появляется, когда нам радостно", weight: 1 }, { word: "Сердце", hint: "Символ любви и добра", weight: 1 },
-            { word: "Свет", hint: "Разгоняет темноту", weight: 1 }, { word: "Цвет", hint: "Бывает красным, синим, зеленым", weight: 1 },
-            { word: "Песня", hint: "То, что красиво поют", weight: 1 }, { word: "Фильм", hint: "Интересная история на экране", weight: 1 },
-            { word: "Игра", hint: "То, во что интересно играть", weight: 1 }, { word: "Сад", hint: "Место, где растут цветы и деревья", weight: 1 },
-            { word: "Улица", hint: "Пространство между домами", weight: 1 }, { word: "Город", hint: "Большой населенный пункт", weight: 1 }
+            { word: "Солнце", hint: "☀️", weight: 1 }, { word: "Кошка", hint: "🐈", weight: 1 },
+            { word: "Машина", hint: "🚗", weight: 1 }, { word: "Яблоко", hint: "🍎", weight: 1 },
+            { word: "Дерево", hint: "🌳", weight: 1 }, { word: "Книга", hint: "📖", weight: 1 },
+            { word: "Молоко", hint: "🥛", weight: 1 }, { word: "Собака", hint: "🐕", weight: 1 }
         ];
 
-        // Ровно 50 английских предложений
         const englishSentences = [
-            { text: "I have a cat", lang: "en-US", translation: "У меня есть кошка" },
-            { text: "The sun is red", lang: "en-US", translation: "Солнце красное" },
-            { text: "I like big apples", lang: "en-US", translation: "Я люблю большие яблоки" },
-            { text: "The dog runs fast", lang: "en-US", translation: "Собака бегает быстро" },
-            { text: "Cats drink milk", lang: "en-US", translation: "Кошки пьют молоко" },
-            { text: "Birds can fly", lang: "en-US", translation: "Птицы могут летать" },
-            { text: "This is my house", lang: "en-US", translation: "Это мой дом" },
-            { text: "I see a big car", lang: "en-US", translation: "Я вижу большую машину" },
-            { text: "The water is cold", lang: "en-US", translation: "Вода холодная" },
-            { text: "Trees are green", lang: "en-US", translation: "Деревья зеленые" },
-            { text: "Books are good", lang: "en-US", translation: "Книги хорошие" },
-            { text: "Fish swim in water", lang: "en-US", translation: "Рыбы плавают в воде" },
-            { text: "Flowers grow fast", lang: "en-US", translation: "Цветки растут быстро" },
-            { text: "Stars shine at night", lang: "en-US", translation: "Звезды светят ночью" },
-            { text: "The moon is bright", lang: "en-US", translation: "Луна яркая" },
-            { text: "Children play with balls", lang: "en-US", translation: "Дети играют с мячами" },
-            { text: "Monkeys love bananas", lang: "en-US", translation: "Обезьяны любят бананы" },
-            { text: "Trains are very long", lang: "en-US", translation: "Поезда очень длинные" },
-            { text: "Bears sleep in winter", lang: "en-US", translation: "Медведи спят зимой" },
-            { text: "Lions are very strong", lang: "en-US", translation: "Львы очень сильные" },
-            { text: "Cows give us milk", lang: "en-US", translation: "Коровы дают нам молоко" },
-            { text: "Rabbits jump very high", lang: "en-US", translation: "Кролики прыгают очень высоко" },
-            { text: "Ducks swim in ponds", lang: "en-US", translation: "Утки плавают в прудах" },
-            { text: "Frogs are green", lang: "en-US", translation: "Лягушки зеленые" },
-            { text: "Mice are very small", lang: "en-US", translation: "Мыши очень маленькие" },
-            { text: "Pigs live on farms", lang: "en-US", translation: "Свиньи живут на фермах" },
-            { text: "Horses run very fast", lang: "en-US", translation: "Лошади бегают очень быстро" },
-            { text: "Sheep have soft wool", lang: "en-US", translation: "У овец мягкая шерсть" },
-            { text: "Foxes are very smart", lang: "en-US", translation: "Лисы очень умные" },
-            { text: "Wolves live in forests", lang: "en-US", translation: "Волки живут в лесах" },
-            { text: "Chickens eat corn", lang: "en-US", translation: "Курицы едят зерно" },
-            { text: "Bread is tasty", lang: "en-US", translation: "Хлеб вкусный" },
-            { text: "Cheese is yellow", lang: "en-US", translation: "Сыр желтый" },
-            { text: "Soup is hot", lang: "en-US", translation: "Суп горячий" },
-            { text: "Cakes are sweet", lang: "en-US", translation: "Торты сладкие" },
-            { text: "Juice is cold", lang: "en-US", translation: "Сок холодный" },
-            { text: "Tea is good", lang: "en-US", translation: "Чай хороший" },
-            { text: "Pens write blue", lang: "en-US", translation: "Ручки пишут синим" },
-            { text: "Pencils draw lines", lang: "en-US", translation: "Карандаши рисуют линии" },
-            { text: "Bags are heavy", lang: "en-US", translation: "Сумки тяжелые" },
-            { text: "Clocks show time", lang: "en-US", translation: "Часы показывают время" },
-            { text: "Phones are smart", lang: "en-US", translation: "Телефоны умные" },
-            { text: "Lamps give light", lang: "en-US", translation: "Лампы дают свет" },
-            { text: "Beds are soft", lang: "en-US", translation: "Кровати мягкие" },
-            { text: "Doors are open", lang: "en-US", translation: "Двери открыты" },
-            { text: "Windows are clean", lang: "en-US", translation: "Окна чистые" },
-            { text: "Shirts are white", lang: "en-US", translation: "Рубашки белые" },
-            { text: "Shoes are new", lang: "en-US", translation: "Обувь новая" },
-            { text: "Rain falls down", lang: "en-US", translation: "Дождь падает вниз" },
-            { text: "Snow is white", lang: "en-US", translation: "Снег белый" }
+            { text: "I have a cat", lang: "en-US", translation: "🐈" },
+            { text: "The sun is red", lang: "en-US", translation: "☀️" },
+            { text: "I like big apples", lang: "en-US", translation: "🍎" },
+            { text: "The dog runs fast", lang: "en-US", translation: "🐕" }
         ];
 
-        // Ровно 50 русских предложений
         const russianSentences = [
-            { text: "Кошка пьет молоко", lang: "ru-RU", translation: "Кошка пьет молоко" },
-            { text: "Машина едет быстро", lang: "ru-RU", translation: "Машина едет быстро" },
-            { text: "Книга лежит на столе", lang: "ru-RU", translation: "Книга лежит на столе" },
-            { text: "Собака громко лает", lang: "ru-RU", translation: "Собака громко лает" },
-            { text: "Дети играют в мяч", lang: "ru-RU", translation: "Дети играют в мяч" },
-            { text: "Светит яркое солнце", lang: "ru-RU", translation: "Светит яркое солнце" },
-            { text: "Вода в реке холодная", lang: "ru-RU", translation: "Вода в реке холодная" },
-            { text: "На дереве зеленые листья", lang: "ru-RU", translation: "На дереве зеленые листья" },
-            { text: "Птицы поют песни", lang: "ru-RU", translation: "Птицы поют песни" },
-            { text: "Ночью светит луна", lang: "ru-RU", translation: "Ночью светит луна" },
-            { text: "Мальчик ест яблоко", lang: "ru-RU", translation: "Мальчик ест яблоко" },
-            { text: "Девочка читает книгу", lang: "ru-RU", translation: "Девочка читает книгу" },
-            { text: "Рыбы плавают в море", lang: "ru-RU", translation: "Рыбы плавают в море" },
-            { text: "Цветы растут в саду", lang: "ru-RU", translation: "Цветы растут в саду" },
-            { text: "Поезд идет по рельсам", lang: "ru-RU", translation: "Поезд идет по рельсам" },
-            { text: "Медведь любит мед", lang: "ru-RU", translation: "Медведь любит мед" },
-            { text: "Лев царь зверей", lang: "ru-RU", translation: "Лев царь зверей" },
-            { text: "Корова дает молоко", lang: "ru-RU", translation: "Корова дает молоко" },
-            { text: "Лошадь быстро бегает", lang: "ru-RU", translation: "Лошадь быстро бегает" },
-            { text: "Овцы дают шерсть", lang: "ru-RU", translation: "Овцы дают шерсть" },
-            { text: "Утки плавают в пруду", lang: "ru-RU", translation: "Утки плавают в пруду" },
-            { text: "Лягушки громко квакают", lang: "ru-RU", translation: "Лягушки громко квакают" },
-            { text: "Мыши любят сыр", lang: "ru-RU", translation: "Мыши любят сыр" },
-            { text: "Кролики едят морковку", lang: "ru-RU", translation: "Кролики едят морковку" },
-            { text: "Лиса очень хитрая", lang: "ru-RU", translation: "Лиса очень хитрая" },
-            { text: "Волк живет в лесу", lang: "ru-RU", translation: "Волк живет в лесу" },
-            { text: "Обезьяна ест банан", lang: "ru-RU", translation: "Обезьяна ест банан" },
-            { text: "Курица снесла яйцо", lang: "ru-RU", translation: "Курица снесла яйцо" },
-            { text: "Хлеб всему голова", lang: "ru-RU", translation: "Хлеб всему голова" },
-            { text: "Суп очень горячий", lang: "ru-RU", translation: "Суп очень горячий" },
-            { text: "Торт очень сладкий", lang: "ru-RU", translation: "Торт очень сладкий" },
-            { text: "Сок полезен для здоровья", lang: "ru-RU", translation: "Сок полезен для здоровья" },
-            { text: "Чай согревает зимой", lang: "ru-RU", translation: "Чай согревает зимой" },
-            { text: "Ручка пишет красиво", lang: "ru-RU", translation: "Ручка пишет красиво" },
-            { text: "Карандаш рисует кота", lang: "ru-RU", translation: "Карандаш рисует кота" },
-            { text: "Рюкзак тяжелый", lang: "ru-RU", translation: "Рюкзак тяжелый" },
-            { text: "Часы идут вперед", lang: "ru-RU", translation: "Часы идут вперед" },
-            { text: "Телефон звонит громко", lang: "ru-RU", translation: "Телефон звонит громко" },
-            { text: "Лампа освещает комнату", lang: "ru-RU", translation: "Лампа освещает комнату" },
-            { text: "Кровать мягкая и удобная", lang: "ru-RU", translation: "Кровать мягкая и удобная" },
-            { text: "Дверь была открыта", lang: "ru-RU", translation: "Дверь была открыта" },
-            { text: "Окно чистое", lang: "ru-RU", translation: "Окно чистое" },
-            { text: "Рубашка белого цвета", lang: "ru-RU", translation: "Рубашка белого цвета" },
-            { text: "Обувь новая и чистая", lang: "ru-RU", translation: "Обувь новая и чистая" },
-            { text: "Идет сильный дождь", lang: "ru-RU", translation: "Идет сильный дождь" },
-            { text: "Зимой падает снег", lang: "ru-RU", translation: "Зимой падает снег" },
-            { text: "Ветер качает ветки", lang: "ru-RU", translation: "Ветер качает ветки" },
-            { text: "Облака плывут по небу", lang: "ru-RU", translation: "Облака плывут по небу" },
-            { text: "Огонь очень опасен", lang: "ru-RU", translation: "Огонь очень опасен" },
-            { text: "Наша земля прекрасна", lang: "ru-RU", translation: "Наша земля прекрасна" }
+            { text: "Кошка пьет молоко", lang: "ru-RU", translation: "🐈" },
+            { text: "Машина едет быстро", lang: "ru-RU", translation: "🚗" },
+            { text: "Книга лежит на столе", lang: "ru-RU", translation: "📖" },
+            { text: "Собака громко лает", lang: "ru-RU", translation: "🐕" }
         ];
 
-        // Математические задачи (30 штук)
         const mathWordProblems = [
             { text: "У Маши было 3 яблока, она съела 1. Сколько осталось?", answer: 2, options: [1, 2, 3, 4] },
             { text: "На ветке сидело 4 птички, прилетело еще 2. Сколько всего птичек?", answer: 6, options: [5, 6, 7, 4] },
             { text: "В гараже стояло 5 машин, 2 уехали. Сколько осталось?", answer: 3, options: [2, 3, 4, 5] },
-            { text: "У Саши было 4 конфеты, мама дала еще 3. Сколько стало конфет?", answer: 7, options: [6, 7, 8, 5] },
-            { text: "На столе лежало 6 книг, 3 книги убрали. Сколько осталось?", answer: 3, options: [2, 3, 4, 1] },
-            { text: "В вазе стояло 7 роз, 2 завяли. Сколько осталось?", answer: 5, options: [4, 5, 6, 3] },
-            { text: "На лугу гуляло 4 утенка и 3 цыпленка. Сколько всего птиц?", answer: 7, options: [6, 7, 8, 5] },
-            { text: "У Пита было 8 шариков, 3 лопнули. Сколько осталось?", answer: 5, options: [4, 5, 6, 3] },
-            { text: "Папа купил 5 бананов, а мама еще 4. Сколько всего бананов?", answer: 9, options: [7, 8, 9, 10] },
-            { text: "В автобусе ехало 10 человек, на остановке вышло 4. Сколько осталось?", answer: 6, options: [5, 6, 7, 4] },
-            { text: "У Оли было 5 тетрадей, ей подарили еще 5. Сколько стало?", answer: 10, options: [8, 9, 10, 11] },
-            { text: "На тарелке лежало 9 персиков, 4 съели. Сколько осталось?", answer: 5, options: [3, 4, 5, 6] },
-            { text: "В аквариуме плавало 6 рыбок, купили еще 3. Сколько стало?", answer: 9, options: [7, 8, 9, 10] },
-            { text: "У Ивана было 10 марок, 3 он подарил другу. Сколько осталось?", answer: 7, options: [6, 7, 8, 5] },
-            { text: "На полке стояло 8 чашек, 2 разбились. Сколько осталось?", answer: 6, options: [5, 6, 7, 4] },
-            { text: "В парке гуляло 7 собак, к ним прибежало еще 3. Сколько всего?", answer: 10, options: [8, 9, 10, 11] },
-            { text: "У Кати было 6 груш, половину она отнесла бабушке. Сколько осталось?", answer: 3, options: [2, 3, 4, 5] },
-            { text: "На дереве сидело 10 синичек, 4 улетели. Сколько осталось?", answer: 6, options: [4, 5, 6, 7] },
-            { text: "В коробке лежало 5 карандашей, положили еще 4. Сколько стало?", answer: 9, options: [8, 9, 10, 7] },
-            { text: "Мама исписала 2 ручки, а папа 3. Сколько всего ручек исписали?", answer: 5, options: [4, 5, 6, 7] },
-            { text: "У Пети 7 орехов, а у Даши на 2 больше. Сколько орехов у Даши?", answer: 9, options: [7, 8, 9, 10] },
-            { text: "В корзине было 10 грибов, 4 оказались червивыми. Сколько хороших?", answer: 6, options: [4, 5, 6, 7] },
-            { text: "На арене цирка выступало 3 слона и 4 тигра. Сколько всего зверей?", answer: 7, options: [6, 7, 8, 9] },
-            { text: "У Ани было 8 открыток, 3 она подписала. Сколько осталось подписать?", answer: 5, options: [4, 5, 6, 3] },
-            { text: "В классе учится 9 девочек и 8 мальчиков. Сколько всего детей?", answer: 17, options: [15, 16, 17, 18] },
-            { text: "У Толи было 12 рублей, он потратил 5. Сколько осталось?", answer: 7, options: [6, 7, 8, 9] },
-            { text: "На столе горело 5 свечей, 2 погасли. Сколько осталось гореть?", answer: 3, options: [2, 3, 4, 5] },
-            { text: "В саду распустилось 10 тюльпанов, 4 сорвали. Сколько осталось?", answer: 6, options: [5, 6, 7, 8] },
-            { text: "У Миши 6 мандаринок, он съел 2. Сколько осталось?", answer: 4, options: [2, 3, 4, 5] },
-            { text: "На проводе сидело 8 ласточек, прилетело еще столько же. Сколько стало?", answer: 16, options: [14, 15, 16, 18] }
+            { text: "У Саши было 4 конфеты, мама дала еще 3. Сколько стало конфет?", answer: 7, options: [6, 7, 8, 5] }
         ];
 
         const categoryData = {
             english: {
                 title: "🇬🇧 Английский язык",
                 exercises: [
-                    { id: 'english_words', title: "Английские слова (100)", desc: "Картинки, перевод и озвучка", icon: "🍎" },
-                    { id: 'match_pairs', title: "Найди пару", desc: "Соединяй слова и переводы", icon: "🧩" },
-                    { id: 'build_sentence_en', title: "Собери предложение (50)", desc: "Прослушай фразу и выложи слова", icon: "✍️" }
+                    { id: 'english_words', title: "Слова", desc: "Картинки и звук", icon: "🍎" },
+                    { id: 'match_pairs', title: "Найди пару", desc: "Соедини слова со звуком", icon: "🧩" },
+                    { id: 'build_sentence_en', title: "Фразы", desc: "Собери предложение", icon: "✍️" }
                 ]
             },
             hebrew: {
                 title: "🇮🇱 Иврит",
                 exercises: [
-                    { id: 'hebrew_words', title: "Слова на иврите (100)", desc: "Учим слова с никудом (без озвучки)", icon: "📖" },
-                    { id: 'hebrew_reading', title: "Чтение текстов", desc: "Тексты для детей и вопросы", icon: "🇮🇱" }
+                    { id: 'hebrew_words', title: "Слова", desc: "Чтение", icon: "📖" },
+                    { id: 'hebrew_reading', title: "Тексты", desc: "Вопросы по чтению", icon: "🇮🇱" }
                 ]
             },
             russian: {
                 title: "🇷🇺 Русский язык",
                 exercises: [
-                    { id: 'russian_words', title: "Слушай и угадай слово (100)", desc: "Нажми на динамик и выбери слово", icon: "🔊" },
-                    { id: 'build_sentence_ru', title: "Собери предложение (50)", desc: "Составляй русские фразы на слух", icon: "📝" }
+                    { id: 'russian_words', title: "Слова на слух", desc: "Аудирование", icon: "🔊" },
+                    { id: 'build_sentence_ru', title: "Фразы", desc: "Собери предложение", icon: "📝" }
                 ]
             },
             math: {
                 title: "🔢 Математика",
                 exercises: [
-                    { id: 'math_table', title: "Таблица умножения", desc: "Умножение от 2 до 9", icon: "✖️" },
-                    { id: 'math_plus_minus', title: "Сложение и вычитание", desc: "Устный счет в пределах 100", icon: "➕" },
-                    { id: 'math_problems', title: "Текстовые задачи (30)", desc: "Слушай задачу и выбирай ответ", icon: "🎧" },
-                    { id: 'math_compare', title: "Сравнение чисел", desc: "Больше, меньше или равно", icon: "⚖️" }
+                    { id: 'math_table', title: "Умножение", desc: "Таблица", icon: "✖️" },
+                    { id: 'math_plus_minus', title: "Счет", desc: "Плюс и минус", icon: "➕" },
+                    { id: 'math_problems', title: "Задачи", desc: "Слушай и решай", icon: "🎧" },
+                    { id: 'math_compare', title: "Сравнение", desc: "Больше или меньше", icon: "⚖️" }
                 ]
             }
         };
@@ -956,7 +656,7 @@
         let totalAttempts = 0;
         let sessionProgress = 0;
         let totalScoreAllTime = parseInt(localStorage.getItem('kids_total_score') || '0');
-        let currentQuestionData = null;
+        let failedAttemptsCount = 0;
 
         const menuScreen = document.getElementById('menuScreen');
         const exercisesScreen = document.getElementById('exercisesScreen');
@@ -966,7 +666,6 @@
         const scoreVal = document.getElementById('scoreVal');
         const streakVal = document.getElementById('streakVal');
         const accuracyVal = document.getElementById('accuracyVal');
-        const progressText = document.getElementById('progressText');
         const progressBarFill = document.getElementById('progressBarFill');
         const gameContent = document.getElementById('gameContent');
         const categoryTitle = document.getElementById('categoryTitle');
@@ -986,13 +685,11 @@
                         <div class="ex-icon">${ex.icon}</div>
                         <div>
                             <h4>${ex.title}</h4>
-                            <p>${ex.desc}</p>
                         </div>
                     </div>
                 `;
             });
             exerciseListContainer.innerHTML = html;
-
             menuScreen.style.display = 'none';
             exercisesScreen.style.display = 'block';
         }
@@ -1036,7 +733,6 @@
         }
 
         function updateProgressUI() {
-            progressText.textContent = `${sessionProgress} / 10 побед`;
             const percent = Math.min((sessionProgress / 10) * 100, 100);
             progressBarFill.style.width = percent + '%';
         }
@@ -1044,13 +740,12 @@
         function checkRewards(points) {
             totalScoreAllTime += points;
             localStorage.setItem('kids_total_score', totalScoreAllTime);
-
             const badges = document.querySelectorAll('.reward-badge');
             badges.forEach(badge => {
                 const targetScore = parseInt(badge.getAttribute('data-score'));
                 if (totalScoreAllTime >= targetScore && !badge.classList.contains('unlocked')) {
                     badge.classList.add('unlocked');
-                    showRewardPopup(`Открыта новая награда: ${badge.textContent}! (${targetScore} очков)`);
+                    showRewardPopup(`🏆 Награда разблокирована!`);
                 }
             });
         }
@@ -1059,11 +754,7 @@
             const badges = document.querySelectorAll('.reward-badge');
             badges.forEach(badge => {
                 const targetScore = parseInt(badge.getAttribute('data-score'));
-                if (totalScoreAllTime >= targetScore) {
-                    badge.classList.add('unlocked');
-                } else {
-                    badge.classList.remove('unlocked');
-                }
+                if (totalScoreAllTime >= targetScore) badge.classList.add('unlocked');
             });
         }
 
@@ -1071,46 +762,26 @@
             const popup = document.getElementById('rewardPopup');
             document.getElementById('rewardText').textContent = text;
             popup.classList.add('show');
-            setTimeout(() => {
-                popup.classList.remove('show');
-            }, 3500);
+            setTimeout(() => popup.classList.remove('show'), 3000);
         }
 
         function getWeightedItem(list) {
-            let totalWeight = list.reduce((sum, item) => sum + item.weight, 0);
-            let randomNum = Math.random() * totalWeight;
-            let currentSum = 0;
-            for (let item of list) {
-                currentSum += item.weight;
-                if (randomNum <= currentSum) return item;
-            }
-            return list[0];
+            return list[Math.floor(Math.random() * list.length)];
         }
 
         function nextQuestion() {
-            if (currentMode === 'english_words') {
-                generateEnglishQuestion();
-            } else if (currentMode === 'hebrew_words') {
-                generateHebrewWordQuestion();
-            } else if (currentMode === 'hebrew_reading') {
-                generateHebrewReadingQuestion();
-            } else if (currentMode === 'russian_words') {
-                generateRussianWordQuestion();
-            } else if (currentMode === 'build_sentence_en') {
-                generateBuildSentenceQuestion(englishSentences);
-            } else if (currentMode === 'build_sentence_ru') {
-                generateBuildSentenceQuestion(russianSentences);
-            } else if (currentMode === 'match_pairs') {
-                generateMatchPairsQuestion();
-            } else if (currentMode === 'math_table') {
-                generateMathTableQuestion();
-            } else if (currentMode === 'math_plus_minus') {
-                generateMathPlusMinusQuestion();
-            } else if (currentMode === 'math_problems') {
-                generateMathProblemQuestion();
-            } else if (currentMode === 'math_compare') {
-                generateMathCompareQuestion();
-            }
+            failedAttemptsCount = 0;
+            if (currentMode === 'english_words') generateEnglishQuestion();
+            else if (currentMode === 'hebrew_words') generateHebrewWordQuestion();
+            else if (currentMode === 'hebrew_reading') generateHebrewReadingQuestion();
+            else if (currentMode === 'russian_words') generateRussianWordQuestion();
+            else if (currentMode === 'build_sentence_en') generateBuildSentenceQuestion(englishSentences);
+            else if (currentMode === 'build_sentence_ru') generateBuildSentenceQuestion(russianSentences);
+            else if (currentMode === 'match_pairs') generateMatchPairsQuestion();
+            else if (currentMode === 'math_table') generateMathTableQuestion();
+            else if (currentMode === 'math_plus_minus') generateMathPlusMinusQuestion();
+            else if (currentMode === 'math_problems') generateMathProblemQuestion();
+            else if (currentMode === 'math_compare') generateMathCompareQuestion();
         }
 
         function speakText(text, lang) {
@@ -1130,15 +801,12 @@
             let options = [correctItem, ...wrongItems.slice(0, 3)];
             options.sort(() => 0.5 - Math.random());
 
-            currentQuestionData = { correctItem };
-
             let html = `
                 <div class="question-box">
                     <div class="question-title">
                         <span>${correctItem.en}</span>
                         <button class="speak-btn" onclick="speakText('${correctItem.en}', 'en-US')">🔊</button>
                     </div>
-                    <div class="subtitle">Выберите картинку (Перевод: ${correctItem.ru})</div>
                 </div>
                 <div class="options-grid">
             `;
@@ -1146,7 +814,6 @@
                 html += `
                     <div class="option-card" onclick="handleCardAnswer(this, '${opt.en}', '${correctItem.en}')">
                         <div class="emoji-icon">${opt.emoji}</div>
-                        <div style="font-size: 0.9rem; color: var(--text-muted);">${opt.ru}</div>
                     </div>
                 `;
             });
@@ -1161,14 +828,11 @@
             let options = [correctItem, ...wrongItems.slice(0, 3)];
             options.sort(() => 0.5 - Math.random());
 
-            currentQuestionData = { correctItem };
-
             let html = `
                 <div class="question-box">
                     <div class="question-title">
-                        <span style="direction: rtl; font-size: 2rem; color: #4f46e5;">${correctItem.he}</span>
+                        <span style="direction: rtl; font-size: 2.5rem; color: #7e22ce;">${correctItem.he}</span>
                     </div>
-                    <div class="subtitle">Прочитай слово и выбери картинку (${correctItem.translation})</div>
                 </div>
                 <div class="options-grid">
             `;
@@ -1176,7 +840,6 @@
                 html += `
                     <div class="option-card" onclick="handleCardAnswer(this, '${opt.he}', '${correctItem.he}')">
                         <div class="emoji-icon">${opt.emoji}</div>
-                        <div style="font-size: 0.9rem; color: var(--text-muted);">${opt.translation}</div>
                     </div>
                 `;
             });
@@ -1185,14 +848,12 @@
         }
 
         function generateHebrewReadingQuestion() {
-            const item = {text: "הַיֶּלֶד דָּוִד שׁוֹתֶה חָלָב חַם בַּבֹּקֶר.", question: "מָה שׁוֹתֶה דָּוִד?", correct: "חָלָב חַם", options: ["חָלָב חַם", "מַיִם קָרִים", "מִיץ תַּפּוּחִים", "תֵּה מְתוֹק"]};
-            let options = [...item.options];
-            options.sort(() => 0.5 - Math.random());
+            const item = {text: "הַיֶּלֶד דָּוִד שׁוֹתֶה חָלָב חַם בַּבֹּקֶר.", correct: "חָלָב חַם", options: ["חָלָב חַם", "מַיִם קָרִים", "מִיץ תַּפּוּחִים", "תֵּה מְתוֹק"]};
+            let options = [...item.options].sort(() => 0.5 - Math.random());
 
             let html = `
                 <div class="question-box">
                     <div class="reading-text">${item.text}</div>
-                    <div style="font-size: 1.1rem; font-weight: 700; margin-bottom: 15px; direction: rtl;">${item.question}</div>
                 </div>
                 <div class="reading-options">
             `;
@@ -1215,22 +876,19 @@
             let options = [correctItem.word, wrongItems[0].word, wrongItems[1].word, wrongItems[2].word];
             options.sort(() => 0.5 - Math.random());
 
-            currentQuestionData = { correctItem };
-
             let html = `
                 <div class="question-box">
                     <div class="question-title">
-                        <span>Что прозвучало?</span>
                         <button class="speak-btn" onclick="speakText('${correctItem.word}', 'ru-RU')">🔊</button>
                     </div>
-                    <div class="subtitle">Подсказка: ${correctItem.hint}</div>
                 </div>
                 <div class="options-grid">
             `;
             options.forEach(opt => {
+                let matchingEmoji = russianWords.find(w => w.word === opt)?.hint || "⭐";
                 html += `
                     <div class="option-card" style="font-size: 1.4rem;" onclick="handleCardAnswer(this, '${opt}', '${correctItem.word}')">
-                        ${opt}
+                        <div class="emoji-icon">${matchingEmoji}</div>
                     </div>
                 `;
             });
@@ -1244,7 +902,6 @@
         function generateBuildSentenceQuestion(bank) {
             currentSentenceObj = bank[Math.floor(Math.random() * bank.length)];
             userConstructedWords = [];
-
             setTimeout(() => speakText(currentSentenceObj.text, currentSentenceObj.lang), 300);
 
             const originalWords = currentSentenceObj.text.split(' ');
@@ -1253,14 +910,11 @@
             let html = `
                 <div class="question-box">
                     <div class="question-title">
-                        <span>Собери предложение</span>
                         <button class="speak-btn" onclick="speakText('${currentSentenceObj.text}', '${currentSentenceObj.lang}')">🔊</button>
+                        <span style="font-size: 2.5rem;">${currentSentenceObj.translation}</span>
                     </div>
-                    <div class="subtitle">Подсказка: ${currentSentenceObj.translation}</div>
                 </div>
-                <div class="sentence-drop-zone" id="dropZone" onclick="resetSentenceBuild()">
-                    <span style="color: #94a3b8; font-size: 0.95rem;">Нажмите на слова в нужном порядке</span>
-                </div>
+                <div class="sentence-drop-zone" id="dropZone" onclick="resetSentenceBuild()"></div>
                 <div class="word-pool" id="wordPool">
             `;
             shuffledWords.forEach((word, index) => {
@@ -1288,18 +942,22 @@
                     checkRewards(15);
                     updateStats();
                     updateProgressUI();
-
                     document.getElementById('dropZone').style.borderColor = 'var(--success)';
                     document.getElementById('dropZone').style.background = '#d1fae5';
-
-                    setTimeout(() => generateBuildSentenceQuestion(currentMode === 'build_sentence_en' ? englishSentences : russianSentences), 1300);
+                    setTimeout(() => generateBuildSentenceQuestion(currentMode === 'build_sentence_en' ? englishSentences : russianSentences), 1200);
                 } else {
-                    streak = 0;
-                    updateStats();
-                    document.getElementById('dropZone').style.borderColor = 'var(--error)';
-                    document.getElementById('dropZone').style.background = '#fee2e2';
-
-                    setTimeout(() => resetSentenceBuild(), 1000);
+                    failedAttemptsCount++;
+                    if (failedAttemptsCount >= 2) {
+                        streak = 0;
+                        updateStats();
+                        document.getElementById('dropZone').style.borderColor = 'var(--error)';
+                        document.getElementById('dropZone').style.background = '#ffe4e6';
+                        setTimeout(() => generateBuildSentenceQuestion(currentMode === 'build_sentence_en' ? englishSentences : russianSentences), 1200);
+                    } else {
+                        document.getElementById('dropZone').style.borderColor = 'var(--error)';
+                        document.getElementById('dropZone').style.background = '#ffe4e6';
+                        setTimeout(() => resetSentenceBuild(), 800);
+                    }
                 }
             }
         }
@@ -1307,23 +965,14 @@
         function renderDropZone() {
             const dropZone = document.getElementById('dropZone');
             if (userConstructedWords.length === 0) {
-                dropZone.innerHTML = `<span style="color: #94a3b8; font-size: 0.95rem;">Нажмите на слова в нужном порядке</span>`;
+                dropZone.innerHTML = ``;
                 return;
             }
-
             let html = '';
             userConstructedWords.forEach(item => {
-                html += `<div class="selected-word-chip" onclick="returnWordChip('${item.chipId}')">${item.word}</div>`;
+                html += `<div class="selected-word-chip">${item.word}</div>`;
             });
             dropZone.innerHTML = html;
-        }
-
-        function returnWordChip(chipId) {
-            userConstructedWords = userConstructedWords.filter(item => item.chipId !== chipId);
-            document.getElementById(chipId).classList.remove('used');
-            renderDropZone();
-            document.getElementById('dropZone').style.borderColor = '#cbd5e1';
-            document.getElementById('dropZone').style.background = '#f8fafc';
         }
 
         function resetSentenceBuild() {
@@ -1332,8 +981,8 @@
             });
             userConstructedWords = [];
             renderDropZone();
-            document.getElementById('dropZone').style.borderColor = '#cbd5e1';
-            document.getElementById('dropZone').style.background = '#f8fafc';
+            document.getElementById('dropZone').style.borderColor = '#d8b4fe';
+            document.getElementById('dropZone').style.background = '#faf5ff';
         }
 
         let selectedPairCard = null;
@@ -1342,30 +991,36 @@
         function generateMatchPairsQuestion() {
             selectedPairCard = null;
             matchedPairsCount = 0;
-
             let shuffled = [...englishWords].sort(() => 0.5 - Math.random());
             let currentPairs = shuffled.slice(0, 4);
 
             let cardsData = [];
             currentPairs.forEach(item => {
                 cardsData.push({ text: item.en, type: 'en', pairId: item.en });
-                cardsData.push({ text: item.ru, type: 'ru', pairId: item.en });
+                cardsData.push({ text: item.ru, type: 'ru', pairId: item.en, emoji: item.emoji });
             });
             cardsData.sort(() => 0.5 - Math.random());
 
             let html = `
                 <div class="question-box">
-                    <div class="question-title">Найди пару</div>
-                    <div class="subtitle">Нажми на слово, а затем на его перевод</div>
+                    <div class="question-title">🧩</div>
                 </div>
                 <div class="match-grid" id="matchGrid">
             `;
             cardsData.forEach((card) => {
-                html += `
-                    <div class="match-card" onclick="handleMatchClick(this, '${card.pairId}', '${card.type}')">
-                        ${card.text}
-                    </div>
-                `;
+                if (card.type === 'en') {
+                    html += `
+                        <div class="match-card" onclick="handleMatchClick(this, '${card.pairId}', '${card.type}')">
+                            <span onclick="event.stopPropagation(); speakText('${card.text}', 'en-US')" style="color:#a855f7; cursor:pointer;">🔊</span> ${card.text}
+                        </div>
+                    `;
+                } else {
+                    html += `
+                        <div class="match-card" onclick="handleMatchClick(this, '${card.pairId}', '${card.type}')">
+                            <span style="font-size:2.5rem;">${card.emoji}</span>
+                        </div>
+                    `;
+                }
             });
             html += `</div>`;
             gameContent.innerHTML = html;
@@ -1385,16 +1040,14 @@
                     element.classList.add('matched');
                     selectedPairCard = null;
                     matchedPairsCount++;
-
                     score += 5;
-                    totalCorrect++;
                     updateStats();
 
                     if (matchedPairsCount === 4) {
                         sessionProgress++;
                         updateProgressUI();
                         checkRewards(20);
-                        setTimeout(() => generateMatchPairsQuestion(), 1000);
+                        setTimeout(() => generateMatchPairsQuestion(), 800);
                     }
                 } else {
                     selectedPairCard.element.classList.add('incorrect');
@@ -1403,11 +1056,10 @@
                     selectedPairCard = null;
                     streak = 0;
                     updateStats();
-
                     setTimeout(() => {
                         prevSelected.classList.remove('incorrect', 'selected');
                         element.classList.remove('incorrect');
-                    }, 600);
+                    }, 500);
                 }
             }
         }
@@ -1422,22 +1074,19 @@
             while (options.length < 4) {
                 let offset = (Math.floor(Math.random() * 8) + 1) * (Math.random() > 0.5 ? 1 : -1);
                 let fake = correctAnswer + offset;
-                if (fake > 0 && !options.includes(fake)) {
-                    options.push(fake);
-                }
+                if (fake > 0 && !options.includes(fake)) options.push(fake);
             }
             options.sort(() => 0.5 - Math.random());
 
             let html = `
                 <div class="question-box">
                     <div class="question-title">${questionStr}</div>
-                    <div class="subtitle">Таблица умножения</div>
                 </div>
                 <div class="options-grid math-grid">
             `;
             options.forEach(opt => {
                 html += `
-                    <div class="option-card" style="font-size: 1.6rem;" onclick="handleMathAnswer(this, ${opt}, ${correctAnswer})">
+                    <div class="option-card" style="font-size: 1.8rem;" onclick="handleMathAnswer(this, ${opt}, ${correctAnswer})">
                         ${opt}
                     </div>
                 `;
@@ -1464,22 +1113,19 @@
             while (options.length < 4) {
                 let offset = (Math.floor(Math.random() * 10) + 1) * (Math.random() > 0.5 ? 1 : -1);
                 let fake = correctAnswer + offset;
-                if (fake >= 0 && !options.includes(fake)) {
-                    options.push(fake);
-                }
+                if (fake >= 0 && !options.includes(fake)) options.push(fake);
             }
             options.sort(() => 0.5 - Math.random());
 
             let html = `
                 <div class="question-box">
                     <div class="question-title">${questionStr}</div>
-                    <div class="subtitle">Устный счет в пределах 100</div>
                 </div>
                 <div class="options-grid math-grid">
             `;
             options.forEach(opt => {
                 html += `
-                    <div class="option-card" style="font-size: 1.6rem;" onclick="handleMathAnswer(this, ${opt}, ${correctAnswer})">
+                    <div class="option-card" style="font-size: 1.8rem;" onclick="handleMathAnswer(this, ${opt}, ${correctAnswer})">
                         ${opt}
                     </div>
                 `;
@@ -1491,22 +1137,19 @@
         function generateMathProblemQuestion() {
             const prob = mathWordProblems[Math.floor(Math.random() * mathWordProblems.length)];
             setTimeout(() => speakText(prob.text, 'ru-RU'), 300);
-
             let options = [...prob.options].sort(() => 0.5 - Math.random());
 
             let html = `
                 <div class="question-box">
                     <div class="question-title">
-                        <span>Текстовая задача</span>
                         <button class="speak-btn" onclick="speakText('${prob.text}', 'ru-RU')">🔊</button>
                     </div>
-                    <div class="subtitle" style="margin-top: 8px; font-size: 1.1rem; color: #334155;">${prob.text}</div>
                 </div>
                 <div class="options-grid math-grid">
             `;
             options.forEach(opt => {
                 html += `
-                    <div class="option-card" style="font-size: 1.6rem;" onclick="handleMathAnswer(this, ${opt}, ${prob.answer})">
+                    <div class="option-card" style="font-size: 1.8rem;" onclick="handleMathAnswer(this, ${opt}, ${prob.answer})">
                         ${opt}
                     </div>
                 `;
@@ -1527,13 +1170,12 @@
             let html = `
                 <div class="question-box">
                     <div class="question-title">${numA}  ?  ${numB}</div>
-                    <div class="subtitle">Выберите правильный знак сравнения</div>
                 </div>
                 <div class="options-grid" style="grid-template-columns: repeat(3, 1fr);">
             `;
             options.forEach(sign => {
                 html += `
-                    <div class="option-card" style="font-size: 2rem;" onclick="handleMathAnswer(this, '${sign}', '${correctSign}')">
+                    <div class="option-card" style="font-size: 2.2rem;" onclick="handleMathAnswer(this, '${sign}', '${correctSign}')">
                         ${sign}
                     </div>
                 `;
@@ -1545,6 +1187,7 @@
         function handleCardAnswer(element, selected, correct) {
             totalAttempts++;
             const parent = element.parentElement;
+
             if (selected === correct) {
                 element.classList.add('correct');
                 score += 10;
@@ -1555,19 +1198,29 @@
                 updateStats();
                 updateProgressUI();
                 disableAllCards(parent);
-                setTimeout(() => nextQuestion(), 1200);
+                setTimeout(() => nextQuestion(), 1000);
             } else {
-                element.classList.add('incorrect');
-                streak = 0;
-                updateStats();
-                disableAllCards(parent);
-                setTimeout(() => nextQuestion(), 1500);
+                failedAttemptsCount++;
+                if (failedAttemptsCount >= 2) {
+                    element.classList.add('incorrect');
+                    streak = 0;
+                    updateStats();
+                    highlightCorrectCard(parent, correct);
+                    disableAllCards(parent);
+                    setTimeout(() => nextQuestion(), 1200);
+                } else {
+                    element.classList.add('incorrect');
+                    element.style.pointerEvents = 'none';
+                    streak = 0;
+                    updateStats();
+                }
             }
         }
 
         function handleMathAnswer(element, selected, correct) {
             totalAttempts++;
             const parent = element.parentElement;
+
             if (String(selected).trim() === String(correct).trim()) {
                 element.classList.add('correct');
                 score += 10;
@@ -1578,19 +1231,44 @@
                 updateStats();
                 updateProgressUI();
                 disableAllCards(parent);
-                setTimeout(() => nextQuestion(), 1200);
+                setTimeout(() => nextQuestion(), 1000);
             } else {
-                element.classList.add('incorrect');
-                streak = 0;
-                updateStats();
-                disableAllCards(parent);
-                setTimeout(() => nextQuestion(), 1500);
+                failedAttemptsCount++;
+                if (failedAttemptsCount >= 2) {
+                    element.classList.add('incorrect');
+                    streak = 0;
+                    updateStats();
+                    highlightMathCorrectCard(parent, correct);
+                    disableAllCards(parent);
+                    setTimeout(() => nextQuestion(), 1200);
+                } else {
+                    element.classList.add('incorrect');
+                    element.style.pointerEvents = 'none';
+                    streak = 0;
+                    updateStats();
+                }
             }
         }
 
         function disableAllCards(parent) {
             for (let card of parent.children) {
                 card.style.pointerEvents = 'none';
+            }
+        }
+
+        function highlightCorrectCard(parent, correct) {
+            for (let card of parent.children) {
+                if (card.getAttribute('onclick')?.includes(correct) || card.textContent.trim() === String(correct)) {
+                    card.classList.add('correct');
+                }
+            }
+        }
+
+        function highlightMathCorrectCard(parent, correct) {
+            for (let card of parent.children) {
+                if (card.textContent.trim() == String(correct)) {
+                    card.classList.add('correct');
+                }
             }
         }
     </script>
