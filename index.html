@@ -57,7 +57,6 @@
             font-size: 0.95rem;
         }
 
-        /* Панель статистики и прогресса */
         .stats-bar {
             display: flex;
             justify-content: space-between;
@@ -77,7 +76,6 @@
             gap: 6px;
         }
 
-        /* Полоска прогресса */
         .progress-container {
             background: var(--card-bg);
             padding: 10px 20px;
@@ -110,17 +108,18 @@
             transition: width 0.4s ease;
         }
 
-        .menu-grid {
+        /* 4 Главные категории на первом экране */
+        .categories-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            grid-template-columns: repeat(2, 1fr);
             gap: 15px;
             margin-top: 15px;
         }
 
-        .menu-card {
+        .category-card {
             background: var(--card-bg);
             border-radius: var(--radius);
-            padding: 20px;
+            padding: 25px 20px;
             text-align: center;
             box-shadow: var(--shadow);
             cursor: pointer;
@@ -128,32 +127,93 @@
             border: 2px solid transparent;
         }
 
-        .menu-card:hover {
+        .category-card:hover {
             transform: translateY(-3px);
             border-color: var(--primary);
+            background: #faf5ff;
         }
 
-        .menu-card .icon {
-            font-size: 2.5rem;
+        .category-card .icon {
+            font-size: 3rem;
             margin-bottom: 10px;
         }
 
-        .menu-card h3 {
-            font-size: 1.15rem;
-            margin-bottom: 6px;
+        .category-card h3 {
+            font-size: 1.2rem;
+            color: var(--text-main);
+            margin-bottom: 4px;
+        }
+
+        /* Экран выбора упражнений внутри категории */
+        .exercises-screen {
+            display: none;
+        }
+
+        .back-menu-btn {
+            background: #f3f4f6;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--text-muted);
+            transition: background 0.2s;
+            margin-bottom: 15px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.9rem;
+        }
+
+        .back-menu-btn:hover {
+            background: #e5e7eb;
             color: var(--text-main);
         }
 
-        .menu-card p {
-            color: var(--text-muted);
+        .exercise-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .exercise-card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 18px 20px;
+            box-shadow: var(--shadow);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border: 2px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .exercise-card:hover {
+            border-color: var(--primary);
+            transform: translateX(4px);
+        }
+
+        .exercise-card .ex-icon {
+            font-size: 2rem;
+        }
+
+        .exercise-card h4 {
+            font-size: 1.1rem;
+            color: var(--text-main);
+            margin-bottom: 2px;
+        }
+
+        .exercise-card p {
             font-size: 0.85rem;
+            color: var(--text-muted);
         }
 
         .rewards-section {
             background: var(--card-bg);
             border-radius: var(--radius);
             padding: 15px 20px;
-            margin-top: 20px;
+            margin-top: 25px;
             box-shadow: var(--shadow);
             text-align: center;
         }
@@ -200,27 +260,6 @@
             box-shadow: var(--shadow);
             display: none;
             position: relative;
-        }
-
-        .back-btn {
-            background: #f3f4f6;
-            border: none;
-            padding: 6px 12px;
-            border-radius: 10px;
-            cursor: pointer;
-            font-weight: 600;
-            color: var(--text-muted);
-            transition: background 0.2s;
-            margin-bottom: 15px;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 0.9rem;
-        }
-
-        .back-btn:hover {
-            background: #e5e7eb;
-            color: var(--text-main);
         }
 
         .question-box {
@@ -309,6 +348,63 @@
             background: #fee2e2 !important;
             border-color: var(--error) !important;
             color: #991b1b;
+        }
+
+        .sentence-drop-zone {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+            min-height: 55px;
+            background: #f1f5f9;
+            border: 2px dashed #cbd5e1;
+            border-radius: 12px;
+            padding: 10px;
+            margin-bottom: 20px;
+            align-items: center;
+        }
+
+        .word-pool {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .word-chip {
+            background: #ffffff;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            padding: 8px 16px;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            transition: all 0.2s;
+        }
+
+        .word-chip:hover {
+            background: #e0e7ff;
+            transform: translateY(-2px);
+        }
+
+        .word-chip.used {
+            opacity: 0.3;
+            pointer-events: none;
+            background: #e2e8f0;
+            border-color: #cbd5e1;
+            color: #94a3b8;
+        }
+
+        .selected-word-chip {
+            background: var(--primary);
+            color: white;
+            padding: 8px 14px;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
         }
 
         .match-grid {
@@ -422,58 +518,43 @@
     <div class="container">
         <header>
             <h1>Увлекательные Тренировки</h1>
-            <p>Выбирайте режим и развивайте навыки в игре!</p>
+            <p>Выбирайте категорию и развивайте навыки в игре!</p>
         </header>
 
-        <!-- Статистика -->
         <div class="stats-bar" id="statsBar" style="display: none;">
             <div class="stat-item">⭐ Счёт: <span id="scoreVal">0</span></div>
             <div class="stat-item">🔥 Серия: <span id="streakVal">0</span></div>
             <div class="stat-item">🎯 Успех: <span id="accuracyVal">100%</span></div>
         </div>
 
-        <!-- Полоска прогресса -->
         <div class="progress-container" id="progressContainer" style="display: none;">
             <div class="progress-info">
                 <span>Прогресс обучения</span>
-                <span id="progressText">0 / 10 правильных</span>
+                <span id="progressText">0 / 10 побед</span>
             </div>
             <div class="progress-bar-bg">
                 <div class="progress-bar-fill" id="progressBarFill"></div>
             </div>
         </div>
 
+        <!-- ГЛАВНОЕ МЕНЮ: 4 КАТЕГОРИИ -->
         <div id="menuScreen">
-            <div class="menu-grid">
-                <div class="menu-card" onclick="startGame('english')">
+            <div class="categories-grid">
+                <div class="category-card" onclick="openCategory('english')">
                     <div class="icon">🇬🇧</div>
-                    <h3>Английский язык</h3>
-                    <p>200 слов с картинками и озвучкой</p>
+                    <h3>Английский</h3>
                 </div>
-                <div class="menu-card" onclick="startGame('math')">
+                <div class="category-card" onclick="openCategory('hebrew')">
+                    <div class="icon">🇮🇱</div>
+                    <h3>Иврит</h3>
+                </div>
+                <div class="category-card" onclick="openCategory('russian')">
+                    <div class="icon">🇷🇺</div>
+                    <h3>Русский</h3>
+                </div>
+                <div class="category-card" onclick="openCategory('math')">
                     <div class="icon">🔢</div>
                     <h3>Математика</h3>
-                    <p>Примеры, умножение и деление</p>
-                </div>
-                <div class="menu-card" onclick="startGame('match_pairs')">
-                    <div class="icon">🧩</div>
-                    <h3>Найди пару</h3>
-                    <p>Соединяй слова и переводы</p>
-                </div>
-                <div class="menu-card" onclick="startGame('hebrew_words')">
-                    <div class="icon">🇮🇱</div>
-                    <h3>Иврит (Слова)</h3>
-                    <p>200 слов на иврите с никудом</p>
-                </div>
-                <div class="menu-card" onclick="startGame('hebrew_reading')">
-                    <div class="icon">📖</div>
-                    <h3>Иврит (Чтение)</h3>
-                    <p>100 текстов и вопросов для детей</p>
-                </div>
-                <div class="menu-card" onclick="startGame('russian_words')">
-                    <div class="icon">🇷🇺</div>
-                    <h3>Русский язык (Чтение)</h3>
-                    <p>Нажми на динамик и выбери слово</p>
                 </div>
             </div>
 
@@ -490,8 +571,16 @@
             </div>
         </div>
 
+        <!-- ЭКРАН ВЫБОРА УПРАЖНЕНИЙ ВНУТРИ КАТЕГОРИИ -->
+        <div id="exercisesScreen" class="exercises-screen">
+            <button class="back-menu-btn" onclick="returnToMainCategoryMenu()">← Назад к категориям</button>
+            <h2 id="categoryTitle" style="color: var(--primary); margin-bottom: 15px; font-size: 1.4rem;"></h2>
+            <div class="exercise-list" id="exerciseListContainer"></div>
+        </div>
+
+        <!-- ЭКРАН ИГРЫ -->
         <div id="gameScreen" class="game-container">
-            <button class="back-btn" onclick="returnToMenu()">← Назад в меню</button>
+            <button class="back-menu-btn" onclick="returnToExercises()">← К списку упражнений</button>
             <div id="gameContent"></div>
         </div>
     </div>
@@ -500,36 +589,78 @@
         const englishWords = [
             {en: "Cat", ru: "Кошка", emoji: "🐈", weight: 1}, {en: "Dog", ru: "Собака", emoji: "🐕", weight: 1},
             {en: "Apple", ru: "Яблоко", emoji: "🍎", weight: 1}, {en: "House", ru: "Дом", emoji: "🏠", weight: 1},
-            {en: "Sun", ru: "Солнце", emoji: "☀️", weight: 1}, {en: "Car", ru: "Машина", emoji: "🚗", weight: 1},
-            {en: "Book", ru: "Книга", emoji: "📖", weight: 1}, {en: "Tree", ru: "Дерево", emoji: "🌳", weight: 1},
-            {en: "Water", ru: "Вода", emoji: "💧", weight: 1}, {en: "Milk", ru: "Молоко", emoji: "🥛", weight: 1}
+            {en: "Sun", ru: "Солнце", emoji: "☀️", weight: 1}, {en: "Car", ru: "Машина", emoji: "🚗", weight: 1}
         ];
 
         const hebrewWords = [
             {he: "כֶּלֶב", translation: "Собака", emoji: "🐕", weight: 1}, {he: "חָתוּל", translation: "Кошка", emoji: "🐈", weight: 1},
-            {he: "בַּיִת", translation: "Дом", emoji: "🏠", weight: 1}, {he: "סֵפֶר", translation: "Книга", emoji: "📖", weight: 1},
-            {he: "שֶׁמֶשׁ", translation: "Солнце", emoji: "☀️", weight: 1}, {he: "מַיִם", translation: "Вода", emoji: "💧", weight: 1}
+            {he: "בַּיִת", translation: "Дом", emoji: "🏠", weight: 1}, {he: "סֵפֶר", translation: "Книга", emoji: "📖", weight: 1}
         ];
 
         const russianWords = [
             { word: "Солнце", hint: "Светит на небе днем", weight: 1 },
             { word: "Кошка", hint: "Мяукает и любит молоко", weight: 1 },
             { word: "Машина", hint: "Ездит по дороге на колесах", weight: 1 },
-            { word: "Яблоко", hint: "Сладкий круглый фрукт", weight: 1 },
-            { word: "Дерево", hint: "Имеет ствол и зеленые листья", weight: 1 },
-            { word: "Книга", hint: "В ней много страниц и историй", weight: 1 }
+            { word: "Яблоко", hint: "Сладкий круглый фрукт", weight: 1 }
         ];
 
+        const englishSentences = [
+            { text: "I have a cat", lang: "en-US", translation: "У меня есть кошка" },
+            { text: "The sun is red", lang: "en-US", translation: "Солнце красное" },
+            { text: "I like big apples", lang: "en-US", translation: "Я люблю большие яблоки" },
+            { text: "The dog runs fast", lang: "en-US", translation: "Собака бегает быстро" }
+        ];
+
+        const russianSentences = [
+            { text: "Кошка пьет молоко", lang: "ru-RU", translation: "Кошка пьет молоко" },
+            { text: "Машина едет быстро", lang: "ru-RU", translation: "Машина едет быстро" },
+            { text: "Книга лежит на столе", lang: "ru-RU", translation: "Книга лежит на столе" }
+        ];
+
+        // Структура упражнений по категориям
+        const categoryData = {
+            english: {
+                title: "🇬🇧 Английский язык",
+                exercises: [
+                    { id: 'english_words', title: "Английские слова", desc: "Картинки, перевод и озвучка", icon: "🍎" },
+                    { id: 'match_pairs', title: "Найди пару", desc: "Соединяй слова и переводы", icon: "🧩" },
+                    { id: 'build_sentence_en', title: "Собери предложение", desc: "Прослушай фразу и выложи слова", icon: "✍️" }
+                ]
+            },
+            hebrew: {
+                title: "🇮🇱 Иврит",
+                exercises: [
+                    { id: 'hebrew_words', title: "Слова на иврите", desc: "Учим слова с никудом и озвучкой", icon: "📖" },
+                    { id: 'hebrew_reading', title: "Чтение текстов", desc: "Тексты для детей и вопросы", icon: "🇮🇱" }
+                ]
+            },
+            russian: {
+                title: "🇷🇺 Русский язык",
+                exercises: [
+                    { id: 'russian_words', title: "Слушай и угадай слово", desc: "Нажми на динамик и выбери слово", icon: "🔊" },
+                    { id: 'build_sentence_ru', title: "Собери предложение", desc: "Составляй русские фразы на слух", icon: "📝" }
+                ]
+            },
+            math: {
+                title: "🔢 Математика",
+                exercises: [
+                    { id: 'math', title: "Примеры и умножение", desc: "Сложение, вычитание и таблица умножения", icon: "🔢" }
+                ]
+            }
+        };
+
+        let currentCategory = null;
         let currentMode = null;
         let score = 0;
         let streak = 0;
         let totalCorrect = 0;
         let totalAttempts = 0;
-        let sessionProgress = 0; // от 0 до 10 для шкалы прогресса
+        let sessionProgress = 0;
         let totalScoreAllTime = parseInt(localStorage.getItem('kids_total_score') || '0');
         let currentQuestionData = null;
 
         const menuScreen = document.getElementById('menuScreen');
+        const exercisesScreen = document.getElementById('exercisesScreen');
         const gameScreen = document.getElementById('gameScreen');
         const statsBar = document.getElementById('statsBar');
         const progressContainer = document.getElementById('progressContainer');
@@ -539,12 +670,43 @@
         const progressText = document.getElementById('progressText');
         const progressBarFill = document.getElementById('progressBarFill');
         const gameContent = document.getElementById('gameContent');
+        const categoryTitle = document.getElementById('categoryTitle');
+        const exerciseListContainer = document.getElementById('exerciseListContainer');
 
         updateRewardsDisplay();
 
+        function openCategory(catKey) {
+            currentCategory = catKey;
+            const cat = categoryData[catKey];
+            categoryTitle.textContent = cat.title;
+
+            let html = '';
+            cat.exercises.forEach(ex => {
+                html += `
+                    <div class="exercise-card" onclick="startGame('${ex.id}')">
+                        <div class="ex-icon">${ex.icon}</div>
+                        <div>
+                            <h4>${ex.title}</h4>
+                            <p>${ex.desc}</p>
+                        </div>
+                    </div>
+                `;
+            });
+            exerciseListContainer.innerHTML = html;
+
+            menuScreen.style.display = 'none';
+            exercisesScreen.style.display = 'block';
+        }
+
+        function returnToMainCategoryMenu() {
+            exercisesScreen.style.display = 'none';
+            menuScreen.style.display = 'block';
+            currentCategory = null;
+        }
+
         function startGame(mode) {
             currentMode = mode;
-            menuScreen.style.display = 'none';
+            exercisesScreen.style.display = 'none';
             gameScreen.style.display = 'block';
             statsBar.style.display = 'flex';
             progressContainer.style.display = 'block';
@@ -558,11 +720,11 @@
             nextQuestion();
         }
 
-        function returnToMenu() {
+        function returnToExercises() {
             gameScreen.style.display = 'none';
             statsBar.style.display = 'none';
             progressContainer.style.display = 'none';
-            menuScreen.style.display = 'block';
+            exercisesScreen.style.display = 'block';
             currentMode = null;
             updateRewardsDisplay();
         }
@@ -615,7 +777,6 @@
             }, 3500);
         }
 
-        // Выбор элемента с учетом веса ошибок (интервальное повторение)
         function getWeightedItem(list) {
             let totalWeight = list.reduce((sum, item) => sum + item.weight, 0);
             let randomNum = Math.random() * totalWeight;
@@ -628,10 +789,14 @@
         }
 
         function nextQuestion() {
-            if (currentMode === 'english') {
+            if (currentMode === 'english_words') {
                 generateEnglishQuestion();
             } else if (currentMode === 'math') {
                 generateMathQuestion();
+            } else if (currentMode === 'build_sentence_en') {
+                generateBuildSentenceQuestion(englishSentences);
+            } else if (currentMode === 'build_sentence_ru') {
+                generateBuildSentenceQuestion(russianSentences);
             } else if (currentMode === 'match_pairs') {
                 generateMatchPairsQuestion();
             } else if (currentMode === 'hebrew_words') {
@@ -660,8 +825,7 @@
             let options = [correctItem, ...wrongItems.slice(0, 3)];
             options.sort(() => 0.5 - Math.random());
 
-            currentQuestionData = { correctItem, list: englishWords };
-            let hasFailedOnce = false;
+            currentQuestionData = { correctItem };
 
             let html = `
                 <div class="question-box">
@@ -703,12 +867,10 @@
             }
             options.sort(() => 0.5 - Math.random());
 
-            currentQuestionData = { correctAnswer };
-
             let html = `
                 <div class="question-box">
                     <div class="question-title">${questionStr}</div>
-                    <div class="subtitle">Решите пример (Вторая попытка при ошибке)</div>
+                    <div class="subtitle">Решите пример</div>
                 </div>
                 <div class="options-grid math-grid">
             `;
@@ -725,13 +887,111 @@
             gameContent.innerHTML = html;
         }
 
-        // Универсальная обработка ответов с 2 попытками и весом ошибок
+        let currentSentenceObj = null;
+        let userConstructedWords = [];
+
+        function generateBuildSentenceQuestion(bank) {
+            currentSentenceObj = bank[Math.floor(Math.random() * bank.length)];
+            userConstructedWords = [];
+
+            setTimeout(() => speakText(currentSentenceObj.text, currentSentenceObj.lang), 300);
+
+            const originalWords = currentSentenceObj.text.split(' ');
+            let shuffledWords = [...originalWords].sort(() => 0.5 - Math.random());
+
+            let html = `
+                <div class="question-box">
+                    <div class="question-title">
+                        <span>Собери предложение</span>
+                        <button class="speak-btn" onclick="speakText('${currentSentenceObj.text}', '${currentSentenceObj.lang}')">🔊</button>
+                    </div>
+                    <div class="subtitle">Подсказка: ${currentSentenceObj.translation}</div>
+                </div>
+                <div class="sentence-drop-zone" id="dropZone" onclick="resetSentenceBuild()">
+                    <span style="color: #94a3b8; font-size: 0.95rem;">Нажмите на слова в нужном порядке</span>
+                </div>
+                <div class="word-pool" id="wordPool">
+            `;
+
+            shuffledWords.forEach((word, index) => {
+                html += `<div class="word-chip" id="chip-${index}" onclick="selectWordChip('${word}', 'chip-${index}')">${word}</div>`;
+            });
+
+            html += `</div>`;
+            gameContent.innerHTML = html;
+        }
+
+        function selectWordChip(word, chipId) {
+            userConstructedWords.push({ word, chipId });
+            document.getElementById(chipId).classList.add('used');
+            renderDropZone();
+
+            const originalWords = currentSentenceObj.text.split(' ');
+            if (userConstructedWords.length === originalWords.length) {
+                totalAttempts++;
+                const userString = userConstructedWords.map(item => item.word).join(' ');
+
+                if (userString === currentSentenceObj.text) {
+                    score += 15;
+                    streak += 1;
+                    totalCorrect++;
+                    sessionProgress++;
+                    checkRewards(15);
+                    updateStats();
+                    updateProgressUI();
+
+                    document.getElementById('dropZone').style.borderColor = 'var(--success)';
+                    document.getElementById('dropZone').style.background = '#d1fae5';
+
+                    setTimeout(() => generateBuildSentenceQuestion(currentMode === 'build_sentence_en' ? englishSentences : russianSentences), 1300);
+                } else {
+                    streak = 0;
+                    updateStats();
+                    document.getElementById('dropZone').style.borderColor = 'var(--error)';
+                    document.getElementById('dropZone').style.background = '#fee2e2';
+
+                    setTimeout(() => resetSentenceBuild(), 1000);
+                }
+            }
+        }
+
+        function renderDropZone() {
+            const dropZone = document.getElementById('dropZone');
+            if (userConstructedWords.length === 0) {
+                dropZone.innerHTML = `<span style="color: #94a3b8; font-size: 0.95rem;">Нажмите на слова в нужном порядке</span>`;
+                return;
+            }
+
+            let html = '';
+            userConstructedWords.forEach(item => {
+                html += `<div class="selected-word-chip" onclick="returnWordChip('${item.chipId}')">${item.word}</div>`;
+            });
+            dropZone.innerHTML = html;
+        }
+
+        function returnWordChip(chipId) {
+            userConstructedWords = userConstructedWords.filter(item => item.chipId !== chipId);
+            document.getElementById(chipId).classList.remove('used');
+            renderDropZone();
+            document.getElementById('dropZone').style.borderColor = '#cbd5e1';
+            document.getElementById('dropZone').style.background = '#f1f5f9';
+        }
+
+        function resetSentenceBuild() {
+            userConstructedWords.forEach(item => {
+                document.getElementById(item.chipId).classList.remove('used');
+            });
+            userConstructedWords = [];
+            renderDropZone();
+            document.getElementById('dropZone').style.borderColor = '#cbd5e1';
+            document.getElementById('dropZone').style.background = '#f1f5f9';
+        }
+
         function handleCardAnswer(element, selected, correct) {
             totalAttempts++;
             const parent = element.parentElement;
 
             if (selected === correct) {
-                // С первой или второй попытки правильно
                 element.classList.add('correct');
                 score += element.dataset.failed ? 5 : 10;
                 streak += 1;
@@ -741,7 +1001,6 @@
                 updateStats();
                 updateProgressUI();
 
-                // Если ребенок ответил верно, уменьшаем вес этого слова (будет реже попадаться)
                 if (currentQuestionData && currentQuestionData.correctItem) {
                     currentQuestionData.correctItem.weight = Math.max(1, currentQuestionData.correctItem.weight - 0.5);
                 }
@@ -749,9 +1008,7 @@
                 disableAllCards(parent);
                 setTimeout(() => nextQuestion(), 1200);
             } else {
-                // Ошибка
                 if (!element.dataset.failed && !parent.dataset.secondChanceFailed) {
-                    // Первая ошибка — даем вторую попытку!
                     element.classList.add('incorrect');
                     element.style.pointerEvents = 'none';
                     element.dataset.failed = "true";
@@ -759,12 +1016,10 @@
                     streak = 0;
                     updateStats();
                 } else {
-                    // Ошибка со второй попытки
                     element.classList.add('incorrect');
                     streak = 0;
                     updateStats();
 
-                    // Увеличиваем вес слова, чтобы система вернула его позже
                     if (currentQuestionData && currentQuestionData.correctItem) {
                         currentQuestionData.correctItem.weight += 2;
                     }
@@ -818,7 +1073,7 @@
 
         function highlightCorrectCard(parent, correct) {
             for (let card of parent.children) {
-                if (currentMode === 'english' || currentMode === 'hebrew_words') {
+                if (currentMode === 'english_words' || currentMode === 'hebrew_words') {
                     if (card.getAttribute('onclick')?.includes(correct)) {
                         card.classList.add('correct');
                     }
@@ -838,7 +1093,6 @@
             }
         }
 
-        // --- РЕЖИМ: НАЙДИ ПАРУ ---
         let selectedPairCard = null;
         let matchedPairsCount = 0;
 
@@ -924,7 +1178,7 @@
             let options = [correctItem, ...wrongItems.slice(0, 3)];
             options.sort(() => 0.5 - Math.random());
 
-            currentQuestionData = { correctItem, list: hebrewWords };
+            currentQuestionData = { correctItem };
 
             let html = `
                 <div class="question-box">
@@ -950,41 +1204,7 @@
             gameContent.innerHTML = html;
         }
 
-        function generateRussianWordQuestion() {
-            const correctItem = getWeightedItem(russianWords);
-            let wrongItems = russianWords.filter(item => item.word !== correctItem.word);
-            wrongItems.sort(() => 0.5 - Math.random());
-            
-            let options = [correctItem.word, wrongItems[0].word, wrongItems[1].word, wrongItems[2].word];
-            options.sort(() => 0.5 - Math.random());
-
-            currentQuestionData = { correctItem, list: russianWords };
-
-            let html = `
-                <div class="question-box">
-                    <div class="question-title">
-                        <span>Что прозвучало?</span>
-                        <button class="speak-btn" onclick="speakText('${correctItem.word}', 'ru-RU')">🔊</button>
-                    </div>
-                    <div class="subtitle">Подсказка: ${correctItem.hint}</div>
-                </div>
-                <div class="options-grid">
-            `;
-
-            options.forEach(opt => {
-                html += `
-                    <div class="option-card" style="font-size: 1.3rem;" onclick="handleCardAnswer(this, '${opt}', '${correctItem.word}')">
-                        ${opt}
-                    </div>
-                `;
-            });
-
-            html += `</div>`;
-            gameContent.innerHTML = html;
-        }
-
         function generateHebrewReadingQuestion() {
-            // Оставляем заглушку для чтения ивритских предложений
             const item = {text: "הַיֶּלֶד דָּוִד שׁוֹתֶה חָלָב חַם בַּבֹּקֶר.", question: "מָה שׁוֹתֶה דָּוִד?", correct: "חָלָב חַם", options: ["חָלָב חַם", "מַיִם קָרִים", "מִיץ תַּפּוּחִים", "תֵּה מְתוֹק"]};
             let options = [...item.options];
             options.sort(() => 0.5 - Math.random());
@@ -1003,6 +1223,39 @@
             options.forEach(opt => {
                 html += `
                     <div class="reading-option" onclick="handleCardAnswer(this, '${opt}', '${item.correct}')">
+                        ${opt}
+                    </div>
+                `;
+            });
+
+            html += `</div>`;
+            gameContent.innerHTML = html;
+        }
+
+        function generateRussianWordQuestion() {
+            const correctItem = getWeightedItem(russianWords);
+            let wrongItems = russianWords.filter(item => item.word !== correctItem.word);
+            wrongItems.sort(() => 0.5 - Math.random());
+            
+            let options = [correctItem.word, wrongItems[0].word, wrongItems[1].word, wrongItems[2].word];
+            options.sort(() => 0.5 - Math.random());
+
+            currentQuestionData = { correctItem };
+
+            let html = `
+                <div class="question-box">
+                    <div class="question-title">
+                        <span>Что прозвучало?</span>
+                        <button class="speak-btn" onclick="speakText('${correctItem.word}', 'ru-RU')">🔊</button>
+                    </div>
+                    <div class="subtitle">Подсказка: ${correctItem.hint}</div>
+                </div>
+                <div class="options-grid">
+            `;
+
+            options.forEach(opt => {
+                html += `
+                    <div class="option-card" style="font-size: 1.3rem;" onclick="handleCardAnswer(this, '${opt}', '${correctItem.word}')">
                         ${opt}
                     </div>
                 `;
