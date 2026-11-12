@@ -23,7 +23,7 @@ const LANG_FLAG = { en: '🇬🇧', ru: '🇷🇺', he: '🇮🇱', math: '🔢'
 
 let items = store.get('kt_items', {});      // статистика по словам/буквам: {key: {l, lang, k, c, w, s, t}}
 let days = store.get('kt_days', {});        // по дням: {'2026-11-12': {a, c, sec, r}}
-let settings = Object.assign({ goal: 20, sound: true }, store.get('kt_settings', {}));
+let settings = Object.assign({ goal: 20, sound: true, onlyPics: false }, store.get('kt_settings', {}));
 let totalScoreAllTime = parseInt(store.get('kids_total_score', 0), 10) || 0;
 
 function saveItems() { store.set('kt_items', items); }
@@ -442,6 +442,7 @@ function chooseMode(mode) {
 function wordsForMode(mode, lang, topic) {
     let list = WORDS;
     if (topic && topic !== 'all') list = list.filter(w => w.topic === topic);
+    if (settings.onlyPics) list = list.filter(hasPic);
     if (MODES[mode].spell) list = list.filter(w => isSpellable(w[lang], lang));
     if (MODES[mode].fill) {
         const ok = new Set(TOPICS.filter(t => FILL_TEMPLATES[t.kind]).map(t => t.id));
@@ -460,7 +461,13 @@ function openTopics() {
     $('topicTitle').textContent = MODES[currentMode].title;
     const all = wordsForMode(currentMode, lang, 'all');
     const learnedIn = list => list.filter(w => isLearned(items[wordKey(lang, w)])).length;
-    let html = `<div class="topic-card topic-all" data-topic="all">
+    const withPics = WORDS.filter(hasPic).length;
+    let html = `<label class="pics-toggle">
+        <input type="checkbox" id="onlyPicsToggle" ${settings.onlyPics ? 'checked' : ''}>
+        <span class="toggle-track"><span class="toggle-thumb"></span></span>
+        <span>🖼️ Только слова с картинками <span class="muted">(${withPics} из ${WORDS.length})</span></span>
+    </label>
+    <div class="topic-card topic-all" data-topic="all">
         <div class="topic-emoji">🌈</div><div class="topic-name">Все темы</div>
         <div class="topic-count">✓ ${learnedIn(all)} / ${all.length}</div></div>`;
     TOPICS.forEach(t => {
@@ -471,6 +478,7 @@ function openTopics() {
             <div class="topic-count">✓ ${learnedIn(list)} / ${list.length}</div></div>`;
     });
     $('topicGrid').innerHTML = html;
+    $('onlyPicsToggle').onchange = e => { settings.onlyPics = e.target.checked; saveSettings(); openTopics(); };
     $('topicGrid').querySelectorAll('[data-topic]').forEach(el => {
         el.onclick = () => { currentTopic = el.dataset.topic; startGame(); };
     });
@@ -634,8 +642,21 @@ function nextQuestion() {
 // ============================================================
 //  Общие кусочки разметки
 // ============================================================
+// Есть ли у слова картинка (эмодзи, цвет, число или фигура)
+function hasPic(w) { return !!(w.emoji || w.color || w.digits || w.shape); }
+// Ключ картинки — чтобы в вариантах не было двух одинаковых картинок
+function picKey(w) { return w.emoji || (w.color && 'c' + w.color) || (w.digits && 'd' + w.digits) || (w.shape && 's' + w.shape) || 't' + w.ru; }
+const DIGIT_COLORS = ['#ec4899', '#a855f7', '#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#06b6d4', '#8b5cf6'];
+
 function picHTML(w, big) {
-    if (w.emoji) return `<span class="emoji-pic ${big ? 'big' : ''}">${w.emoji}</span>`;
+    const b = big ? 'big' : '';
+    if (w.emoji) return `<span class="emoji-pic ${b}">${w.emoji}</span>`;
+    if (w.color) return `<span class="swatch-pic ${b}" style="background:${w.color}"></span>`;
+    if (w.digits) {
+        const c = DIGIT_COLORS[parseInt(w.digits, 10) % DIGIT_COLORS.length];
+        return `<span class="digit-pic ${b} ${w.digits.length > 2 ? 'three' : ''}" style="color:${c}">${esc(w.digits)}</span>`;
+    }
+    if (w.shape) return `<span class="shape-pic shape-${w.shape} ${b}"></span>`;
     // Кнопка 🔊 — отдельно, сбоку от надписи: нажатие на неё только озвучивает и не выбирает ответ.
     const len = w.ru.replace(/\s.*/, '').length;   // длина самого длинного первого слова
     const size = len > 9 ? 'xlong' : len > 5 ? 'long' : '';
@@ -688,11 +709,11 @@ function choiceQuestion({ headerHTML, options, correctIdx, renderOption, gridCla
 // Подбор отвлекающих слов с другими картинками
 function distractors(correct, pool, n, lang) {
     const others = shuffle(pool.filter(w => w !== correct &&
-        (!correct.emoji || w.emoji !== correct.emoji) &&
+        picKey(w) !== picKey(correct) &&
         (!lang || w[lang] !== correct[lang])));
     let res = others.slice(0, n);
     if (res.length < n) {
-        const extra = shuffle(WORDS.filter(w => w !== correct && !res.includes(w) && (!correct.emoji || w.emoji !== correct.emoji)));
+        const extra = shuffle(WORDS.filter(w => w !== correct && !res.includes(w) && picKey(w) !== picKey(correct)));
         res = res.concat(extra.slice(0, n - res.length));
     }
     return res;
@@ -868,7 +889,7 @@ function genPictureToWord(lang) {
     const options = shuffle([w, ...distractors(w, pool, 3, lang)]);
     choiceQuestion({
         headerHTML: `<div class="question-title col"><div class="q-text">Что на картинке?</div>
-            <div class="pic-question">${w.emoji ? `<span class="emoji-pic big">${w.emoji}</span>` :
+            <div class="pic-question">${hasPic(w) ? picHTML(w, true) :
                 `<span class="text-pic big" data-say="${esc(w.ru)}" data-say-lang="ru">${esc(w.ru)}<span class="text-pic-sound">🔊</span></span>`}</div></div>`,
         options, correctIdx: options.indexOf(w),
         renderOption: o => `<span class="${langClass(lang)} word-opt" ${dirAttr(lang)}>${esc(o[lang])}</span>`,
@@ -943,8 +964,8 @@ function genMatch(lang) {
     while (chosen.length < need) {
         const w = pickItem(pool, x => wordKey(lang, x));
         if (!w) break;
-        if (chosen.includes(w) || chosen.some(c => (c.emoji && c.emoji === w.emoji) || c.ru === w.ru)) {
-            const alt = shuffle(pool).find(x => !chosen.includes(x) && !chosen.some(c => (c.emoji && c.emoji === x.emoji)));
+        if (chosen.includes(w) || chosen.some(c => picKey(c) === picKey(w))) {
+            const alt = shuffle(pool).find(x => !chosen.includes(x) && !chosen.some(c => picKey(c) === picKey(x)));
             if (!alt) break;
             chosen.push(alt);
         } else chosen.push(w);

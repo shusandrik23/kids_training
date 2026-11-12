@@ -765,6 +765,89 @@
             word-break: break-word;
         }
 
+        /* Нарисованные картинки: цвет, число, фигура */
+        .swatch-pic {
+            display: inline-block;
+            width: 58px;
+            height: 58px;
+            border-radius: 50%;
+            border: 3px solid rgba(0, 0, 0, 0.12);
+            box-shadow: inset 0 -6px 0 rgba(0, 0, 0, 0.08), 0 3px 6px rgba(0, 0, 0, 0.12);
+        }
+
+        .swatch-pic.big { width: 110px; height: 110px; }
+
+        .digit-pic {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 64px;
+            height: 64px;
+            padding: 0 8px;
+            border-radius: 18px;
+            background: #fff;
+            border: 3px solid currentColor;
+            font-family: Arial, Helvetica, sans-serif !important;
+            font-size: 2.4rem;
+            font-weight: 900;
+            line-height: 1;
+            box-shadow: 0 4px 0 currentColor;
+        }
+
+        .digit-pic.three { font-size: 1.9rem; }
+        .digit-pic.big { min-width: 120px; height: 120px; font-size: 4.6rem; border-radius: 28px; }
+        .digit-pic.big.three { font-size: 3.6rem; }
+
+        .shape-pic { display: inline-block; width: 58px; height: 58px; background: #a855f7; }
+        .shape-pic.big { transform: scale(1.8); margin: 26px; }
+        .shape-circle { border-radius: 50%; background: #ec4899; }
+        .shape-square { background: #f59e0b; }
+        .shape-triangle { background: #10b981; clip-path: polygon(50% 4%, 100% 96%, 0 96%); }
+        .shape-diamond { background: #3b82f6; clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%); }
+        .shape-rectangle { width: 74px; height: 42px; background: #ef4444; }
+        .shape-oval { width: 74px; height: 46px; border-radius: 50%; background: #8b5cf6; }
+
+        .pics-toggle {
+            grid-column: 1 / -1;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #fff;
+            border: 3px solid #e9d5ff;
+            border-radius: 20px;
+            padding: 12px 14px;
+            font-weight: 800;
+            color: #7e22ce;
+            cursor: pointer;
+            box-shadow: var(--shadow);
+        }
+
+        .pics-toggle input { position: absolute; opacity: 0; pointer-events: none; }
+        .toggle-track {
+            flex: 0 0 auto;
+            width: 50px;
+            height: 28px;
+            border-radius: 14px;
+            background: #e5e7eb;
+            position: relative;
+            transition: background 0.2s;
+        }
+
+        .toggle-thumb {
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: #fff;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+            transition: left 0.2s;
+        }
+
+        .pics-toggle input:checked + .toggle-track { background: #ec4899; }
+        .pics-toggle input:checked + .toggle-track .toggle-thumb { left: 25px; }
+
         .text-pic-wrap {
             display: flex;
             align-items: center;
