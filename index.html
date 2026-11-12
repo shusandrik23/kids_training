@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🧁 Сладкая Учеба и Карта 🍬</title>
+    <title>🧁 Сладкая Учеба 🍬</title>
     <style>
         :root {
             --primary: #ec4899;
@@ -32,7 +32,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 20px;
+            padding: 40px 20px 20px 20px;
         }
 
         .container {
@@ -123,13 +123,17 @@
         .category-card {
             background: var(--card-bg);
             border-radius: var(--radius);
-            padding: 40px 20px;
+            padding: 30px 20px;
             text-align: center;
             box-shadow: var(--shadow);
             cursor: pointer;
             transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             border: 4px solid #fbcfe8;
             position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
 
         .category-card::before {
@@ -152,16 +156,13 @@
             border-color: #f472b6;
         }
 
-        .category-card .icon {
-            font-size: 4rem;
-            margin-bottom: 10px;
-            display: inline-block;
-        }
-
-        .category-card h3 {
-            font-size: 1.5rem;
-            color: #a21caf;
+        .cat-visual {
+            font-size: 3rem;
             font-weight: 900;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .exercises-screen {
@@ -230,7 +231,6 @@
             font-weight: 800;
         }
 
-        /* КАРТА ПУТЕШЕСТВИЯ И КОЛЛЕКЦИЯ */
         .map-section {
             background: rgba(255, 255, 255, 0.95);
             border: 3px solid #fbcfe8;
@@ -247,58 +247,69 @@
             font-size: 1.8rem;
         }
 
-        /* Дорожка карты */
         .map-path {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            overflow-x: auto;
-            padding: 15px 5px;
-            gap: 10px;
-            scrollbar-width: thin;
-            scrollbar-color: #f472b6 #fce7f3;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            padding: 10px 0;
+            justify-items: center;
         }
 
         .map-node {
-            min-width: 55px;
-            height: 55px;
-            border-radius: 50%;
-            background: #fce7f3;
-            border: 3px dashed #f472b6;
+            width: 70px;
+            height: 70px;
+            border-radius: 20px;
+            background: #f1f5f9;
+            border: 3px dashed #cbd5e1;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
-            opacity: 0.35;
-            filter: grayscale(1);
+            font-size: 2rem;
+            opacity: 0.5;
             position: relative;
             transition: all 0.4s;
         }
 
+        .map-node::before {
+            content: '🔒';
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            font-size: 0.9rem;
+        }
+
         .map-node .node-score {
             position: absolute;
-            bottom: -18px;
-            font-size: 0.6rem;
+            bottom: -16px;
+            font-size: 0.65rem;
             background: #fff;
-            padding: 1px 4px;
-            border-radius: 6px;
-            color: #db2777;
+            padding: 1px 5px;
+            border-radius: 8px;
+            color: #64748b;
             font-weight: 700;
-            border: 1px solid #fbcfe8;
-            white-space: nowrap;
+            border: 1px solid #cbd5e1;
         }
 
         .map-node.active-node {
             opacity: 1;
-            filter: grayscale(0);
-            background: linear-gradient(135deg, #fff1f2, #f3e8ff);
-            border: 3px solid #c084fc;
+            background: linear-gradient(135deg, #fef08a, #fde047);
+            border: 3px solid #f59e0b;
             border-style: solid;
-            transform: scale(1.15);
-            box-shadow: 0 5px 15px rgba(192, 132, 252, 0.4);
+            transform: scale(1.08);
+            box-shadow: 0 8px 20px rgba(245, 158, 11, 0.4);
         }
 
-        /* Галерея карточек ниже карты */
+        .map-node.active-node::before {
+            content: '⭐';
+        }
+
+        .map-node.active-node .node-score {
+            background: #fef08a;
+            color: #b45309;
+            border-color: #f59e0b;
+        }
+
         .rewards-grid {
             display: grid;
             grid-template-columns: repeat(6, 1fr);
@@ -318,6 +329,7 @@
             opacity: 0.3;
             filter: grayscale(1);
             transition: all 0.3s;
+            font-size: 1.8rem;
         }
 
         .reward-card-item.unlocked {
@@ -581,28 +593,24 @@
             </div>
         </div>
 
-        <!-- ГЛАВНОЕ МЕНЮ -->
+        <!-- ГЛАВНОЕ МЕНЮ С ПОНЯТНЫМИ ИКОНКАМИ -->
         <div id="menuScreen">
             <div class="categories-grid">
                 <div class="category-card" onclick="openCategory('english')">
-                    <div class="icon">🎀</div>
-                    <h3>Английский</h3>
+                    <div class="cat-visual">🇬🇧 <span style="color:#db2777;">ABC</span></div>
                 </div>
                 <div class="category-card" onclick="openCategory('hebrew')">
-                    <div class="icon">🏰</div>
-                    <h3>Иврит</h3>
+                    <div class="cat-visual">🇮🇱 <span style="color:#7e22ce;" dir="rtl">אבג</span></div>
                 </div>
                 <div class="category-card" onclick="openCategory('russian')">
-                    <div class="icon">🪄</div>
-                    <h3>Русский</h3>
+                    <div class="cat-visual">🇷🇺 <span style="color:#9333ea;">АБВ</span></div>
                 </div>
                 <div class="category-card" onclick="openCategory('math')">
-                    <div class="icon">👑</div>
-                    <h3>Математика</h3>
+                    <div class="cat-visual">🔢 <span style="color:#ca8a04;">123</span></div>
                 </div>
             </div>
 
-            <!-- ИТЕРАТИВНАЯ КАРТА И КОЛЛЕКЦИЯ -->
+            <!-- КРУПНАЯ КАРТА И КОЛЛЕКЦИЯ БЕЗ БЕГУНКА -->
             <div class="map-section">
                 <h3>🗺️ Карта путешествия</h3>
                 <div class="map-path" id="mapPath">
@@ -654,24 +662,24 @@
 
     <script>
         const englishWords = [
-            {en: "Cat", ru: "Кошка", emoji: "🐈", weight: 1}, {en: "Dog", ru: "Собака", emoji: "🐕", weight: 1},
-            {en: "Apple", ru: "Яблоко", emoji: "🍎", weight: 1}, {en: "House", ru: "Дом", emoji: "🏠", weight: 1},
-            {en: "Sun", ru: "Солнце", emoji: "☀️", weight: 1}, {en: "Car", ru: "Машина", emoji: "🚗", weight: 1},
-            {en: "Book", ru: "Книга", emoji: "📖", weight: 1}, {en: "Tree", ru: "Дерево", emoji: "🌳", weight: 1},
-            {en: "Water", ru: "Вода", emoji: "💧", weight: 1}, {en: "Milk", ru: "Молоко", emoji: "🥛", weight: 1},
-            {en: "Fish", ru: "Рыба", emoji: "🐟", weight: 1}, {en: "Bird", ru: "Птица", emoji: "🐦", weight: 1},
-            {en: "Flower", ru: "Цветок", emoji: "🌸", weight: 1}, {en: "Star", ru: "Звезда", emoji: "⭐", weight: 1},
-            {en: "Moon", ru: "Луна", emoji: "🌙", weight: 1}, {en: "Ball", ru: "Мяч", emoji: "⚽", weight: 1},
-            {en: "Banana", ru: "Банан", emoji: "🍌", weight: 1}, {en: "Train", ru: "Поезд", emoji: "🚂", weight: 1},
-            {en: "Bear", ru: "Медведь", emoji: "🐻", weight: 1}, {en: "Lion", ru: "Лев", emoji: "🦁", weight: 1}
+            {en: "Cat", ru: "Кошка", emoji: "🐈"}, {en: "Dog", ru: "Собака", emoji: "🐕"},
+            {en: "Apple", ru: "Яблоко", emoji: "🍎"}, {en: "House", ru: "Дом", emoji: "🏠"},
+            {en: "Sun", ru: "Солнце", emoji: "☀️"}, {en: "Car", ru: "Машина", emoji: "🚗"},
+            {en: "Book", ru: "Книга", emoji: "📖"}, {en: "Tree", ru: "Дерево", emoji: "🌳"},
+            {en: "Water", ru: "Вода", emoji: "💧"}, {en: "Milk", ru: "Молоко", emoji: "🥛"},
+            {en: "Fish", ru: "Рыба", emoji: "🐟"}, {en: "Bird", ru: "Птица", emoji: "🐦"},
+            {en: "Flower", ru: "Цветок", emoji: "🌸"}, {en: "Star", ru: "Звезда", emoji: "⭐"},
+            {en: "Moon", ru: "Луна", emoji: "🌙"}, {en: "Ball", ru: "Мяч", emoji: "⚽"},
+            {en: "Banana", ru: "Банан", emoji: "🍌"}, {en: "Train", ru: "Поезд", emoji: "🚂"},
+            {en: "Bear", ru: "Медведь", emoji: "🐻"}, {en: "Lion", ru: "Лев", emoji: "🦁"}
         ];
 
         const hebrewWords = [
-            {he: "כֶּלֶב", translation: "Собака", emoji: "🐕", weight: 1}, {he: "חָתוּל", translation: "Кошка", emoji: "🐈", weight: 1},
-            {he: "בַּיִת", translation: "Дом", emoji: "🏠", weight: 1}, {he: "סֵפֶר", translation: "Книга", emoji: "📖", weight: 1},
-            {he: "שֶׁמֶשׁ", translation: "Солнце", emoji: "☀️", weight: 1}, {he: "מַיִם", translation: "Вода", emoji: "💧", weight: 1},
-            {he: "עֵץ", translation: "Дерево", emoji: "🌳", weight: 1}, {he: "תַּפּוּחַ", translation: "Яблоко", emoji: "🍎", weight: 1},
-            {he: "יֶלֶד", translation: "Мальчик", emoji: "👦", weight: 1}, {he: "יַלְדָּה", translation: "Девочка", emoji: "👧", weight: 1}
+            {he: "כֶּלֶב", translation: "Собака", emoji: "🐕"}, {he: "חָתוּל", translation: "Кошка", emoji: "🐈"},
+            {he: "בַּיִת", translation: "Дом", emoji: "🏠"}, {he: "סֵפֶר", translation: "Книга", emoji: "📖"},
+            {he: "שֶׁמֶשׁ", translation: "Солнце", emoji: "☀️"}, {he: "מַיִם", translation: "Вода", emoji: "💧"},
+            {he: "עֵץ", translation: "Дерево", emoji: "🌳"}, {he: "תַּפּוּחַ", translation: "Яблоко", emoji: "🍎"},
+            {he: "יֶלֶד", translation: "Мальчик", emoji: "👦"}, {he: "יַלְדָּה", translation: "Девочка", emoji: "👧"}
         ];
 
         const russianWords = [
@@ -713,7 +721,7 @@
 
         const categoryData = {
             english: {
-                title: "🇬🇧 Английский язык",
+                title: "🇬🇧 ABC",
                 exercises: [
                     { id: 'english_words', title: "Слова", desc: "Картинки и звук", icon: "🍎" },
                     { id: 'match_pairs', title: "Найди пару", desc: "Соедини слова со звуком", icon: "🧩" },
@@ -721,21 +729,21 @@
                 ]
             },
             hebrew: {
-                title: "🇮🇱 Иврит",
+                title: "🇮🇱 אבג",
                 exercises: [
                     { id: 'hebrew_words', title: "Слова", desc: "Чтение", icon: "📖" },
                     { id: 'hebrew_reading', title: "Тексты", desc: "Вопросы по чтению", icon: "🇮🇱" }
                 ]
             },
             russian: {
-                title: "🇷🇺 Русский язык",
+                title: "🇷🇺 АБВ",
                 exercises: [
                     { id: 'russian_words', title: "Слова на слух", desc: "Слушай и выбирай", icon: "🔊" },
                     { id: 'build_sentence_ru', title: "Фразы", desc: "Собери предложение", icon: "📝" }
                 ]
             },
             math: {
-                title: "🔢 Математика",
+                title: "🔢 123",
                 exercises: [
                     { id: 'math_table', title: "Умножение", desc: "Таблица", icon: "🧁" },
                     { id: 'math_plus_minus', title: "Счет", desc: "Плюс и минус", icon: "➕" },
@@ -754,6 +762,24 @@
         let sessionProgress = 0;
         let totalScoreAllTime = parseInt(localStorage.getItem('kids_total_score') || '0');
         let failedAttemptsCount = 0;
+
+        // Пул для предотвращения повторений (очереди для каждого режима)
+        let queues = {
+            english_words: [],
+            hebrew_words: [],
+            russian_words: [],
+            build_sentence_en: [],
+            build_sentence_ru: [],
+            math_problems: []
+        };
+
+        function getUniqueItem(modeKey, sourceArray) {
+            if (!queues[modeKey] || queues[modeKey].length === 0) {
+                // Перемешиваем весь массив заново, чтобы исключить повторения подряд
+                queues[modeKey] = [...sourceArray].sort(() => 0.5 - Math.random());
+            }
+            return queues[modeKey].pop();
+        }
 
         const menuScreen = document.getElementById('menuScreen');
         const exercisesScreen = document.getElementById('exercisesScreen');
@@ -838,21 +864,19 @@
             totalScoreAllTime += points;
             localStorage.setItem('kids_total_score', totalScoreAllTime);
             
-            // Проверяем карточки
             const cardItems = document.querySelectorAll('.reward-card-item');
             cardItems.forEach(item => {
                 const targetScore = parseInt(item.getAttribute('data-score'));
                 const cardName = item.getAttribute('data-name');
                 if (totalScoreAllTime >= targetScore && !item.classList.contains('unlocked')) {
                     item.classList.add('unlocked');
-                    showRewardPopup(`🗺️ Шаг пройден! Новая карточка: "${cardName}"!`);
+                    showRewardPopup(`🗺️ Шаг пройден! Открылась карточка!`);
                 }
             });
             updateRewardsDisplay();
         }
 
         function updateRewardsDisplay() {
-            // Обновляем карту
             const mapNodes = document.querySelectorAll('.map-node');
             mapNodes.forEach(node => {
                 const targetScore = parseInt(node.getAttribute('data-score'));
@@ -861,7 +885,6 @@
                 }
             });
 
-            // Обновляем карточки
             const cardItems = document.querySelectorAll('.reward-card-item');
             cardItems.forEach(item => {
                 const targetScore = parseInt(item.getAttribute('data-score'));
@@ -878,18 +901,14 @@
             setTimeout(() => popup.classList.remove('show'), 3500);
         }
 
-        function getWeightedItem(list) {
-            return list[Math.floor(Math.random() * list.length)];
-        }
-
         function nextQuestion() {
             failedAttemptsCount = 0;
             if (currentMode === 'english_words') generateEnglishQuestion();
             else if (currentMode === 'hebrew_words') generateHebrewWordQuestion();
             else if (currentMode === 'hebrew_reading') generateHebrewReadingQuestion();
             else if (currentMode === 'russian_words') generateRussianWordQuestion();
-            else if (currentMode === 'build_sentence_en') generateBuildSentenceQuestion(englishSentences);
-            else if (currentMode === 'build_sentence_ru') generateBuildSentenceQuestion(russianSentences);
+            else if (currentMode === 'build_sentence_en') generateBuildSentenceQuestion(englishSentences, 'build_sentence_en');
+            else if (currentMode === 'build_sentence_ru') generateBuildSentenceQuestion(russianSentences, 'build_sentence_ru');
             else if (currentMode === 'match_pairs') generateMatchPairsQuestion();
             else if (currentMode === 'math_table') generateMathTableQuestion();
             else if (currentMode === 'math_plus_minus') generateMathPlusMinusQuestion();
@@ -908,7 +927,7 @@
         }
 
         function generateEnglishQuestion() {
-            const correctItem = getWeightedItem(englishWords);
+            const correctItem = getUniqueItem('english_words', englishWords);
             let wrongItems = englishWords.filter(item => item.en !== correctItem.en);
             wrongItems.sort(() => 0.5 - Math.random());
             let options = [correctItem, ...wrongItems.slice(0, 3)];
@@ -935,7 +954,7 @@
         }
 
         function generateHebrewWordQuestion() {
-            const correctItem = getWeightedItem(hebrewWords);
+            const correctItem = getUniqueItem('hebrew_words', hebrewWords);
             let wrongItems = hebrewWords.filter(item => item.he !== correctItem.he);
             wrongItems.sort(() => 0.5 - Math.random());
             let options = [correctItem, ...wrongItems.slice(0, 3)];
@@ -982,7 +1001,7 @@
         }
 
         function generateRussianWordQuestion() {
-            const correctWord = getWeightedItem(russianWords);
+            const correctWord = getUniqueItem('russian_words', russianWords);
             let wrongWords = russianWords.filter(w => w !== correctWord);
             wrongWords.sort(() => 0.5 - Math.random());
             
@@ -1013,8 +1032,8 @@
         let currentSentenceObj = null;
         let userConstructedWords = [];
 
-        function generateBuildSentenceQuestion(bank) {
-            currentSentenceObj = bank[Math.floor(Math.random() * bank.length)];
+        function generateBuildSentenceQuestion(bank, modeKey) {
+            currentSentenceObj = getUniqueItem(modeKey, bank);
             userConstructedWords = [];
             setTimeout(() => speakText(currentSentenceObj.text, currentSentenceObj.lang), 300);
 
@@ -1032,13 +1051,13 @@
                 <div class="word-pool" id="wordPool">
             `;
             shuffledWords.forEach((word, index) => {
-                html += `<div class="word-chip" id="chip-${index}" onclick="selectWordChip('${word}', 'chip-${index}')">${word}</div>`;
+                html += `<div class="word-chip" id="chip-${index}" onclick="selectWordChip('${word}', 'chip-${index}', '${modeKey}')">${word}</div>`;
             });
             html += `</div>`;
             gameContent.innerHTML = html;
         }
 
-        function selectWordChip(word, chipId) {
+        function selectWordChip(word, chipId, modeKey) {
             userConstructedWords.push({ word, chipId });
             document.getElementById(chipId).classList.add('used');
             renderDropZone();
@@ -1058,7 +1077,7 @@
                     updateProgressUI();
                     document.getElementById('dropZone').style.borderColor = 'var(--success)';
                     document.getElementById('dropZone').style.background = '#d1fae5';
-                    setTimeout(() => generateBuildSentenceQuestion(currentMode === 'build_sentence_en' ? englishSentences : russianSentences), 1200);
+                    setTimeout(() => generateBuildSentenceQuestion(currentMode === 'build_sentence_en' ? englishSentences : russianSentences, modeKey), 1200);
                 } else {
                     failedAttemptsCount++;
                     if (failedAttemptsCount >= 2) {
@@ -1066,7 +1085,7 @@
                         updateStats();
                         document.getElementById('dropZone').style.borderColor = 'var(--error)';
                         document.getElementById('dropZone').style.background = '#fee2e2';
-                        setTimeout(() => generateBuildSentenceQuestion(currentMode === 'build_sentence_en' ? englishSentences : russianSentences), 1200);
+                        setTimeout(() => generateBuildSentenceQuestion(currentMode === 'build_sentence_en' ? englishSentences : russianSentences, modeKey), 1200);
                     } else {
                         document.getElementById('dropZone').style.borderColor = 'var(--error)';
                         document.getElementById('dropZone').style.background = '#fee2e2';
@@ -1249,7 +1268,7 @@
         }
 
         function generateMathProblemQuestion() {
-            const prob = mathWordProblems[Math.floor(Math.random() * mathWordProblems.length)];
+            const prob = getUniqueItem('math_problems', mathWordProblems);
             setTimeout(() => speakText(prob.text, 'ru-RU'), 300);
             let options = [...prob.options].sort(() => 0.5 - Math.random());
 
