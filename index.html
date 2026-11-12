@@ -3,12 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Интерактивный тренажер: Английский, Математика и Иврит</title>
+    <title>Интерактивные тренировки для детей</title>
     <style>
         :root {
             --primary: #6366f1;
             --primary-hover: #4f46e5;
-            --accent: #ec4899;
             --success: #10b981;
             --error: #ef4444;
             --bg-gradient: linear-gradient(135deg, #f5f3ff 0%, #ede9fe 100%);
@@ -58,7 +57,6 @@
             font-size: 0.95rem;
         }
 
-        /* Stats Bar */
         .stats-bar {
             display: flex;
             justify-content: space-between;
@@ -78,7 +76,6 @@
             gap: 6px;
         }
 
-        /* Menu Selection */
         .menu-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -118,7 +115,6 @@
             font-size: 0.85rem;
         }
 
-        /* Game Screen */
         .game-container {
             background: var(--card-bg);
             border-radius: var(--radius);
@@ -191,7 +187,6 @@
             font-size: 0.95rem;
         }
 
-        /* Компактная сетка вариантов */
         .options-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -286,13 +281,11 @@
             <p>Выбирайте режим и развивайте навыки в игре!</p>
         </header>
 
-        <!-- Stats Bar -->
         <div class="stats-bar" id="statsBar" style="display: none;">
             <div class="stat-item">⭐ Счёт: <span id="scoreVal">0</span></div>
             <div class="stat-item">🔥 Серия: <span id="streakVal">0</span></div>
         </div>
 
-        <!-- Menu Screen -->
         <div id="menuScreen" class="menu-grid">
             <div class="menu-card" onclick="startGame('english')">
                 <div class="icon">🇬🇧</div>
@@ -321,7 +314,6 @@
             </div>
         </div>
 
-        <!-- Game Screen -->
         <div id="gameScreen" class="game-container">
             <button class="back-btn" onclick="returnToMenu()">← Назад в меню</button>
             <div id="gameContent"></div>
@@ -353,81 +345,7 @@
             {en: "Chicken", ru: "Курица", emoji: "🍗"}, {en: "Cookie", ru: "Печенье", emoji: "🍪"},
             {en: "Candy", ru: "Конфета", emoji: "🍬"}, {en: "Ice cream", ru: "Мороженое", emoji: "🍦"},
             {en: "Cake", ru: "Торт", emoji: "🎂"}, {en: "Tea", ru: "Чай", emoji: "🍵"},
-            {en: "Coffee", ru: "Кофе", emoji: "☕"}, {en: "Juice", ru: "Сок", emoji: "🧃"},
-            {en: "Lion", ru: "Лев", emoji: "🦁"}, {en: "Tiger", ru: "Тигр", emoji: "🐅"},
-            {en: "Bear", ru: "Медведь", emoji: "🐻"}, {en: "Wolf", ru: "Волк", emoji: "🐺"},
-            {en: "Fox", ru: "Лиса", emoji: "🦊"}, {en: "Rabbit", ru: "Кролик", emoji: "🐰"},
-            {en: "Mouse", ru: "Мышь", emoji: "🐭"}, {en: "Cow", ru: "Корова", emoji: "🐮"},
-            {en: "Horse", ru: "Лошадь", emoji: "🐴"}, {en: "Pig", ru: "Свинья", emoji: "🐷"},
-            {en: "Sheep", ru: "Овца", emoji: "🐑"}, {en: "Monkey", ru: "Обезьяна", emoji: "🐒"},
-            {en: "Elephant", ru: "Слон", emoji: "🐘"}, {en: "Giraffe", ru: "Жираф", emoji: "🦒"},
-            {en: "Zebra", ru: "Зебра", emoji: "🦓"}, {en: "Frog", ru: "Лягушка", emoji: "🐸"},
-            {en: "Snake", ru: "Змея", emoji: "🐍"}, {en: "Turtle", ru: "Черепаха", emoji: "🐢"},
-            {en: "Bee", ru: "Пчела", emoji: "🐝"}, {en: "Butterfly", ru: "Бабочка", emoji: "🦋"},
-            {en: "Ant", ru: "Муравей", emoji: "🐜"}, {en: "Snail", ru: "Улитка", emoji: "🐌"},
-            {en: "Shirt", ru: "Рубашка", emoji: "👕"}, {en: "Pants", ru: "Брюки", emoji: "👖"},
-            {en: "Dress", ru: "Платье", emoji: "👗"}, {en: "Hat", ru: "Шляпа", emoji: "👒"},
-            {en: "Shoes", ru: "Обувь", emoji: "👟"}, {en: "Boots", ru: "Ботинки", emoji: "🥾"},
-            {en: "Coat", ru: "Пальто", emoji: "🧥"}, {en: "Scarf", ru: "Шарф", emoji: "🧣"},
-            {en: "Gloves", ru: "Перчатки", emoji: "🧤"}, {en: "Socks", ru: "Носки", emoji: "🧦"},
-            {en: "Train", ru: "Поезд", emoji: "🚆"}, {en: "Bus", ru: "Автобус", emoji: "🚌"},
-            {en: "Plane", ru: "Самолет", emoji: "✈️"}, {en: "Ship", ru: "Корабль", emoji: "🚢"},
-            {en: "Bicycle", ru: "Велосипед", emoji: "🚲"}, {en: "Rocket", ru: "Ракета", emoji: "🚀"},
-            {en: "Helicopter", ru: "Вертолет", emoji: "🚁"}, {en: "Truck", ru: "Грузовик", emoji: "🚚"},
-            {en: "School", ru: "Школа", emoji: "🏫"}, {en: "Hospital", ru: "Больница", emoji: "🏥"},
-            {en: "Park", ru: "Парк", emoji: "🏞️"}, {en: "Beach", ru: "Пляж", emoji: "🏖️"},
-            {en: "Mountain", ru: "Гора", emoji: "⛰️"}, {en: "River", ru: "Река", emoji: "🌊"},
-            {en: "Rain", ru: "Дождь", emoji: "🌧️"}, {en: "Snow", ru: "Снег", emoji: "❄️"},
-            {en: "Wind", ru: "Ветер", emoji: "🌬️"}, {en: "Cloud", ru: "Облако", emoji: "☁️"},
-            {en: "Fire", ru: "Огонь", emoji: "🔥"}, {en: "Earth", ru: "Земля", emoji: "🌍"},
-            {en: "Pen", ru: "Ручка", emoji: "🖊️"}, {en: "Pencil", ru: "Карандаш", emoji: "✏️"},
-            {en: "Paper", ru: "Бумага", emoji: "📄"}, {en: "Scissors", ru: "Ножницы", emoji: "✂️"},
-            {en: "Bag", ru: "Сумка", emoji: "🎒"}, {en: "Phone", ru: "Телефон", emoji: "📱"},
-            {en: "Computer", ru: "Компьютер", emoji: "💻"}, {en: "Camera", ru: "Камера", emoji: "📷"},
-            {en: "Guitar", ru: "Гитара", emoji: "🎸"}, {en: "Drum", ru: "Барабан", emoji: "🥁"},
-            {en: "Piano", ru: "Пианино", emoji: "🎹"}, {en: "Radio", ru: "Радио", emoji: "📻"},
-            {en: "Television", ru: "Телевизор", emoji: "📺"}, {en: "Lamp", ru: "Лампа", emoji: "💡"},
-            {en: "Key", ru: "Ключ", emoji: "🔑"}, {en: "Lock", ru: "Замок", emoji: "🔒"},
-            {en: "Gift", ru: "Подарок", emoji: "🎁"}, {en: "Balloon", ru: "Шарик", emoji: "🎈"},
-            {en: "Ring", ru: "Кольцо", emoji: "💍"}, {en: "Crown", ru: "Корона", emoji: "👑"},
-            {en: "Shield", ru: "Щит", emoji: "🛡️"}, {en: "Sword", ru: "Меч", emoji: "⚔️"},
-            {en: "Hammer", ru: "Молоток", emoji: "🔨"}, {en: "Screwdriver", ru: "Отвертка", emoji: "🪛"},
-            {en: "Brush", ru: "Кисть", emoji: "🖌️"}, {en: "Palette", ru: "Палитра", emoji: "🎨"},
-            {en: "Soap", ru: "Мыло", emoji: "🧼"}, {en: "Toothbrush", ru: "Зубная щетка", emoji: "🪥"},
-            {en: "Towel", ru: "Полотенце", emoji: "🧴"}, {en: "Mirror", ru: "Зеркало", emoji: "🪞"},
-            {en: "Spoon", ru: "Ложка", emoji: "🥄"}, {en: "Fork", ru: "Вилка", emoji: "🍴"},
-            {en: "Knife", ru: "Нож", emoji: "🔪"}, {en: "Plate", ru: "Тарелка", emoji: "🍽️"},
-            {en: "Cup", ru: "Чашка", emoji: "☕"}, {en: "Glass", ru: "Стакан", emoji: "🥛"},
-            {en: "Pot", ru: "Кастрюля", emoji: "🍲"}, {en: "Pan", ru: "Сковорода", emoji: "🍳"},
-            {en: "Bucket", ru: "Ведро", emoji: "🪣"}, {en: "Broom", ru: "Метла", emoji: "🧹"},
-            {en: "Trash", ru: "Мусор", emoji: "🗑️"}, {en: "Bone", ru: "Кость", emoji: "🦴"},
-            {en: "Foot", ru: "Нога", emoji: "🦶"}, {en: "Hand", ru: "Рука", emoji: "✋"},
-            {en: "Eye", ru: "Глаз", emoji: "👁️"}, {en: "Ear", ru: "Ухо", emoji: "👂"},
-            {en: "Nose", ru: "Нос", emoji: "👃"}, {en: "Mouth", ru: "Рот", emoji: "👄"},
-            {en: "Tooth", ru: "Зуб", emoji: "🦷"}, {en: "Heart", ru: "Сердце", emoji: "❤️"},
-            {en: "Smile", ru: "Улыбка", emoji: "😊"}, {en: "Tear", ru: "Слеза", emoji: "💧"},
-            {en: "Bomb", ru: "Бомба", emoji: "💣"}, {en: "Ghost", ru: "Призрак", emoji: "👻"},
-            {en: "Alien", ru: "Инопланетянин", emoji: "👽"}, {en: "Robot", ru: "Робот", emoji: "🤖"},
-            {en: "Skull", ru: "Череп", emoji: "💀"}, {en: "Flag", ru: "Флаг", emoji: "🚩"},
-            {en: "Trophy", ru: "Кубок", emoji: "🏆"}, {en: "Medal", ru: "Медаль", emoji: "🥇"},
-            {en: "Ticket", ru: "Билет", emoji: "🎫"}, {en: "Letter", ru: "Письмо", emoji: "✉️"},
-            {en: "Package", ru: "Посылка", emoji: "📦"}, {en: "Money", ru: "Деньги", emoji: "💵"},
-            {en: "Coin", ru: "Монета", emoji: "🪙"}, {en: "Wallet", ru: "Кошелек", emoji: "👛"},
-            {en: "Map", ru: "Карта", emoji: "🗺️"}, {en: "Compass", ru: "Компас", emoji: "🧭"},
-            {en: "Anchor", ru: "Якорь", emoji: "⚓"}, {en: "Tent", ru: "Палатка", emoji: "⛺"},
-            {en: "Bridge", ru: "Мост", emoji: "🌉"}, {en: "Castle", ru: "Замок", emoji: "🏰"},
-            {en: "Factory", ru: "Завод", emoji: "🏭"}, {en: "Church", ru: "Церковь", emoji: "⛪"},
-            {en: "Stadium", ru: "Стадион", emoji: "🏟️"}, {en: "Theater", ru: "Театр", emoji: "🎭"},
-            {en: "Hotel", ru: "Отель", emoji: "🏨"}, {en: "Bank", ru: "Банк", emoji: "🏦"},
-            {en: "Shop", ru: "Магазин", emoji: "🏬"}, {en: "Pharmacy", ru: "Аптека", emoji: "💊"},
-            {en: "Police", ru: "Полиция", emoji: "🚓"}, {en: "Ambulance", ru: "Скорая", emoji: "🚑"},
-            {en: "Firetruck", ru: "Пожарная", emoji: "🚒"}, {en: "Taxi", ru: "Такси", emoji: "🚕"},
-            {en: "Tractor", ru: "Трактор", emoji: "🚜"}, {en: "Scooter", ru: "Самокат", emoji: "🛴"},
-            {en: "Skateboard", ru: "Скейтборд", emoji: "🛹"}, {en: "Sled", ru: "Санки", emoji: "🛷"},
-            {en: "Snowboard", ru: "Сноуборд", emoji: "🏂"}, {en: "Surfboard", ru: "Серф", emoji: "🏄‍♂️"},
-            {en: "Lantern", ru: "Фонарь", emoji: "🏮"}, {en: "Candle", ru: "Свеча", emoji: "🕯️"},
-            {en: "Magnet", ru: "Магнит", emoji: "🧲"}, {en: "Microscope", ru: "Микроскоп", emoji: "🔬"},
-            {en: "Telescope", ru: "Телескоп", emoji: "🔭"}
+            {en: "Coffee", ru: "Кофе", emoji: "☕"}, {en: "Juice", ru: "Сок", emoji: "🧃"}
         ];
 
         const hebrewWords = [
@@ -737,7 +655,7 @@
                         }
                     } else if (currentMode === 'hebrew_reading' || currentMode === 'russian_words') {
                         if (card.textContent.trim() === String(correct)) {
-                            card.classList.add('correct');
+                            card.classList._add('correct');
                         }
                     }
                 }
