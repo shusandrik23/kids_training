@@ -636,7 +636,13 @@ function nextQuestion() {
 // ============================================================
 function picHTML(w, big) {
     if (w.emoji) return `<span class="emoji-pic ${big ? 'big' : ''}">${w.emoji}</span>`;
-    return `<span class="text-pic ${big ? 'big' : ''}">${esc(w.ru)}<span class="text-pic-sound" data-say="${esc(w.ru)}" data-say-lang="ru">🔊</span></span>`;
+    // Кнопка 🔊 — отдельно, сбоку от надписи: нажатие на неё только озвучивает и не выбирает ответ.
+    const len = w.ru.replace(/\s.*/, '').length;   // длина самого длинного первого слова
+    const size = len > 9 ? 'xlong' : len > 5 ? 'long' : '';
+    return `<span class="text-pic-wrap"><span class="text-pic ${big ? 'big' : ''} ${size}" lang="ru">${esc(w.ru)}</span>${sideSay(w.ru, 'ru')}</span>`;
+}
+function sideSay(text, lang) {
+    return `<button type="button" class="side-say" data-say="${esc(text)}" data-say-lang="${lang}" aria-label="Послушать">🔊</button>`;
 }
 function speakBtn(text, lang, small) {
     return `<button class="speak-btn ${small ? 'small' : ''}" data-say="${esc(text)}" data-say-lang="${lang}" aria-label="Послушать">🔊</button>`;
@@ -947,7 +953,7 @@ function genMatch(lang) {
     let html = `<div class="question-box"><div class="question-title"><span class="q-text">Соедини слово и картинку</span></div></div><div class="match-grid">`;
     cards.forEach((c, n) => {
         html += c.type === 'word'
-            ? `<div class="match-card" data-n="${n}"><span class="${langClass(lang)}" ${dirAttr(lang)}>${esc(c.w[lang])}</span><span class="mini-say" data-say="${esc(c.w[lang])}" data-say-lang="${lang}">🔊</span></div>`
+            ? `<div class="match-card" data-n="${n}"><span class="${langClass(lang)}" ${dirAttr(lang)}>${esc(c.w[lang])}</span></div>`
             : `<div class="match-card" data-n="${n}">${picHTML(c.w)}</div>`;
     });
     html += '</div>';
@@ -1018,7 +1024,7 @@ function genFillBlank() {
             <div class="row en-font fill-sentence"><span id="blankSentence">${esc(tpl.en).replace('___', '<span class="blank">___</span>')}</span>
             <button class="speak-btn small" id="blankSpeak" aria-label="Послушать">🔊</button></div></div>`,
         options, correctIdx: options.indexOf(w),
-        renderOption: o => `<span class="en-font word-opt">${esc(o.en)}</span><span class="mini-say" data-say="${esc(o.en)}" data-say-lang="en">🔊</span>`,
+        renderOption: o => `<span class="text-pic-wrap"><span class="en-font word-opt">${esc(o.en)}</span>${sideSay(o.en, 'en')}</span>`,
         onPick: o => speak(o.en, 'en'),
         info: wordInfo(lang, w),
         after: () => {
