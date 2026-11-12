@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fce7f3"/><stop offset="0.5" stop-color="#f3e8ff"/><stop offset="1" stop-color="#dbeafe"/>
+    </linearGradient>
+    <linearGradient id="cream" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fbcfe8"/><stop offset="1" stop-color="#ec4899"/>
+    </linearGradient>
+    <linearGradient id="cup" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#c084fc"/><stop offset="1" stop-color="#9333ea"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="0" fill="url(#bg)"/>
+  <!-- стаканчик -->
+  <path d="M136 270 H376 L344 430 Q340 446 324 446 H188 Q172 446 168 430 Z" fill="url(#cup)"/>
+  <path d="M190 280 L206 440 M256 280 V440 M322 280 L306 440" stroke="#e9d5ff" stroke-width="10" stroke-linecap="round" opacity="0.7"/>
+  <!-- крем -->
+  <ellipse cx="256" cy="262" rx="140" ry="44" fill="#ec4899"/>
+  <path d="M126 262 Q120 200 180 196 Q186 140 250 146 Q300 104 340 160 Q396 168 386 226 Q392 262 256 270 Q126 278 126 262 Z" fill="url(#cream)"/>
+  <!-- вишенка -->
+  <path d="M262 128 Q270 92 300 80" stroke="#065f46" stroke-width="8" fill="none" stroke-linecap="round"/>
+  <circle cx="258" cy="134" r="30" fill="#f43f5e"/>
+  <circle cx="248" cy="124" r="9" fill="#fff" opacity="0.7"/>
+  <!-- посыпка -->
+  <g stroke-width="10" stroke-linecap="round">
+    <line x1="180" y1="222" x2="196" y2="214" stroke="#facc15"/>
+    <line x1="222" y1="190" x2="232" y2="204" stroke="#34d399"/>
+    <line x1="300" y1="196" x2="316" y2="190" stroke="#60a5fa"/>
+    <line x1="334" y1="232" x2="344" y2="244" stroke="#facc15"/>
+    <line x1="262" y1="230" x2="278" y2="236" stroke="#fff"/>
+    <line x1="200" y1="248" x2="212" y2="240" stroke="#60a5fa"/>
+  </g>
+  <!-- звёздочки -->
+  <path d="M90 110 l10 22 24 3 -18 16 5 24 -21 -12 -21 12 5 -24 -18 -16 24 -3z" fill="#facc15"/>
+  <path d="M420 330 l7 15 16 2 -12 11 3 16 -14 -8 -14 8 3 -16 -12 -11 16 -2z" fill="#facc15"/>
+</svg>
