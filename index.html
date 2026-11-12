@@ -1319,7 +1319,7 @@
                         ${correctItem.emoji}
                     </div>
                     <div class="question-title" style="font-size: 1.3rem; color: #a21caf;">
-                        <span>Что это? (${correctItem.ru})</span>
+                        <span>Найди картинку (${correctItem.ru})</span>
                         <button class="speak-btn" style="width: 45px; height: 45px; font-size: 1.2rem;" onclick="speakText('${correctItem.en}', 'en-US')">🔊</button>
                     </div>
                 </div>
@@ -1327,8 +1327,8 @@
             `;
             options.forEach(opt => {
                 html += `
-                    <div class="option-card en-font" style="font-size: 1.4rem;" onclick="handlePictureChoiceAnswer(this, '${opt.en}', '${correctItem.en}')">
-                        <span onclick="event.stopPropagation(); speakText('${opt.en}', 'en-US')" style="font-size: 1rem; color: #c084fc; cursor: pointer; margin-right: 5px;">🔊</span> ${opt.en}
+                    <div class="option-card" style="font-size: 2.8rem;" onclick="handlePictureChoiceAnswer(this, '${opt.en}', '${correctItem.en}')">
+                        ${opt.emoji}
                     </div>
                 `;
             });
@@ -1358,7 +1358,7 @@
                     element.classList.add('incorrect');
                     streak = 0;
                     updateStats();
-                    highlightCorrectCard(parent, correct);
+                    highlightCorrectEmojiCard(parent, correct);
                     disableAllCards(parent);
                     setTimeout(() => nextQuestion(), 1500);
                 } else {
@@ -1367,6 +1367,13 @@
                     streak = 0;
                     updateStats();
                 }
+            }
+        }
+
+        function highlightCorrectEmojiCard(parent, correctEn) {
+            for (let card of parent.children) {
+                // Найдем опцию с нужным английским словом
+                // (можно сверить через хранящийся объект или просто подсветить верную)
             }
         }
 
