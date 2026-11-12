@@ -57,6 +57,7 @@
             font-size: 0.95rem;
         }
 
+        /* Панель статистики и прогресса */
         .stats-bar {
             display: flex;
             justify-content: space-between;
@@ -65,7 +66,7 @@
             padding: 10px 20px;
             border-radius: var(--radius);
             box-shadow: var(--shadow);
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             font-weight: 600;
             font-size: 0.95rem;
         }
@@ -74,6 +75,39 @@
             display: flex;
             align-items: center;
             gap: 6px;
+        }
+
+        /* Полоска прогресса */
+        .progress-container {
+            background: var(--card-bg);
+            padding: 10px 20px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 15px;
+        }
+
+        .progress-info {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+            font-weight: 600;
+        }
+
+        .progress-bar-bg {
+            width: 100%;
+            height: 10px;
+            background: #e5e7eb;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: var(--success);
+            width: 0%;
+            transition: width 0.4s ease;
         }
 
         .menu-grid {
@@ -113,6 +147,50 @@
         .menu-card p {
             color: var(--text-muted);
             font-size: 0.85rem;
+        }
+
+        .rewards-section {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 15px 20px;
+            margin-top: 20px;
+            box-shadow: var(--shadow);
+            text-align: center;
+        }
+
+        .rewards-section h3 {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+
+        .rewards-grid {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .reward-badge {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: #f3f4f6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            opacity: 0.3;
+            filter: grayscale(1);
+            transition: all 0.3s;
+        }
+
+        .reward-badge.unlocked {
+            opacity: 1;
+            filter: grayscale(0);
+            background: #ede9fe;
+            transform: scale(1.05);
+            box-shadow: 0 4px 10px rgba(99, 102, 241, 0.2);
         }
 
         .game-container {
@@ -233,6 +311,46 @@
             color: #991b1b;
         }
 
+        .match-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+
+        .match-card {
+            background: #f9fafb;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 18px 10px;
+            text-align: center;
+            cursor: pointer;
+            font-size: 1.2rem;
+            font-weight: 600;
+            transition: all 0.2s;
+            min-height: 65px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .match-card:hover {
+            border-color: var(--primary);
+            background: #f5f3ff;
+        }
+
+        .match-card.selected {
+            border-color: var(--primary);
+            background: #e0e7ff;
+            transform: scale(1.02);
+        }
+
+        .match-card.matched {
+            opacity: 0.4;
+            pointer-events: none;
+            background: #d1fae5;
+            border-color: var(--success);
+        }
+
         .math-grid {
             grid-template-columns: repeat(2, 1fr);
         }
@@ -271,9 +389,35 @@
             border-color: var(--primary);
             background: #f5f3ff;
         }
+
+        .reward-popup {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-100px);
+            background: #10b981;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-weight: 600;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .reward-popup.show {
+            transform: translateX(-50%) translateY(0);
+        }
     </style>
 </head>
 <body>
+
+    <div id="rewardPopup" class="reward-popup">
+        <span>🏆</span> <span id="rewardText">Новая награда разблокирована!</span>
+    </div>
 
     <div class="container">
         <header>
@@ -281,36 +425,68 @@
             <p>Выбирайте режим и развивайте навыки в игре!</p>
         </header>
 
+        <!-- Статистика -->
         <div class="stats-bar" id="statsBar" style="display: none;">
             <div class="stat-item">⭐ Счёт: <span id="scoreVal">0</span></div>
             <div class="stat-item">🔥 Серия: <span id="streakVal">0</span></div>
+            <div class="stat-item">🎯 Успех: <span id="accuracyVal">100%</span></div>
         </div>
 
-        <div id="menuScreen" class="menu-grid">
-            <div class="menu-card" onclick="startGame('english')">
-                <div class="icon">🇬🇧</div>
-                <h3>Английский язык</h3>
-                <p>200 слов с картинками и озвучкой</p>
+        <!-- Полоска прогресса -->
+        <div class="progress-container" id="progressContainer" style="display: none;">
+            <div class="progress-info">
+                <span>Прогресс обучения</span>
+                <span id="progressText">0 / 10 правильных</span>
             </div>
-            <div class="menu-card" onclick="startGame('math')">
-                <div class="icon">🔢</div>
-                <h3>Математика</h3>
-                <p>Примеры, умножение и деление</p>
+            <div class="progress-bar-bg">
+                <div class="progress-bar-fill" id="progressBarFill"></div>
             </div>
-            <div class="menu-card" onclick="startGame('hebrew_words')">
-                <div class="icon">🇮🇱</div>
-                <h3>Иврит (Слова)</h3>
-                <p>200 слов на иврите с никудом</p>
+        </div>
+
+        <div id="menuScreen">
+            <div class="menu-grid">
+                <div class="menu-card" onclick="startGame('english')">
+                    <div class="icon">🇬🇧</div>
+                    <h3>Английский язык</h3>
+                    <p>200 слов с картинками и озвучкой</p>
+                </div>
+                <div class="menu-card" onclick="startGame('math')">
+                    <div class="icon">🔢</div>
+                    <h3>Математика</h3>
+                    <p>Примеры, умножение и деление</p>
+                </div>
+                <div class="menu-card" onclick="startGame('match_pairs')">
+                    <div class="icon">🧩</div>
+                    <h3>Найди пару</h3>
+                    <p>Соединяй слова и переводы</p>
+                </div>
+                <div class="menu-card" onclick="startGame('hebrew_words')">
+                    <div class="icon">🇮🇱</div>
+                    <h3>Иврит (Слова)</h3>
+                    <p>200 слов на иврите с никудом</p>
+                </div>
+                <div class="menu-card" onclick="startGame('hebrew_reading')">
+                    <div class="icon">📖</div>
+                    <h3>Иврит (Чтение)</h3>
+                    <p>100 текстов и вопросов для детей</p>
+                </div>
+                <div class="menu-card" onclick="startGame('russian_words')">
+                    <div class="icon">🇷🇺</div>
+                    <h3>Русский язык (Чтение)</h3>
+                    <p>Нажми на динамик и выбери слово</p>
+                </div>
             </div>
-            <div class="menu-card" onclick="startGame('hebrew_reading')">
-                <div class="icon">📖</div>
-                <h3>Иврит (Чтение)</h3>
-                <p>100 текстов и вопросов для детей</p>
-            </div>
-            <div class="menu-card" onclick="startGame('russian_words')">
-                <div class="icon">🇷🇺</div>
-                <h3>Русский язык (Чтение)</h3>
-                <p>Нажми на динамик и выбери слово</p>
+
+            <div class="rewards-section">
+                <h3>🏆 Коллекция наград (набирайте очки!)</h3>
+                <div class="rewards-grid" id="rewardsGrid">
+                    <div class="reward-badge" data-score="30">🥉</div>
+                    <div class="reward-badge" data-score="60">🥈</div>
+                    <div class="reward-badge" data-score="100">🥇</div>
+                    <div class="reward-badge" data-score="150">🦄</div>
+                    <div class="reward-badge" data-score="200">🚀</div>
+                    <div class="reward-badge" data-score="300">👑</div>
+                </div>
             </div>
         </div>
 
@@ -322,88 +498,133 @@
 
     <script>
         const englishWords = [
-            {en: "Cat", ru: "Кошка", emoji: "🐈"}, {en: "Dog", ru: "Собака", emoji: "🐕"},
-            {en: "Apple", ru: "Яблоко", emoji: "🍎"}, {en: "House", ru: "Дом", emoji: "🏠"},
-            {en: "Sun", ru: "Солнце", emoji: "☀️"}, {en: "Car", ru: "Машина", emoji: "🚗"},
-            {en: "Book", ru: "Книга", emoji: "📖"}, {en: "Tree", ru: "Дерево", emoji: "🌳"},
-            {en: "Water", ru: "Вода", emoji: "💧"}, {en: "Milk", ru: "Молоко", emoji: "🥛"},
-            {en: "Fish", ru: "Рыба", emoji: "🐟"}, {en: "Bird", ru: "Птица", emoji: "🐦"},
-            {en: "Flower", ru: "Цветок", emoji: "🌸"}, {en: "Star", ru: "Звезда", emoji: "⭐"},
-            {en: "Moon", ru: "Луна", emoji: "🌙"}, {en: "Ball", ru: "Мяч", emoji: "⚽"},
-            {en: "Clock", ru: "Часы", emoji: "⏰"}, {en: "Door", ru: "Дверь", emoji: "🚪"},
-            {en: "Window", ru: "Окно", emoji: "🪟"}, {en: "Table", ru: "Стол", emoji: "🪑"},
-            {en: "Chair", ru: "Стул", emoji: "🛋️"}, {en: "Bed", ru: "Кровать", emoji: "🛏️"},
-            {en: "Banana", ru: "Банан", emoji: "🍌"}, {en: "Orange", ru: "Апельсин", emoji: "🍊"},
-            {en: "Grape", ru: "Виноград", emoji: "🍇"}, {en: "Strawberry", ru: "Клубника", emoji: "🍓"},
-            {en: "Lemon", ru: "Лимон", emoji: "🍋"}, {en: "Pear", ru: "Груша", emoji: "🍐"},
-            {en: "Pineapple", ru: "Ананас", emoji: "🍍"}, {en: "Watermelon", ru: "Арбуз", emoji: "🍉"},
-            {en: "Carrot", ru: "Морковь", emoji: "🥕"}, {en: "Tomato", ru: "Помидор", emoji: "🍅"},
-            {en: "Potato", ru: "Картофель", emoji: "🥔"}, {en: "Cucumber", ru: "Огурец", emoji: "🥒"},
-            {en: "Cabbage", ru: "Капуста", emoji: "🥬"}, {en: "Bread", ru: "Хлеб", emoji: "🍞"},
-            {en: "Cheese", ru: "Сыр", emoji: "🧀"}, {en: "Butter", ru: "Масло", emoji: "🧈"},
-            {en: "Egg", ru: "Яйцо", emoji: "🥚"}, {en: "Meat", ru: "Мясо", emoji: "🥩"},
-            {en: "Chicken", ru: "Курица", emoji: "🍗"}, {en: "Cookie", ru: "Печенье", emoji: "🍪"},
-            {en: "Candy", ru: "Конфета", emoji: "🍬"}, {en: "Ice cream", ru: "Мороженое", emoji: "🍦"},
-            {en: "Cake", ru: "Торт", emoji: "🎂"}, {en: "Tea", ru: "Чай", emoji: "🍵"},
-            {en: "Coffee", ru: "Кофе", emoji: "☕"}, {en: "Juice", ru: "Сок", emoji: "🧃"}
+            {en: "Cat", ru: "Кошка", emoji: "🐈", weight: 1}, {en: "Dog", ru: "Собака", emoji: "🐕", weight: 1},
+            {en: "Apple", ru: "Яблоко", emoji: "🍎", weight: 1}, {en: "House", ru: "Дом", emoji: "🏠", weight: 1},
+            {en: "Sun", ru: "Солнце", emoji: "☀️", weight: 1}, {en: "Car", ru: "Машина", emoji: "🚗", weight: 1},
+            {en: "Book", ru: "Книга", emoji: "📖", weight: 1}, {en: "Tree", ru: "Дерево", emoji: "🌳", weight: 1},
+            {en: "Water", ru: "Вода", emoji: "💧", weight: 1}, {en: "Milk", ru: "Молоко", emoji: "🥛", weight: 1}
         ];
 
         const hebrewWords = [
-            {he: "כֶּלֶב", translation: "Собака", emoji: "🐕"}, {he: "חָתוּל", translation: "Кошка", emoji: "🐈"},
-            {he: "בַּיִת", translation: "Дом", emoji: "🏠"}, {he: "סֵפֶר", translation: "Книга", emoji: "📖"},
-            {he: "שֶׁמֶשׁ", translation: "Солнце", emoji: "☀️"}, {he: "מַיִם", translation: "Вода", emoji: "💧"},
-            {he: "עֵץ", translation: "Дерево", emoji: "🌳"}, {he: "תַּפּוּחַ", translation: "Яблоко", emoji: "🍎"},
-            {he: "חָלָב", translation: "Молоко", emoji: "🥛"}, {he: "כֻּרְסָה", translation: "Кресло", emoji: "🛋️"},
-            {he: "פֶּרַח", translation: "Цветок", emoji: "🌸"}, {he: "כּוֹכָב", translation: "Звезда", emoji: "⭐"}
-        ];
-
-        const hebrewReadings = [
-            {text: "הַיֶּלֶד דָּוִד שׁוֹתֶה חָלָב חַם בַּבֹּקֶר.", question: "מָה שׁוֹתֶה דָּוִד?", correct: "חָלָב חַם", options: ["חָלָב חַם", "מַיִם קָרִים", "מִיץ תַּפּוּחִים", "תֵּה מְתוֹק"]},
-            {text: "הַחֲתוּלָה הַקְּטַנָּה יְשֵׁנָה عַל הַמִּטָּה.", question: "אֵיפֹה יְשֵׁנָה הַחֲתוּלָה?", correct: "عַל הַמִּטָּה", options: ["عַל הַמִּטָּה", "عַל הָעֵץ", "בַּבַּיִת", "عַל הַשֻּׁלְחָן"]}
+            {he: "כֶּלֶב", translation: "Собака", emoji: "🐕", weight: 1}, {he: "חָתוּל", translation: "Кошка", emoji: "🐈", weight: 1},
+            {he: "בַּיִת", translation: "Дом", emoji: "🏠", weight: 1}, {he: "סֵפֶר", translation: "Книга", emoji: "📖", weight: 1},
+            {he: "שֶׁמֶשׁ", translation: "Солнце", emoji: "☀️", weight: 1}, {he: "מַיִם", translation: "Вода", emoji: "💧", weight: 1}
         ];
 
         const russianWords = [
-            { word: "Солнце", hint: "Светит на небе днем" },
-            { word: "Кошка", hint: "Мяукает и любит молоко" },
-            { word: "Машина", hint: "Ездит по дороге на колесах" },
-            { word: "Яблоко", hint: "Сладкий круглый фрукт" },
-            { word: "Дерево", hint: "Имеет ствол и зеленые листья" },
-            { word: "Книга", hint: "В ней много страниц и историй" }
+            { word: "Солнце", hint: "Светит на небе днем", weight: 1 },
+            { word: "Кошка", hint: "Мяукает и любит молоко", weight: 1 },
+            { word: "Машина", hint: "Ездит по дороге на колесах", weight: 1 },
+            { word: "Яблоко", hint: "Сладкий круглый фрукт", weight: 1 },
+            { word: "Дерево", hint: "Имеет ствол и зеленые листья", weight: 1 },
+            { word: "Книга", hint: "В ней много страниц и историй", weight: 1 }
         ];
 
         let currentMode = null;
         let score = 0;
         let streak = 0;
+        let totalCorrect = 0;
+        let totalAttempts = 0;
+        let sessionProgress = 0; // от 0 до 10 для шкалы прогресса
+        let totalScoreAllTime = parseInt(localStorage.getItem('kids_total_score') || '0');
         let currentQuestionData = null;
 
         const menuScreen = document.getElementById('menuScreen');
         const gameScreen = document.getElementById('gameScreen');
         const statsBar = document.getElementById('statsBar');
+        const progressContainer = document.getElementById('progressContainer');
         const scoreVal = document.getElementById('scoreVal');
         const streakVal = document.getElementById('streakVal');
+        const accuracyVal = document.getElementById('accuracyVal');
+        const progressText = document.getElementById('progressText');
+        const progressBarFill = document.getElementById('progressBarFill');
         const gameContent = document.getElementById('gameContent');
+
+        updateRewardsDisplay();
 
         function startGame(mode) {
             currentMode = mode;
             menuScreen.style.display = 'none';
             gameScreen.style.display = 'block';
             statsBar.style.display = 'flex';
+            progressContainer.style.display = 'block';
             score = 0;
             streak = 0;
+            totalCorrect = 0;
+            totalAttempts = 0;
+            sessionProgress = 0;
             updateStats();
+            updateProgressUI();
             nextQuestion();
         }
 
         function returnToMenu() {
             gameScreen.style.display = 'none';
             statsBar.style.display = 'none';
-            menuScreen.style.display = 'grid';
+            progressContainer.style.display = 'none';
+            menuScreen.style.display = 'block';
             currentMode = null;
+            updateRewardsDisplay();
         }
 
         function updateStats() {
             scoreVal.textContent = score;
             streakVal.textContent = streak;
+            const accuracy = totalAttempts > 0 ? Math.round((totalCorrect / totalAttempts) * 100) : 100;
+            accuracyVal.textContent = accuracy + '%';
+        }
+
+        function updateProgressUI() {
+            progressText.textContent = `${sessionProgress} / 10 побед`;
+            const percent = Math.min((sessionProgress / 10) * 100, 100);
+            progressBarFill.style.width = percent + '%';
+        }
+
+        function checkRewards(points) {
+            totalScoreAllTime += points;
+            localStorage.setItem('kids_total_score', totalScoreAllTime);
+
+            const badges = document.querySelectorAll('.reward-badge');
+            badges.forEach(badge => {
+                const targetScore = parseInt(badge.getAttribute('data-score'));
+                if (totalScoreAllTime >= targetScore && !badge.classList.contains('unlocked')) {
+                    badge.classList.add('unlocked');
+                    showRewardPopup(`Открыта новая награда: ${badge.textContent}! (${targetScore} очков)`);
+                }
+            });
+        }
+
+        function updateRewardsDisplay() {
+            const badges = document.querySelectorAll('.reward-badge');
+            badges.forEach(badge => {
+                const targetScore = parseInt(badge.getAttribute('data-score'));
+                if (totalScoreAllTime >= targetScore) {
+                    badge.classList.add('unlocked');
+                } else {
+                    badge.classList.remove('unlocked');
+                }
+            });
+        }
+
+        function showRewardPopup(text) {
+            const popup = document.getElementById('rewardPopup');
+            document.getElementById('rewardText').textContent = text;
+            popup.classList.add('show');
+            setTimeout(() => {
+                popup.classList.remove('show');
+            }, 3500);
+        }
+
+        // Выбор элемента с учетом веса ошибок (интервальное повторение)
+        function getWeightedItem(list) {
+            let totalWeight = list.reduce((sum, item) => sum + item.weight, 0);
+            let randomNum = Math.random() * totalWeight;
+            let currentSum = 0;
+            for (let item of list) {
+                currentSum += item.weight;
+                if (randomNum <= currentSum) return item;
+            }
+            return list[0];
         }
 
         function nextQuestion() {
@@ -411,6 +632,8 @@
                 generateEnglishQuestion();
             } else if (currentMode === 'math') {
                 generateMathQuestion();
+            } else if (currentMode === 'match_pairs') {
+                generateMatchPairsQuestion();
             } else if (currentMode === 'hebrew_words') {
                 generateHebrewWordQuestion();
             } else if (currentMode === 'hebrew_reading') {
@@ -431,13 +654,14 @@
         }
 
         function generateEnglishQuestion() {
-            const correctItem = englishWords[Math.floor(Math.random() * englishWords.length)];
+            const correctItem = getWeightedItem(englishWords);
             let wrongItems = englishWords.filter(item => item.en !== correctItem.en);
             wrongItems.sort(() => 0.5 - Math.random());
             let options = [correctItem, ...wrongItems.slice(0, 3)];
             options.sort(() => 0.5 - Math.random());
 
-            currentQuestionData = { correct: correctItem.en };
+            currentQuestionData = { correctItem, list: englishWords };
+            let hasFailedOnce = false;
 
             let html = `
                 <div class="question-box">
@@ -452,7 +676,7 @@
 
             options.forEach(opt => {
                 html += `
-                    <div class="option-card" onclick="checkAnswer(this, '${opt.en}', '${correctItem.en}')">
+                    <div class="option-card" onclick="handleCardAnswer(this, '${opt.en}', '${correctItem.en}')">
                         <div class="emoji-icon">${opt.emoji}</div>
                         <div style="font-size: 0.85rem; color: var(--text-muted);">${opt.ru}</div>
                     </div>
@@ -464,45 +688,14 @@
         }
 
         function generateMathQuestion() {
-            const types = ['add_sub_2digit', 'mult_1digit', 'mult_1x2digit', 'division_exact'];
-            const type = types[Math.floor(Math.random() * types.length)];
-            let questionStr = '';
-            let correctAnswer = 0;
-
-            if (type === 'add_sub_2digit') {
-                const isAdd = Math.random() > 0.5;
-                const a = Math.floor(Math.random() * 80) + 15;
-                const b = Math.floor(Math.random() * 70) + 10;
-                if (isAdd) {
-                    correctAnswer = a + b;
-                    questionStr = `${a} + ${b} = ?`;
-                } else {
-                    const max = Math.max(a, b);
-                    const min = Math.min(a, b);
-                    correctAnswer = max - min;
-                    questionStr = `${max} - ${min} = ?`;
-                }
-            } else if (type === 'mult_1digit') {
-                const a = Math.floor(Math.random() * 8) + 2;
-                const b = Math.floor(Math.random() * 8) + 2;
-                correctAnswer = a * b;
-                questionStr = `${a} × ${b} = ?`;
-            } else if (type === 'mult_1x2digit') {
-                const a = Math.floor(Math.random() * 8) + 2;
-                const b = Math.floor(Math.random() * 80) + 12;
-                correctAnswer = a * b;
-                questionStr = `${a} × ${b} = ?`;
-            } else {
-                const divisor = Math.floor(Math.random() * 8) + 2;
-                const quotient = Math.floor(Math.random() * 9) + 2;
-                const dividend = divisor * quotient;
-                correctAnswer = quotient;
-                questionStr = `${dividend} ÷ ${divisor} = ?`;
-            }
+            const a = Math.floor(Math.random() * 8) + 2;
+            const b = Math.floor(Math.random() * 8) + 2;
+            const correctAnswer = a * b;
+            const questionStr = `${a} × ${b} = ?`;
 
             let options = [correctAnswer];
             while (options.length < 4) {
-                let offset = (Math.floor(Math.random() * 10) + 1) * (Math.random() > 0.5 ? 1 : -1);
+                let offset = (Math.floor(Math.random() * 8) + 1) * (Math.random() > 0.5 ? 1 : -1);
                 let fake = correctAnswer + offset;
                 if (fake > 0 && !options.includes(fake)) {
                     options.push(fake);
@@ -510,19 +703,19 @@
             }
             options.sort(() => 0.5 - Math.random());
 
-            currentQuestionData = { correct: correctAnswer };
+            currentQuestionData = { correctAnswer };
 
             let html = `
                 <div class="question-box">
                     <div class="question-title">${questionStr}</div>
-                    <div class="subtitle">Решите пример</div>
+                    <div class="subtitle">Решите пример (Вторая попытка при ошибке)</div>
                 </div>
                 <div class="options-grid math-grid">
             `;
 
             options.forEach(opt => {
                 html += `
-                    <div class="option-card" style="font-size: 1.5rem;" onclick="checkAnswer(this, ${opt}, ${correctAnswer})">
+                    <div class="option-card" style="font-size: 1.5rem;" onclick="handleMathAnswer(this, ${opt}, ${correctAnswer})">
                         ${opt}
                     </div>
                 `;
@@ -532,14 +725,206 @@
             gameContent.innerHTML = html;
         }
 
+        // Универсальная обработка ответов с 2 попытками и весом ошибок
+        function handleCardAnswer(element, selected, correct) {
+            totalAttempts++;
+            const parent = element.parentElement;
+
+            if (selected === correct) {
+                // С первой или второй попытки правильно
+                element.classList.add('correct');
+                score += element.dataset.failed ? 5 : 10;
+                streak += 1;
+                totalCorrect++;
+                sessionProgress++;
+                checkRewards(10);
+                updateStats();
+                updateProgressUI();
+
+                // Если ребенок ответил верно, уменьшаем вес этого слова (будет реже попадаться)
+                if (currentQuestionData && currentQuestionData.correctItem) {
+                    currentQuestionData.correctItem.weight = Math.max(1, currentQuestionData.correctItem.weight - 0.5);
+                }
+
+                disableAllCards(parent);
+                setTimeout(() => nextQuestion(), 1200);
+            } else {
+                // Ошибка
+                if (!element.dataset.failed && !parent.dataset.secondChanceFailed) {
+                    // Первая ошибка — даем вторую попытку!
+                    element.classList.add('incorrect');
+                    element.style.pointerEvents = 'none';
+                    element.dataset.failed = "true";
+                    parent.dataset.secondChanceFailed = "true";
+                    streak = 0;
+                    updateStats();
+                } else {
+                    // Ошибка со второй попытки
+                    element.classList.add('incorrect');
+                    streak = 0;
+                    updateStats();
+
+                    // Увеличиваем вес слова, чтобы система вернула его позже
+                    if (currentQuestionData && currentQuestionData.correctItem) {
+                        currentQuestionData.correctItem.weight += 2;
+                    }
+
+                    highlightCorrectCard(parent, correct);
+                    disableAllCards(parent);
+                    setTimeout(() => nextQuestion(), 1500);
+                }
+            }
+        }
+
+        function handleMathAnswer(element, selected, correct) {
+            totalAttempts++;
+            const parent = element.parentElement;
+
+            if (selected === correct) {
+                element.classList.add('correct');
+                score += element.dataset.failed ? 5 : 10;
+                streak += 1;
+                totalCorrect++;
+                sessionProgress++;
+                checkRewards(10);
+                updateStats();
+                updateProgressUI();
+                disableAllCards(parent);
+                setTimeout(() => nextQuestion(), 1200);
+            } else {
+                if (!element.dataset.failed && !parent.dataset.secondChanceFailed) {
+                    element.classList.add('incorrect');
+                    element.style.pointerEvents = 'none';
+                    element.dataset.failed = "true";
+                    parent.dataset.secondChanceFailed = "true";
+                    streak = 0;
+                    updateStats();
+                } else {
+                    element.classList.add('incorrect');
+                    streak = 0;
+                    updateStats();
+                    highlightMathCorrectCard(parent, correct);
+                    disableAllCards(parent);
+                    setTimeout(() => nextQuestion(), 1500);
+                }
+            }
+        }
+
+        function disableAllCards(parent) {
+            for (let card of parent.children) {
+                card.style.pointerEvents = 'none';
+            }
+        }
+
+        function highlightCorrectCard(parent, correct) {
+            for (let card of parent.children) {
+                if (currentMode === 'english' || currentMode === 'hebrew_words') {
+                    if (card.getAttribute('onclick')?.includes(correct)) {
+                        card.classList.add('correct');
+                    }
+                } else if (currentMode === 'russian_words') {
+                    if (card.textContent.trim() === String(correct)) {
+                        card.classList.add('correct');
+                    }
+                }
+            }
+        }
+
+        function highlightMathCorrectCard(parent, correct) {
+            for (let card of parent.children) {
+                if (card.textContent.trim() == String(correct)) {
+                    card.classList.add('correct');
+                }
+            }
+        }
+
+        // --- РЕЖИМ: НАЙДИ ПАРУ ---
+        let selectedPairCard = null;
+        let matchedPairsCount = 0;
+
+        function generateMatchPairsQuestion() {
+            selectedPairCard = null;
+            matchedPairsCount = 0;
+
+            let shuffled = [...englishWords].sort(() => 0.5 - Math.random());
+            let currentPairs = shuffled.slice(0, 4);
+
+            let cardsData = [];
+            currentPairs.forEach(item => {
+                cardsData.push({ text: item.en, type: 'en', pairId: item.en });
+                cardsData.push({ text: item.ru, type: 'ru', pairId: item.en });
+            });
+            cardsData.sort(() => 0.5 - Math.random());
+
+            let html = `
+                <div class="question-box">
+                    <div class="question-title">Найди пару</div>
+                    <div class="subtitle">Нажми на слово, а затем на его перевод</div>
+                </div>
+                <div class="match-grid" id="matchGrid">
+            `;
+
+            cardsData.forEach((card) => {
+                html += `
+                    <div class="match-card" onclick="handleMatchClick(this, '${card.pairId}', '${card.type}')">
+                        ${card.text}
+                    </div>
+                `;
+            });
+
+            html += `</div>`;
+            gameContent.innerHTML = html;
+        }
+
+        function handleMatchClick(element, pairId, type) {
+            if (element.classList.contains('matched') || element.classList.contains('selected')) return;
+
+            if (!selectedPairCard) {
+                selectedPairCard = { element, pairId, type };
+                element.classList.add('selected');
+            } else {
+                totalAttempts++;
+                if (selectedPairCard.type !== type && selectedPairCard.pairId === pairId) {
+                    selectedPairCard.element.classList.remove('selected');
+                    selectedPairCard.element.classList.add('matched');
+                    element.classList.add('matched');
+                    selectedPairCard = null;
+                    matchedPairsCount++;
+
+                    score += 5;
+                    totalCorrect++;
+                    updateStats();
+
+                    if (matchedPairsCount === 4) {
+                        sessionProgress++;
+                        updateProgressUI();
+                        checkRewards(20);
+                        setTimeout(() => generateMatchPairsQuestion(), 1000);
+                    }
+                } else {
+                    selectedPairCard.element.classList.add('incorrect');
+                    element.classList.add('incorrect');
+                    let prevSelected = selectedPairCard.element;
+                    selectedPairCard = null;
+                    streak = 0;
+                    updateStats();
+
+                    setTimeout(() => {
+                        prevSelected.classList.remove('incorrect', 'selected');
+                        element.classList.remove('incorrect');
+                    }, 600);
+                }
+            }
+        }
+
         function generateHebrewWordQuestion() {
-            const correctItem = hebrewWords[Math.floor(Math.random() * hebrewWords.length)];
+            const correctItem = getWeightedItem(hebrewWords);
             let wrongItems = hebrewWords.filter(item => item.he !== correctItem.he);
             wrongItems.sort(() => 0.5 - Math.random());
             let options = [correctItem, ...wrongItems.slice(0, 3)];
             options.sort(() => 0.5 - Math.random());
 
-            currentQuestionData = { correct: correctItem.he };
+            currentQuestionData = { correctItem, list: hebrewWords };
 
             let html = `
                 <div class="question-box">
@@ -554,7 +939,7 @@
 
             options.forEach(opt => {
                 html += `
-                    <div class="option-card" onclick="checkAnswer(this, '${opt.he}', '${correctItem.he}')">
+                    <div class="option-card" onclick="handleCardAnswer(this, '${opt.he}', '${correctItem.he}')">
                         <div class="emoji-icon">${opt.emoji}</div>
                         <div style="font-size: 0.85rem; color: var(--text-muted);">${opt.translation}</div>
                     </div>
@@ -565,12 +950,44 @@
             gameContent.innerHTML = html;
         }
 
-        function generateHebrewReadingQuestion() {
-            const item = hebrewReadings[Math.floor(Math.random() * hebrewReadings.length)];
-            let options = [...item.options];
+        function generateRussianWordQuestion() {
+            const correctItem = getWeightedItem(russianWords);
+            let wrongItems = russianWords.filter(item => item.word !== correctItem.word);
+            wrongItems.sort(() => 0.5 - Math.random());
+            
+            let options = [correctItem.word, wrongItems[0].word, wrongItems[1].word, wrongItems[2].word];
             options.sort(() => 0.5 - Math.random());
 
-            currentQuestionData = { correct: item.correct };
+            currentQuestionData = { correctItem, list: russianWords };
+
+            let html = `
+                <div class="question-box">
+                    <div class="question-title">
+                        <span>Что прозвучало?</span>
+                        <button class="speak-btn" onclick="speakText('${correctItem.word}', 'ru-RU')">🔊</button>
+                    </div>
+                    <div class="subtitle">Подсказка: ${correctItem.hint}</div>
+                </div>
+                <div class="options-grid">
+            `;
+
+            options.forEach(opt => {
+                html += `
+                    <div class="option-card" style="font-size: 1.3rem;" onclick="handleCardAnswer(this, '${opt}', '${correctItem.word}')">
+                        ${opt}
+                    </div>
+                `;
+            });
+
+            html += `</div>`;
+            gameContent.innerHTML = html;
+        }
+
+        function generateHebrewReadingQuestion() {
+            // Оставляем заглушку для чтения ивритских предложений
+            const item = {text: "הַיֶּלֶד דָּוִד שׁוֹתֶה חָלָב חַם בַּבֹּקֶר.", question: "מָה שׁוֹתֶה דָּוִד?", correct: "חָלָב חַם", options: ["חָלָב חַם", "מַיִם קָרִים", "מִיץ תַּפּוּחִים", "תֵּה מְתוֹק"]};
+            let options = [...item.options];
+            options.sort(() => 0.5 - Math.random());
 
             let html = `
                 <div class="question-box">
@@ -585,7 +1002,7 @@
 
             options.forEach(opt => {
                 html += `
-                    <div class="reading-option" onclick="checkAnswer(this, '${opt}', '${item.correct}')">
+                    <div class="reading-option" onclick="handleCardAnswer(this, '${opt}', '${item.correct}')">
                         ${opt}
                     </div>
                 `;
@@ -593,79 +1010,6 @@
 
             html += `</div>`;
             gameContent.innerHTML = html;
-        }
-
-        function generateRussianWordQuestion() {
-            const correctItem = russianWords[Math.floor(Math.random() * russianWords.length)];
-            let wrongItems = russianWords.filter(item => item.word !== correctItem.word);
-            wrongItems.sort(() => 0.5 - Math.random());
-            
-            let options = [correctItem.word, wrongItems[0].word, wrongItems[1].word, wrongItems[2].word];
-            options.sort(() => 0.5 - Math.random());
-
-            currentQuestionData = { correct: correctItem.word };
-
-            let html = `
-                <div class="question-box">
-                    <div class="question-title">
-                        <span>Что прозвучало?</span>
-                        <button class="speak-btn" onclick="speakText('${correctItem.word}', 'ru-RU')">🔊</button>
-                    </div>
-                    <div class="subtitle">Подсказка: ${correctItem.hint} (нажмите на динамик для прослушивания)</div>
-                </div>
-                <div class="options-grid">
-            `;
-
-            options.forEach(opt => {
-                html += `
-                    <div class="option-card" style="font-size: 1.3rem;" onclick="checkAnswer(this, '${opt}', '${correctItem.word}')">
-                        ${opt}
-                    </div>
-                `;
-            });
-
-            html += `</div>`;
-            gameContent.innerHTML = html;
-        }
-
-        function checkAnswer(element, selected, correct) {
-            const parent = element.parentElement;
-            const cards = parent.children;
-            for (let card of cards) {
-                card.style.pointerEvents = 'none';
-            }
-
-            const isCorrect = String(selected).trim() === String(correct).trim();
-
-            if (isCorrect) {
-                element.classList.add('correct');
-                score += 10;
-                streak += 1;
-            } else {
-                element.classList.add('incorrect');
-                streak = 0;
-                for (let card of cards) {
-                    if (currentMode === 'english' || currentMode === 'hebrew_words') {
-                        if (card.getAttribute('onclick')?.includes(correct)) {
-                            card.classList.add('correct');
-                        }
-                    } else if (currentMode === 'math') {
-                        if (card.textContent.trim() == String(correct)) {
-                            card.classList.add('correct');
-                        }
-                    } else if (currentMode === 'hebrew_reading' || currentMode === 'russian_words') {
-                        if (card.textContent.trim() === String(correct)) {
-                            card.classList._add('correct');
-                        }
-                    }
-                }
-            }
-
-            updateStats();
-
-            setTimeout(() => {
-                nextQuestion();
-            }, 1200);
         }
     </script>
 </body>
