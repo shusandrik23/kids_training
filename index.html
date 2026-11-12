@@ -727,16 +727,13 @@
             {en: "Mountain", ru: "Гора", emoji: "⛰️"}, {en: "Road", ru: "Дорога", emoji: "🛣️"}
         ];
 
-        let counter = 1;
         while (englishWords.length < 500) {
-            let template = extraTopics[(englishWords.length) % extraTopics.length];
-            let suffix = Math.floor(englishWords.length / extraTopics.length);
+            let template = extraTopics[englishWords.length % extraTopics.length];
             englishWords.push({
-                en: suffix > 1 ? `${template.en}${counter}` : `${template.en}_${counter}`,
-                ru: `${template.ru} (${counter})`,
+                en: template.en,
+                ru: template.ru,
                 emoji: template.emoji
             });
-            counter++;
         }
 
         const baseHebrewWords = [
@@ -756,16 +753,13 @@
             {he: "כִּבְשָׂה", translation: "Овца", emoji: "🐑"}, {he: "בַּתָּך", translation: "Утка", emoji: "🦆"}
         ];
 
-        let hebrewCounter = 1;
         while (hebrewWords.length < 500) {
-            let template = extraHebrewTopics[(hebrewWords.length) % extraHebrewTopics.length];
-            let suffix = Math.floor(hebrewWords.length / extraHebrewTopics.length);
+            let template = extraHebrewTopics[hebrewWords.length % extraHebrewTopics.length];
             hebrewWords.push({
-                he: `${template.he} ${hebrewCounter}`,
-                translation: `${template.translation} (${hebrewCounter})`,
+                he: template.he,
+                translation: template.translation,
                 emoji: template.emoji
             });
-            hebrewCounter++;
         }
 
         const russianWords = [
@@ -1076,7 +1070,6 @@
             }
         }
 
-        // НОВЫЙ РЕЖИМ: НАЙДИ БУКВУ ГОЛОСОМ
         function generateFindLetterQuestion(lettersArray, lang) {
             let shuffled = [...lettersArray].sort(() => 0.5 - Math.random());
             let correctLetter = shuffled[0];
@@ -1105,7 +1098,6 @@
             gameContent.innerHTML = html;
         }
 
-        // НОВЫЙ РЕЖИМ: НАЙДИ СЛОГ ГОЛОСОМ
         function generateFindSyllableQuestion(syllablesArray, lang) {
             let shuffled = [...syllablesArray].sort(() => 0.5 - Math.random());
             let correctSyllable = shuffled[0];
@@ -1134,7 +1126,6 @@
             gameContent.innerHTML = html;
         }
 
-        // НОВЫЙ РЕЖИМ: СОСТАВЬ СЛОВО ИЗ СЛОГОВ ПО СЛУХУ
         let currentSyllableWordObj = null;
         let userConstructedSyllables = [];
 
@@ -1639,7 +1630,7 @@
             let cardsData = [];
             currentPairs.forEach(item => {
                 cardsData.push({ text: item.en, type: 'en', pairId: item.en });
-                cardsData.push({ text: item.ru, type: 'ru', pairId: item.en, emoji: item.emoji });
+                cardsData.push({ text: item.emoji, type: 'ru', pairId: item.en });
             });
             cardsData.sort(() => 0.5 - Math.random());
 
@@ -1659,7 +1650,7 @@
                 } else {
                     html += `
                         <div class="match-card" onclick="handleMatchClick(this, '${card.pairId}', '${card.type}')">
-                            <span style="font-size:2rem;">${card.emoji}</span>
+                            <span style="font-size:2.4rem;">${card.text}</span>
                         </div>
                     `;
                 }
