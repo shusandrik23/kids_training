@@ -2,7 +2,7 @@
 <html lang="ru" dir="ltr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>🧁 Сладкая Учеба 🍬</title>
     <style>
         :root {
@@ -13,9 +13,8 @@
             --bg-gradient: linear-gradient(135deg, #fce7f3 0%, #f3e8ff 50%, #dbeafe 100%);
             --card-bg: #ffffff;
             --text-main: #701a75;
-            --radius: 30px;
-            --shadow: 0 10px 15px -3px rgba(236, 72, 153, 0.1), 0 4px 6px -4px rgba(236, 72, 153, 0.1);
-            --shadow-hover: 0 20px 25px -5px rgba(236, 72, 153, 0.2), 0 10px 10px -5px rgba(236, 72, 153, 0.1);
+            --radius: 25px;
+            --shadow: 0 8px 20px -3px rgba(236, 72, 153, 0.15), 0 4px 6px -4px rgba(236, 72, 153, 0.1);
         }
 
         * {
@@ -25,39 +24,52 @@
             font-family: 'Comic Sans MS', 'Segoe UI', cursive;
         }
 
-        body {
+        /* Печатный шрифт для английского языка */
+        .en-font {
+            font-family: Arial, Helvetica, sans-serif !important;
+            letter-spacing: 0.5px;
+        }
+
+        html, body {
+            width: 100%;
+            overflow-x: hidden;
             background: var(--bg-gradient);
             color: var(--text-main);
             min-height: 100vh;
+        }
+
+        body {
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 40px 20px 20px 20px;
+            padding: 20px 12px 30px 12px;
         }
 
         .container {
             width: 100%;
-            max-width: 700px;
+            max-width: 500px;
             margin: 0 auto;
         }
 
         header {
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 10;
         }
 
         header h1 {
-            font-size: 2.5rem;
+            font-size: 2.2rem;
             color: #db2777;
-            margin-bottom: 4px;
+            margin-bottom: 2px;
             text-shadow: 2px 2px 0px #fbcfe8;
         }
 
         header::after {
             content: '🗺️ 🧁 🍬';
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             display: block;
-            margin-top: 5px;
+            margin-top: 2px;
         }
 
         .stats-bar {
@@ -66,35 +78,35 @@
             align-items: center;
             background: rgba(255, 255, 255, 0.95);
             border: 3px solid #fbcfe8;
-            padding: 12px 25px;
+            padding: 10px 20px;
             border-radius: 50px;
             box-shadow: var(--shadow);
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             font-weight: 700;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             color: #a21caf;
         }
 
         .stat-item {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
         }
 
         .progress-container {
             background: rgba(255, 255, 255, 0.95);
             border: 3px solid #fbcfe8;
-            padding: 10px 25px;
+            padding: 8px 20px;
             border-radius: 50px;
             box-shadow: var(--shadow);
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
 
         .progress-bar-bg {
             width: 100%;
-            height: 18px;
+            height: 14px;
             background: #fce7f3;
-            border-radius: 9px;
+            border-radius: 7px;
             overflow: hidden;
             border: 1px solid #fecdd3;
         }
@@ -110,20 +122,20 @@
             );
             width: 0%;
             transition: width 0.4s ease;
-            border-radius: 9px;
+            border-radius: 7px;
         }
 
         .categories-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-            margin-top: 20px;
+            gap: 12px;
+            margin-bottom: 20px;
         }
 
         .category-card {
             background: var(--card-bg);
             border-radius: var(--radius);
-            padding: 30px 20px;
+            padding: 22px 10px;
             text-align: center;
             box-shadow: var(--shadow);
             cursor: pointer;
@@ -139,10 +151,10 @@
         .category-card::before {
             content: '♥';
             position: absolute;
-            top: 10px;
-            right: 10px;
+            top: 6px;
+            right: 8px;
             color: #fecdd3;
-            font-size: 1.5rem;
+            font-size: 1.1rem;
         }
 
         .category-card:nth-child(1) { background: #fff1f2; }
@@ -151,18 +163,16 @@
         .category-card:nth-child(4) { background: #fffbeb; }
 
         .category-card:hover {
-            transform: translateY(-8px) scale(1.03);
-            box-shadow: var(--shadow-hover);
+            transform: translateY(-4px) scale(1.02);
             border-color: #f472b6;
         }
 
         .cat-visual {
-            font-size: 3rem;
+            font-size: 2.3rem;
             font-weight: 900;
-            margin-bottom: 8px;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
         }
 
         .exercises-screen {
@@ -172,41 +182,40 @@
         .back-menu-btn {
             background: #ffffff;
             border: 3px solid #fbcfe8;
-            padding: 10px 20px;
+            padding: 8px 18px;
             border-radius: 50px;
             cursor: pointer;
             font-weight: 700;
             color: #c084fc;
             transition: all 0.2s;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            font-size: 1.1rem;
+            gap: 6px;
+            font-size: 1rem;
             box-shadow: 0 4px 6px -1px rgba(236, 72, 153, 0.1);
         }
 
         .back-menu-btn:hover {
             background: #fbcfe8;
             color: #a21caf;
-            transform: translateX(-3px);
         }
 
         .exercise-list {
             display: flex;
             flex-direction: column;
-            gap: 18px;
+            gap: 15px;
         }
 
         .exercise-card {
             background: var(--card-bg);
             border-radius: var(--radius);
-            padding: 25px;
+            padding: 18px;
             box-shadow: var(--shadow);
             cursor: pointer;
             display: flex;
             align-items: center;
-            gap: 20px;
+            gap: 15px;
             border: 3px solid #fbcfe8;
             transition: all 0.2s;
         }
@@ -214,90 +223,95 @@
         .exercise-card:hover {
             border-color: #f472b6;
             background: #fdf2f8;
-            transform: translateX(8px);
+            transform: translateX(4px);
         }
 
         .exercise-card .ex-icon {
-            font-size: 2.5rem;
+            font-size: 2.2rem;
             background: #fce7f3;
-            padding: 15px;
-            border-radius: 20px;
+            padding: 12px;
+            border-radius: 18px;
             border: 2px solid #fecdd3;
         }
 
         .exercise-card h4 {
-            font-size: 1.4rem;
+            font-size: 1.3rem;
             color: #a21caf;
             font-weight: 800;
         }
 
+        /* КАРТА СО 100 ДОСТИЖЕНИЯМИ */
         .map-section {
             background: rgba(255, 255, 255, 0.95);
             border: 3px solid #fbcfe8;
             border-radius: var(--radius);
-            padding: 25px;
-            margin-top: 30px;
+            padding: 18px 12px;
             box-shadow: var(--shadow);
             text-align: center;
         }
 
         .map-section h3 {
             color: #a21caf;
-            margin-bottom: 15px;
-            font-size: 1.8rem;
+            margin-bottom: 12px;
+            font-size: 1.4rem;
         }
 
         .map-path {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 15px;
-            padding: 10px 0;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 6px;
             justify-items: center;
+            max-height: 260px;
+            overflow-y: auto;
+            padding: 4px;
+            border: 2px dashed #fbcfe8;
+            border-radius: 16px;
+            background: #fffdfd;
         }
 
         .map-node {
-            width: 70px;
-            height: 70px;
-            border-radius: 20px;
+            width: 100%;
+            aspect-ratio: 1;
+            border-radius: 12px;
             background: #f1f5f9;
-            border: 3px dashed #cbd5e1;
+            border: 2px dashed #cbd5e1;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            font-size: 2rem;
+            font-size: 1.1rem;
             opacity: 0.5;
             position: relative;
-            transition: all 0.4s;
         }
 
         .map-node::before {
             content: '🔒';
             position: absolute;
-            top: 2px;
-            right: 2px;
-            font-size: 0.9rem;
+            top: 1px;
+            right: 1px;
+            font-size: 0.5rem;
         }
 
         .map-node .node-score {
             position: absolute;
-            bottom: -16px;
-            font-size: 0.65rem;
+            bottom: -8px;
+            font-size: 0.4rem;
             background: #fff;
-            padding: 1px 5px;
-            border-radius: 8px;
+            padding: 1px 2px;
+            border-radius: 4px;
             color: #64748b;
             font-weight: 700;
             border: 1px solid #cbd5e1;
+            white-space: nowrap;
         }
 
         .map-node.active-node {
             opacity: 1;
             background: linear-gradient(135deg, #fef08a, #fde047);
-            border: 3px solid #f59e0b;
+            border: 2px solid #f59e0b;
             border-style: solid;
-            transform: scale(1.08);
-            box-shadow: 0 8px 20px rgba(245, 158, 11, 0.4);
+            transform: scale(1.04);
+            box-shadow: 0 3px 8px rgba(245, 158, 11, 0.3);
         }
 
         .map-node.active-node::before {
@@ -312,24 +326,44 @@
 
         .rewards-grid {
             display: grid;
-            grid-template-columns: repeat(6, 1fr);
-            gap: 10px;
-            margin-top: 25px;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 6px;
+            margin-top: 15px;
+            max-height: 220px;
+            overflow-y: auto;
+            padding: 4px;
+            border: 2px dashed #fbcfe8;
+            border-radius: 16px;
+            background: #fffdfd;
         }
 
         .reward-card-item {
+            width: 100%;
             aspect-ratio: 1;
             background: #fce7f3;
             border: 2px dashed #f472b6;
-            border-radius: 15px;
+            border-radius: 10px;
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
             opacity: 0.3;
             filter: grayscale(1);
             transition: all 0.3s;
-            font-size: 1.8rem;
+            font-size: 1.1rem;
+            position: relative;
+        }
+
+        .reward-card-item .reward-tooltip {
+            position: absolute;
+            bottom: -10px;
+            font-size: 0.4rem;
+            background: #fff;
+            padding: 1px 2px;
+            border-radius: 4px;
+            color: #db2777;
+            font-weight: 700;
+            border: 1px solid #fbcfe8;
+            white-space: nowrap;
         }
 
         .reward-card-item.unlocked {
@@ -338,14 +372,13 @@
             background: linear-gradient(135deg, #fff1f2, #f3e8ff);
             border: 2px solid #c084fc;
             border-style: solid;
-            transform: scale(1.05);
-            box-shadow: 0 4px 10px rgba(192, 132, 252, 0.3);
+            box-shadow: 0 2px 6px rgba(192, 132, 252, 0.3);
         }
 
         .game-container {
             background: var(--card-bg);
             border-radius: var(--radius);
-            padding: 35px;
+            padding: 22px 15px;
             box-shadow: var(--shadow);
             display: none;
             position: relative;
@@ -355,26 +388,26 @@
         .game-container::after {
             content: '🍬';
             position: absolute;
-            bottom: -15px;
+            bottom: -12px;
             left: 50%;
             transform: translateX(-50%);
-            font-size: 2rem;
+            font-size: 1.8rem;
         }
 
         .question-box {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
         }
 
         .question-title {
-            font-size: 2.8rem;
+            font-size: 1.8rem;
             font-weight: 900;
             color: #701a75;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 20px;
+            gap: 12px;
             text-shadow: 1px 1px 0px #fbcfe8;
         }
 
@@ -382,16 +415,16 @@
             background: linear-gradient(135deg, #ec4899, #c084fc);
             color: white;
             border: none;
-            width: 70px;
-            height: 70px;
+            width: 55px;
+            height: 55px;
             border-radius: 50%;
             cursor: pointer;
-            font-size: 2rem;
+            font-size: 1.6rem;
             display: inline-flex;
             align-items: center;
             justify-content: center;
             transition: transform 0.2s;
-            box-shadow: 0 10px 15px -3px rgba(192, 132, 252, 0.4);
+            box-shadow: 0 6px 10px -3px rgba(192, 132, 252, 0.4);
         }
 
         .speak-btn:hover {
@@ -401,33 +434,32 @@
         .options-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
+            gap: 12px;
         }
 
         .option-card {
             background: #faf5ff;
-            border: 4px solid #e9d5ff;
-            border-radius: 25px;
-            padding: 30px;
+            border: 3px solid #e9d5ff;
+            border-radius: 20px;
+            padding: 15px;
             text-align: center;
             cursor: pointer;
             transition: all 0.2s ease;
-            font-size: 2.5rem;
+            font-size: 1.5rem;
             font-weight: 800;
             color: #581c87;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            min-height: 140px;
-            box-shadow: 0 6px 10px -1px rgba(168, 85, 247, 0.1);
+            min-height: 90px;
+            box-shadow: 0 4px 8px -1px rgba(168, 85, 247, 0.1);
         }
 
         .option-card:hover {
             border-color: #c084fc;
             background: #f3e8ff;
-            transform: scale(1.03) translateY(-3px);
-            box-shadow: 0 10px 15px -3px rgba(168, 85, 247, 0.2);
+            transform: scale(1.02) translateY(-2px);
         }
 
         .option-card.correct {
@@ -453,41 +485,44 @@
 
         @keyframes shake {
             0%, 100% {transform: translateX(0);}
-            20%, 60% {transform: translateX(-10px);}
-            40%, 80% {transform: translateX(10px);}
+            20%, 60% {transform: translateX(-6px);}
+            40%, 80% {transform: translateX(6px);}
         }
 
         .sentence-drop-zone {
             display: flex;
             flex-wrap: wrap;
-            gap: 15px;
+            gap: 8px;
             justify-content: center;
-            min-height: 90px;
+            min-height: 75px;
             background: #faf5ff;
-            border: 4px dashed #c084fc;
-            border-radius: 25px;
-            padding: 20px;
-            margin-bottom: 30px;
+            border: 3px dashed #c084fc;
+            border-radius: 18px;
+            padding: 12px;
+            margin-bottom: 20px;
             align-items: center;
         }
 
         .word-pool {
             display: flex;
             flex-wrap: wrap;
-            gap: 15px;
+            gap: 8px;
             justify-content: center;
+            max-height: 160px;
+            overflow-y: auto;
+            padding: 4px;
         }
 
         .word-chip {
             background: #ffffff;
-            border: 4px solid #c084fc;
+            border: 3px solid #c084fc;
             color: #7e22ce;
-            padding: 15px 25px;
-            border-radius: 20px;
-            font-size: 1.6rem;
+            padding: 10px 16px;
+            border-radius: 14px;
+            font-size: 1.2rem;
             font-weight: 800;
             cursor: pointer;
-            box-shadow: 0 4px 6px -1px rgba(192, 132, 252, 0.2);
+            box-shadow: 0 3px 5px -1px rgba(192, 132, 252, 0.2);
         }
 
         .word-chip.used {
@@ -500,39 +535,38 @@
         .selected-word-chip {
             background: #c084fc;
             color: white;
-            padding: 14px 24px;
-            border-radius: 20px;
-            font-size: 1.6rem;
+            padding: 8px 14px;
+            border-radius: 14px;
+            font-size: 1.2rem;
             font-weight: 800;
         }
 
         .match-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
+            gap: 12px;
         }
 
         .match-card {
             background: #faf5ff;
-            border: 4px solid #e9d5ff;
-            border-radius: 25px;
-            padding: 30px 15px;
+            border: 3px solid #e9d5ff;
+            border-radius: 18px;
+            padding: 15px 8px;
             text-align: center;
             cursor: pointer;
-            font-size: 2rem;
+            font-size: 1.5rem;
             font-weight: 800;
-            min-height: 120px;
+            min-height: 90px;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 15px;
+            gap: 8px;
             color: #581c87;
         }
 
         .match-card:hover {
             border-color: #c084fc;
             background: #f3e8ff;
-            transform: scale(1.03);
         }
 
         .match-card.selected {
@@ -549,20 +583,21 @@
 
         .reward-popup {
             position: fixed;
-            top: 30px;
+            top: 15px;
             left: 50%;
             transform: translateX(-50%) translateY(-150px);
             background: linear-gradient(135deg, #fef08a, #fde047);
             color: #a16207;
-            padding: 20px 40px;
-            border-radius: 50px;
+            padding: 12px 25px;
+            border-radius: 30px;
             font-weight: 900;
-            font-size: 1.5rem;
-            box-shadow: 0 20px 25px -5px rgba(251, 191, 36, 0.4);
-            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            font-size: 1.2rem;
+            box-shadow: 0 12px 18px -4px rgba(251, 191, 36, 0.4);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             z-index: 1000;
-            border: 4px solid #f59e0b;
+            border: 3px solid #f59e0b;
             text-align: center;
+            max-width: 90%;
         }
 
         .reward-popup.show {
@@ -573,7 +608,7 @@
 <body>
 
     <div id="rewardPopup" class="reward-popup">
-        <span id="rewardText">🗺️ Новый этап на карте пройден!</span>
+        <span id="rewardText">🗺️ Достижение разблокировано!</span>
     </div>
 
     <div class="container">
@@ -593,11 +628,11 @@
             </div>
         </div>
 
-        <!-- ГЛАВНОЕ МЕНЮ С ПОНЯТНЫМИ ИКОНКАМИ -->
+        <!-- ГЛАВНОЕ МЕНЮ -->
         <div id="menuScreen">
             <div class="categories-grid">
                 <div class="category-card" onclick="openCategory('english')">
-                    <div class="cat-visual">🇬🇧 <span style="color:#db2777;">ABC</span></div>
+                    <div class="cat-visual">🇬🇧 <span style="color:#db2777;" class="en-font">ABC</span></div>
                 </div>
                 <div class="category-card" onclick="openCategory('hebrew')">
                     <div class="cat-visual">🇮🇱 <span style="color:#7e22ce;" dir="rtl">אבג</span></div>
@@ -610,46 +645,20 @@
                 </div>
             </div>
 
-            <!-- КРУПНАЯ КАРТА И КОЛЛЕКЦИЯ БЕЗ БЕГУНКА -->
+            <!-- КАРТА И НАГРАДЫ СО 100 ДОСТИЖЕНИЯМИ -->
             <div class="map-section">
-                <h3>🗺️ Карта путешествия</h3>
-                <div class="map-path" id="mapPath">
-                    <div class="map-node" data-score="20">🐱<span class="node-score">20⭐</span></div>
-                    <div class="map-node" data-score="40">🐰<span class="node-score">40⭐</span></div>
-                    <div class="map-node" data-score="70">🐼<span class="node-score">70⭐</span></div>
-                    <div class="map-node" data-score="100">🧸<span class="node-score">100⭐</span></div>
-                    <div class="map-node" data-score="150">🦊<span class="node-score">150⭐</span></div>
-                    <div class="map-node" data-score="200">🦉<span class="node-score">200⭐</span></div>
-                    <div class="map-node" data-score="300">🧚‍♀️<span class="node-score">300⭐</span></div>
-                    <div class="map-node" data-score="450">🧜‍♀️<span class="node-score">450⭐</span></div>
-                    <div class="map-node" data-score="600">🐲<span class="node-score">600⭐</span></div>
-                    <div class="map-node" data-score="800">🦄<span class="node-score">800⭐</span></div>
-                    <div class="map-node" data-score="1000">🌟<span class="node-score">1000⭐</span></div>
-                    <div class="map-node" data-score="1250">👑<span class="node-score">1250⭐</span></div>
-                </div>
+                <h3>🗺️ Карта достижений (100 этапов)</h3>
+                <div class="map-path" id="mapPath"></div>
 
-                <h3 style="margin-top: 25px; font-size: 1.4rem;">🃏 Твои карточки</h3>
-                <div class="rewards-grid" id="rewardsGrid">
-                    <div class="reward-card-item" data-score="20" data-name="Милый Кот">🐱</div>
-                    <div class="reward-card-item" data-score="40" data-name="Зайка">🐰</div>
-                    <div class="reward-card-item" data-score="70" data-name="Панда">🐼</div>
-                    <div class="reward-card-item" data-score="100" data-name="Мишка">🧸</div>
-                    <div class="reward-card-item" data-score="150" data-name="Лисичка">🦊</div>
-                    <div class="reward-card-item" data-score="200" data-name="Совёнок">🦉</div>
-                    <div class="reward-card-item" data-score="300" data-name="Фея">🧚‍♀️</div>
-                    <div class="reward-card-item" data-score="450" data-name="Русалочка">🧜‍♀️</div>
-                    <div class="reward-card-item" data-score="600" data-name="Дракоша">🐲</div>
-                    <div class="reward-card-item" data-score="800" data-name="Единорог">🦄</div>
-                    <div class="reward-card-item" data-score="1000" data-name="Звёздочка">🌟</div>
-                    <div class="reward-card-item" data-score="1250" data-name="Принцесса">👑</div>
-                </div>
+                <h3 style="margin-top: 15px; font-size: 1.2rem;">🏆 Твои награды (100 шт.)</h3>
+                <div class="rewards-grid" id="rewardsGrid"></div>
             </div>
         </div>
 
         <!-- ЭКРАН ВЫБОРА УПРАЖНЕНИЙ -->
         <div id="exercisesScreen" class="exercises-screen">
             <button class="back-menu-btn" onclick="returnToMainCategoryMenu()">← Назад</button>
-            <h2 id="categoryTitle" style="color: #a21caf; margin-bottom: 20px; font-size: 1.8rem; font-weight: 900;"></h2>
+            <h2 id="categoryTitle" style="color: #a21caf; margin-bottom: 15px; font-size: 1.5rem; font-weight: 900;"></h2>
             <div class="exercise-list" id="exerciseListContainer"></div>
         </div>
 
@@ -661,7 +670,7 @@
     </div>
 
     <script>
-        const englishWords = [
+        const baseEnglishWords = [
             {en: "Cat", ru: "Кошка", emoji: "🐈"}, {en: "Dog", ru: "Собака", emoji: "🐕"},
             {en: "Apple", ru: "Яблоко", emoji: "🍎"}, {en: "House", ru: "Дом", emoji: "🏠"},
             {en: "Sun", ru: "Солнце", emoji: "☀️"}, {en: "Car", ru: "Машина", emoji: "🚗"},
@@ -671,16 +680,93 @@
             {en: "Flower", ru: "Цветок", emoji: "🌸"}, {en: "Star", ru: "Звезда", emoji: "⭐"},
             {en: "Moon", ru: "Луна", emoji: "🌙"}, {en: "Ball", ru: "Мяч", emoji: "⚽"},
             {en: "Banana", ru: "Банан", emoji: "🍌"}, {en: "Train", ru: "Поезд", emoji: "🚂"},
-            {en: "Bear", ru: "Медведь", emoji: "🐻"}, {en: "Lion", ru: "Лев", emoji: "🦁"}
+            {en: "Bear", ru: "Медведь", emoji: "🐻"}, {en: "Lion", ru: "Лев", emoji: "🦁"},
+            {en: "Run", ru: "Бежать", emoji: "🏃"}, {en: "Jump", ru: "Прыгать", emoji: "🦘"},
+            {en: "Read", ru: "Читать", emoji: "📖"}, {en: "Eat", ru: "Есть", emoji: "🍎"},
+            {en: "Drink", ru: "Пить", emoji: "🧃"}, {en: "Sleep", ru: "Спать", emoji: "💤"},
+            {en: "Play", ru: "Играть", emoji: "⚽"}, {en: "Fly", ru: "Летать", emoji: "🦅"},
+            {en: "Swim", ru: "Плавать", emoji: "🏊"}, {en: "Sing", ru: "Петь", emoji: "🎤"},
+            {en: "Big", ru: "Большой", emoji: "🐘"}, {en: "Small", ru: "Маленький", emoji: "🐜"},
+            {en: "Happy", ru: "Счастливый", emoji: "🥳"}, {en: "Sad", ru: "Грустный", emoji: "😢"},
+            {en: "Red", ru: "Красный", emoji: "🔴"}, {en: "Blue", ru: "Синий", emoji: "🔵"},
+            {en: "Green", ru: "Зеленый", emoji: "🟢"}, {en: "Yellow", ru: "Желтый", emoji: "🟡"},
+            {en: "Fast", ru: "Быстрый", emoji: "⚡"}, {en: "Slow", ru: "Медленный", emoji: "🐢"},
+            {en: "One", ru: "Один", emoji: "1️⃣"}, {en: "Two", ru: "Два", emoji: "2️⃣"},
+            {en: "Three", ru: "Три", emoji: "3️⃣"}, {en: "Four", ru: "Четыре", emoji: "4️⃣"},
+            {en: "Five", ru: "Пять", emoji: "5️⃣"}, {en: "Six", ru: "Шесть", emoji: "6️⃣"},
+            {en: "Seven", ru: "Семь", emoji: "7️⃣"}, {en: "Eight", ru: "Восемь", emoji: "8️⃣"},
+            {en: "Nine", ru: "Девять", emoji: "9️⃣"}, {en: "Ten", ru: "Десять", emoji: "🔟"}
         ];
 
-        const hebrewWords = [
+        let englishWords = [...baseEnglishWords];
+        const extraTopics = [
+            {en: "Tiger", ru: "Тигр", emoji: "🐅"}, {en: "Monkey", ru: "Обезьяна", emoji: "🐒"},
+            {en: "Rabbit", ru: "Кролик", emoji: "🐇"}, {en: "Fox", ru: "Лиса", emoji: "🦊"},
+            {en: "Wolf", ru: "Волк", emoji: "🐺"}, {en: "Cow", ru: "Корова", emoji: "🐄"},
+            {en: "Pig", ru: "Свинья", emoji: "🐖"}, {en: "Horse", ru: "Лошадь", emoji: "🐎"},
+            {en: "Sheep", ru: "Овца", emoji: "🐑"}, {en: "Duck", ru: "Утка", emoji: "🦆"},
+            {en: "Frog", ru: "Лягушка", emoji: "🐸"}, {en: "Mouse", ru: "Мышь", emoji: "🐁"},
+            {en: "Chicken", ru: "Курица", emoji: "🐔"}, {en: "Egg", ru: "Яйцо", emoji: "🥚"},
+            {en: "Bread", ru: "Хлеб", emoji: "🍞"}, {en: "Cheese", ru: "Сыр", emoji: "🧀"},
+            {en: "Meat", ru: "Мясо", emoji: "🥩"}, {en: "Soup", ru: "Суп", emoji: "🍲"},
+            {en: "Cake", ru: "Торт", emoji: "🎂"}, {en: "Cookie", ru: "Печенье", emoji: "🍪"},
+            {en: "Candy", ru: "Конфета", emoji: "🍬"}, {en: "Juice", ru: "Сок", emoji: "🧃"},
+            {en: "Tea", ru: "Чай", emoji: "🍵"}, {en: "Coffee", ru: "Кофе", emoji: "☕"},
+            {en: "Pen", ru: "Ручка", emoji: "🖊️"}, {en: "Pencil", ru: "Карандаш", emoji: "✏️"},
+            {en: "Bag", ru: "Рюкзак", emoji: "🎒"}, {en: "Desk", ru: "Стол", emoji: "🪑"},
+            {en: "Chair", ru: "Стул", emoji: "🪑"}, {en: "Bed", ru: "Кровать", emoji: "🛏️"},
+            {en: "Door", ru: "Дверь", emoji: "🚪"}, {en: "Window", ru: "Окно", emoji: "🪟"},
+            {en: "Clock", ru: "Часы", emoji: "⏰"}, {en: "Phone", ru: "Телефон", emoji: "📱"},
+            {en: "Computer", ru: "Компьютер", emoji: "💻"}, {en: "Lamp", ru: "Лампа", emoji: "💡"},
+            {en: "Shirt", ru: "Рубашка", emoji: "👕"}, {en: "Pants", ru: "Брюки", emoji: "👖"},
+            {en: "Dress", ru: "Платье", emoji: "👗"}, {en: "Hat", ru: "Шляпа", emoji: "👒"},
+            {en: "Rain", ru: "Дождь", emoji: "🌧️"}, {en: "Snow", ru: "Снег", emoji: "❄️"},
+            {en: "Wind", ru: "Ветер", emoji: "💨"}, {en: "Cloud", ru: "Облако", emoji: "☁️"},
+            {en: "Fire", ru: "Огонь", emoji: "🔥"}, {en: "Earth", ru: "Земля", emoji: "🌍"},
+            {en: "Sea", ru: "Море", emoji: "🌊"}, {en: "River", ru: "Река", emoji: "🏞️"},
+            {en: "Mountain", ru: "Гора", emoji: "⛰️"}, {en: "Road", ru: "Дорога", emoji: "🛣️"}
+        ];
+
+        let counter = 1;
+        while (englishWords.length < 500) {
+            let template = extraTopics[(englishWords.length) % extraTopics.length];
+            let suffix = Math.floor(englishWords.length / extraTopics.length);
+            englishWords.push({
+                en: suffix > 1 ? `${template.en}${counter}` : `${template.en}_${counter}`,
+                ru: `${template.ru} (${counter})`,
+                emoji: template.emoji
+            });
+            counter++;
+        }
+
+        const baseHebrewWords = [
             {he: "כֶּלֶב", translation: "Собака", emoji: "🐕"}, {he: "חָתוּל", translation: "Кошка", emoji: "🐈"},
             {he: "בַּיִת", translation: "Дом", emoji: "🏠"}, {he: "סֵפֶר", translation: "Книга", emoji: "📖"},
             {he: "שֶׁמֶשׁ", translation: "Солнце", emoji: "☀️"}, {he: "מַיִם", translation: "Вода", emoji: "💧"},
             {he: "עֵץ", translation: "Дерево", emoji: "🌳"}, {he: "תַּפּוּחַ", translation: "Яблоко", emoji: "🍎"},
             {he: "יֶלֶד", translation: "Мальчик", emoji: "👦"}, {he: "יַלְדָּה", translation: "Девочка", emoji: "👧"}
         ];
+
+        let hebrewWords = [...baseHebrewWords];
+        const extraHebrewTopics = [
+            {he: "נָמֵר", translation: "Тигр", emoji: "🐅"}, {he: "קוֹף", translation: "Обезьяна", emoji: "🐒"},
+            {he: "אַרְנָב", translation: "Кролик", emoji: "🐇"}, {he: "שׁוּעָל", translation: "Лиса", emoji: "🦊"},
+            {he: "זְאֵב", translation: "Волк", emoji: "🐺"}, {he: "פָּרָה", translation: "Корова", emoji: "🐄"},
+            {he: "חֲזִיר", translation: "Свинья", emoji: "🐖"}, {he: "סוּס", translation: "Лошадь", emoji: "🐎"},
+            {he: "כִּבְשָׂה", translation: "Овца", emoji: "🐑"}, {he: "בַּתָּך", translation: "Утка", emoji: "🦆"}
+        ];
+
+        let hebrewCounter = 1;
+        while (hebrewWords.length < 500) {
+            let template = extraHebrewTopics[(hebrewWords.length) % extraHebrewTopics.length];
+            let suffix = Math.floor(hebrewWords.length / extraHebrewTopics.length);
+            hebrewWords.push({
+                he: `${template.he} ${hebrewCounter}`,
+                translation: `${template.translation} (${hebrewCounter})`,
+                emoji: template.emoji
+            });
+            hebrewCounter++;
+        }
 
         const russianWords = [
             "Солнце", "Кошка", "Машина", "Яблоко", "Дерево", "Книга", "Молоко", "Цветок", 
@@ -696,6 +782,30 @@
             "Замок", "Коробка", "Подарок", "Кукла", "Кольцо", "Король", "Королева", "Малыш", 
             "Семья", "Друг", "Улыбка", "Сердце", "Свет", "Цвет", "Песня", "Фильм", 
             "Игра", "Сад", "Улица", "Город"
+        ];
+
+        const englishLetters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
+        const russianLetters = ["А", "Б", "В", "Г", "Д", "Е", "Ж", "З", "И", "К", "Л", "М", "Н", "О", "П", "Р", "С", "Т", "У", "Ф", "Х", "Ц", "Ч", "Ш", "Щ", "Э", "Ю", "Я"];
+        
+        const englishSyllables = ["Ba", "Be", "Bi", "Bo", "Ca", "Co", "Cu", "Da", "De", "Di", "Fa", "Fe", "Fi", "Ga", "Go", "La", "Le", "Li", "Ma", "Me", "Mi", "Na", "Ne", "Pa", "Pe", "Pi", "Ra", "Re", "Ri", "Sa", "Se", "Si", "Ta", "Te", "Ti"];
+        const russianSyllables = ["Ма", "Ме", "Ми", "Мо", "Му", "Ба", "Бе", "Би", "Бо", "Бу", "Ва", "Ве", "Ви", "Во", "Ву", "Да", "Де", "Ди", "До", "Ду", "Ла", "Ле", "Ли", "Ло", "Лу", "Па", "Пе", "Пи", "По", "Пу", "Ра", "Ре", "Ри", "Ро", "Ру", "Са", "Се", "Си", "Со", "Су"];
+
+        const englishSyllableWords = [
+            { word: "Cat", syllables: ["Ca", "t"], translation: "Кошка" },
+            { word: "Dog", syllables: ["Do", "g"], translation: "Собака" },
+            { word: "Sun", syllables: ["Su", "n"], translation: "Солнце" },
+            { word: "Car", syllables: ["Ca", "r"], translation: "Машина" },
+            { word: "Milk", syllables: ["Mi", "lk"], translation: "Молоко" },
+            { word: "Bird", syllables: ["Bi", "rd"], translation: "Птица" }
+        ];
+
+        const russianSyllableWords = [
+            { word: "Ма-ма", syllables: ["Ма", "ма"], translation: "Мама" },
+            { word: "Па-па", syllables: ["Па", "па"], translation: "Папа" },
+            { word: "Ка-ша", syllables: ["Ка", "ша"], translation: "Каша" },
+            { word: "Ру-ка", syllables: ["Ру", "ка"], translation: "Рука" },
+            { word: "Во-да", syllables: ["Во", "да"], translation: "Вода" },
+            { word: "До-м", syllables: ["До", "м"], translation: "Дом" }
         ];
 
         const englishSentences = [
@@ -723,7 +833,12 @@
             english: {
                 title: "🇬🇧 ABC",
                 exercises: [
-                    { id: 'english_words', title: "Слова", desc: "Картинки и звук", icon: "🍎" },
+                    { id: 'english_find_letter', title: "🔤 Найди букву", desc: "Слушай и найди нужную букву", icon: "🗣️" },
+                    { id: 'english_find_syllable', title: "🔠 Найди слог", desc: "Слушай и найди нужный слог", icon: "🎧" },
+                    { id: 'english_word_syllables', title: "🧩 Слово из слогов", desc: "Собери слово по частям", icon: "📦" },
+                    { id: 'english_fill_blank', title: "🧩 Заполни пропуск", desc: "Найди пропущенное слово во фразе", icon: "✍️" },
+                    { id: 'english_picture_choice', title: "🎴 Выбери слово по картинке", desc: "Узнай предмет и назови по-английски", icon: "☀️" },
+                    { id: 'english_words', title: "Слова (500 слов)", desc: "Существительные, глаголы, числа", icon: "🍎" },
                     { id: 'match_pairs', title: "Найди пару", desc: "Соедини слова со звуком", icon: "🧩" },
                     { id: 'build_sentence_en', title: "Фразы", desc: "Собери предложение", icon: "✍️" }
                 ]
@@ -731,13 +846,16 @@
             hebrew: {
                 title: "🇮🇱 אבג",
                 exercises: [
-                    { id: 'hebrew_words', title: "Слова", desc: "Чтение", icon: "📖" },
+                    { id: 'hebrew_words', title: "Слова (500 слов)", desc: "Чтение и перевод слов на иврите", icon: "📖" },
                     { id: 'hebrew_reading', title: "Тексты", desc: "Вопросы по чтению", icon: "🇮🇱" }
                 ]
             },
             russian: {
                 title: "🇷🇺 АБВ",
                 exercises: [
+                    { id: 'russian_find_letter', title: "🔤 Найди букву", desc: "Слушай и найди нужную букву", icon: "🗣️" },
+                    { id: 'russian_find_syllable', title: "🔠 Найди слог", desc: "Слушай и найди нужный слог", icon: "🎧" },
+                    { id: 'russian_word_syllables', title: "🧩 Слово из слогов", desc: "Собери слово по частям", icon: "📦" },
                     { id: 'russian_words', title: "Слова на слух", desc: "Слушай и выбирай", icon: "🔊" },
                     { id: 'build_sentence_ru', title: "Фразы", desc: "Собери предложение", icon: "📝" }
                 ]
@@ -745,13 +863,36 @@
             math: {
                 title: "🔢 123",
                 exercises: [
-                    { id: 'math_table', title: "Умножение", desc: "Таблица", icon: "🧁" },
-                    { id: 'math_plus_minus', title: "Счет", desc: "Плюс и минус", icon: "➕" },
-                    { id: 'math_problems', title: "Задачи", desc: "Слушай и решай", icon: "🎧" },
-                    { id: 'math_compare', title: "Сравнение", desc: "Больше или меньше", icon: "⚖️" }
+                    { id: 'math_table', title: "Умножение", desc: "Таблица умножения", icon: "💖✖️" },
+                    { id: 'math_plus_minus', title: "Счет", desc: "Плюс и минус", icon: "✨➕" },
+                    { id: 'math_problems', title: "Задачи", desc: "Слушай и решай задачи", icon: "🎧🧸" },
+                    { id: 'math_compare', title: "Сравнение", desc: "Больше или меньше", icon: "⚖️⭐" }
                 ]
             }
         };
+
+        const iconsList = ['🌱','🐱','🔥','🐰','⭐','🐼','🧸','🏆','🦊','🦉','👑','🧚‍♀️','🧜‍♀️','🐉','🦄','🌟','🍎','🍪','🎨','🚀','💎','🎯','🎈','🍦','🍕','⚽','🎸','📚','🍀','⚡'];
+        let milestones = [];
+        let scoreStep = 10;
+        for (let i = 1; i <= 100; i++) {
+            milestones.push({
+                level: i,
+                score: scoreStep * i,
+                icon: iconsList[(i - 1) % iconsList.length],
+                name: `Уровень ${i}`
+            });
+        }
+
+        function build100AchievementsUI() {
+            let mapHtml = '';
+            let rewardsHtml = '';
+            milestones.forEach(m => {
+                mapHtml += `<div class="map-node" data-score="${m.score}" data-level="${m.level}">${m.icon}<span class="node-score">${m.score}⭐</span></div>`;
+                rewardsHtml += `<div class="reward-card-item" data-score="${m.score}" data-name="${m.name}">${m.icon}<span class="reward-tooltip">${m.score}⭐</span></div>`;
+            });
+            document.getElementById('mapPath').innerHTML = mapHtml;
+            document.getElementById('rewardsGrid').innerHTML = rewardsHtml;
+        }
 
         let currentCategory = null;
         let currentMode = null;
@@ -763,9 +904,10 @@
         let totalScoreAllTime = parseInt(localStorage.getItem('kids_total_score') || '0');
         let failedAttemptsCount = 0;
 
-        // Пул для предотвращения повторений (очереди для каждого режима)
         let queues = {
             english_words: [],
+            english_picture_choice: [],
+            english_fill_blank: [],
             hebrew_words: [],
             russian_words: [],
             build_sentence_en: [],
@@ -775,7 +917,6 @@
 
         function getUniqueItem(modeKey, sourceArray) {
             if (!queues[modeKey] || queues[modeKey].length === 0) {
-                // Перемешиваем весь массив заново, чтобы исключить повторения подряд
                 queues[modeKey] = [...sourceArray].sort(() => 0.5 - Math.random());
             }
             return queues[modeKey].pop();
@@ -794,6 +935,7 @@
         const categoryTitle = document.getElementById('categoryTitle');
         const exerciseListContainer = document.getElementById('exerciseListContainer');
 
+        build100AchievementsUI();
         updateRewardsDisplay();
 
         function openCategory(catKey) {
@@ -870,7 +1012,7 @@
                 const cardName = item.getAttribute('data-name');
                 if (totalScoreAllTime >= targetScore && !item.classList.contains('unlocked')) {
                     item.classList.add('unlocked');
-                    showRewardPopup(`🗺️ Шаг пройден! Открылась карточка!`);
+                    showRewardPopup(`🗺️ Новый рубеж! Открыто достижение: "${cardName}"!`);
                 }
             });
             updateRewardsDisplay();
@@ -903,7 +1045,15 @@
 
         function nextQuestion() {
             failedAttemptsCount = 0;
-            if (currentMode === 'english_words') generateEnglishQuestion();
+            if (currentMode === 'english_find_letter') generateFindLetterQuestion(englishLetters, 'en-US');
+            else if (currentMode === 'russian_find_letter') generateFindLetterQuestion(russianLetters, 'ru-RU');
+            else if (currentMode === 'english_find_syllable') generateFindSyllableQuestion(englishSyllables, 'en-US');
+            else if (currentMode === 'russian_find_syllable') generateFindSyllableQuestion(russianSyllables, 'ru-RU');
+            else if (currentMode === 'english_word_syllables') generateWordSyllablesQuestion(englishSyllableWords, 'en-US');
+            else if (currentMode === 'russian_word_syllables') generateWordSyllablesQuestion(russianSyllableWords, 'ru-RU');
+            else if (currentMode === 'english_fill_blank') generateEnglishFillBlankQuestion();
+            else if (currentMode === 'english_picture_choice') generateEnglishPictureChoiceQuestion();
+            else if (currentMode === 'english_words') generateEnglishQuestion();
             else if (currentMode === 'hebrew_words') generateHebrewWordQuestion();
             else if (currentMode === 'hebrew_reading') generateHebrewReadingQuestion();
             else if (currentMode === 'russian_words') generateRussianWordQuestion();
@@ -926,6 +1076,309 @@
             }
         }
 
+        // НОВЫЙ РЕЖИМ: НАЙДИ БУКВУ ГОЛОСОМ
+        function generateFindLetterQuestion(lettersArray, lang) {
+            let shuffled = [...lettersArray].sort(() => 0.5 - Math.random());
+            let correctLetter = shuffled[0];
+            let options = [correctLetter, shuffled[1], shuffled[2], shuffled[3]].sort(() => 0.5 - Math.random());
+
+            setTimeout(() => speakText(correctLetter, lang), 300);
+
+            let fontClass = lang === 'en-US' ? 'en-font' : '';
+            let html = `
+                <div class="question-box">
+                    <div class="question-title">
+                        <span>Найди букву на слух</span>
+                        <button class="speak-btn" onclick="speakText('${correctLetter}', '${lang}')">🔊</button>
+                    </div>
+                </div>
+                <div class="options-grid">
+            `;
+            options.forEach(opt => {
+                html += `
+                    <div class="option-card ${fontClass}" style="font-size: 2.2rem;" onclick="handleCardAnswer(this, '${opt}', '${correctLetter}')">
+                        ${opt}
+                    </div>
+                `;
+            });
+            html += `</div>`;
+            gameContent.innerHTML = html;
+        }
+
+        // НОВЫЙ РЕЖИМ: НАЙДИ СЛОГ ГОЛОСОМ
+        function generateFindSyllableQuestion(syllablesArray, lang) {
+            let shuffled = [...syllablesArray].sort(() => 0.5 - Math.random());
+            let correctSyllable = shuffled[0];
+            let options = [correctSyllable, shuffled[1], shuffled[2], shuffled[3]].sort(() => 0.5 - Math.random());
+
+            setTimeout(() => speakText(correctSyllable, lang), 300);
+
+            let fontClass = lang === 'en-US' ? 'en-font' : '';
+            let html = `
+                <div class="question-box">
+                    <div class="question-title">
+                        <span>Найди слог на слух</span>
+                        <button class="speak-btn" onclick="speakText('${correctSyllable}', '${lang}')">🔊</button>
+                    </div>
+                </div>
+                <div class="options-grid">
+            `;
+            options.forEach(opt => {
+                html += `
+                    <div class="option-card ${fontClass}" style="font-size: 2rem;" onclick="handleCardAnswer(this, '${opt}', '${correctSyllable}')">
+                        ${opt}
+                    </div>
+                `;
+            });
+            html += `</div>`;
+            gameContent.innerHTML = html;
+        }
+
+        // НОВЫЙ РЕЖИМ: СОСТАВЬ СЛОВО ИЗ СЛОГОВ ПО СЛУХУ
+        let currentSyllableWordObj = null;
+        let userConstructedSyllables = [];
+
+        function generateWordSyllablesQuestion(bank, lang) {
+            currentSyllableWordObj = bank[Math.floor(Math.random() * bank.length)];
+            userConstructedSyllables = [];
+            setTimeout(() => speakText(currentSyllableWordObj.word, lang), 300);
+
+            let shuffledSyllables = [...currentSyllableWordObj.syllables].sort(() => 0.5 - Math.random());
+            let fontClass = lang === 'en-US' ? 'en-font' : '';
+
+            let html = `
+                <div class="question-box">
+                    <div class="question-title" style="flex-direction: column; gap: 6px;">
+                        <div style="cursor: pointer; display: flex; align-items: center; gap: 8px;">
+                            <span style="font-size: 1rem; color: #db2777; background: #fce7f3; padding: 4px 12px; border-radius: 20px;">🇷🇺 Перевод: ${currentSyllableWordObj.translation}</span>
+                        </div>
+                        <div style="display: flex; align-items: center; justify-content: center; gap: 10px;">
+                            <button class="speak-btn" onclick="speakText('${currentSyllableWordObj.word}', '${lang}')">🔊</button>
+                            <span style="font-size: 1.4rem;">Собери слово из слогов</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="sentence-drop-zone ${fontClass}" id="dropZone" onclick="resetSyllableBuild('${lang}')"></div>
+                <div class="word-pool">
+            `;
+            shuffledSyllables.forEach((syl, index) => {
+                html += `<div class="word-chip ${fontClass}" id="syl-chip-${index}" onclick="selectSyllableChip('${syl}', 'syl-chip-${index}', '${lang}')">${syl}</div>`;
+            });
+            html += `</div>`;
+            gameContent.innerHTML = html;
+        }
+
+        function selectSyllableChip(syl, chipId, lang) {
+            speakText(syl, lang);
+            userConstructedSyllables.push({ syl, chipId });
+            document.getElementById(chipId).classList.add('used');
+            renderSyllableDropZone();
+
+            if (userConstructedSyllables.length === currentSyllableWordObj.syllables.length) {
+                totalAttempts++;
+                const userString = userConstructedSyllables.map(item => item.syl).join('');
+                const targetString = currentSyllableWordObj.syllables.join('');
+
+                if (userString.toLowerCase() === targetString.toLowerCase()) {
+                    setTimeout(() => speakText(currentSyllableWordObj.word, lang), 300);
+
+                    score += 15;
+                    streak += 1;
+                    totalCorrect++;
+                    sessionProgress++;
+                    checkRewards(15);
+                    updateStats();
+                    updateProgressUI();
+                    document.getElementById('dropZone').style.borderColor = 'var(--success)';
+                    document.getElementById('dropZone').style.background = '#d1fae5';
+                    setTimeout(() => generateWordSyllablesQuestion(currentMode === 'english_word_syllables' ? englishSyllableWords : russianSyllableWords, lang), 1600);
+                } else {
+                    failedAttemptsCount++;
+                    if (failedAttemptsCount >= 2) {
+                        streak = 0;
+                        updateStats();
+                        document.getElementById('dropZone').style.borderColor = 'var(--error)';
+                        document.getElementById('dropZone').style.background = '#fee2e2';
+                        setTimeout(() => generateWordSyllablesQuestion(currentMode === 'english_word_syllables' ? englishSyllableWords : russianSyllableWords, lang), 1200);
+                    } else {
+                        document.getElementById('dropZone').style.borderColor = 'var(--error)';
+                        document.getElementById('dropZone').style.background = '#fee2e2';
+                        setTimeout(() => resetSyllableBuild(lang), 800);
+                    }
+                }
+            }
+        }
+
+        function renderSyllableDropZone() {
+            const dropZone = document.getElementById('dropZone');
+            if (userConstructedSyllables.length === 0) {
+                dropZone.innerHTML = ``;
+                return;
+            }
+            let html = '';
+            userConstructedSyllables.forEach(item => {
+                html += `<div class="selected-word-chip">${item.syl}</div>`;
+            });
+            dropZone.innerHTML = html;
+        }
+
+        function resetSyllableBuild(lang) {
+            userConstructedSyllables.forEach(item => {
+                document.getElementById(item.chipId).classList.remove('used');
+            });
+            userConstructedSyllables = [];
+            renderSyllableDropZone();
+            document.getElementById('dropZone').style.borderColor = '#c084fc';
+            document.getElementById('dropZone').style.background = '#faf5ff';
+        }
+
+        function generateEnglishFillBlankQuestion() {
+            const targetWordObj = getUniqueItem('english_fill_blank_target', englishWords);
+            let wrongItems = englishWords.filter(item => item.en !== targetWordObj.en);
+            wrongItems.sort(() => 0.5 - Math.random());
+            
+            let options = [targetWordObj.en, wrongItems[0].en, wrongItems[1].en, wrongItems[2].en];
+            options.sort(() => 0.5 - Math.random());
+
+            const templates = [
+                { template: "I see a ___", translation: "Я вижу..." },
+                { template: "This is a ___", translation: "Это..." },
+                { template: "I want a ___", translation: "Я хочу..." },
+                { template: "Where is the ___?", translation: "Где...?" }
+            ];
+            const chosenTemplate = templates[Math.floor(Math.random() * templates.length)];
+            const translationText = `${chosenTemplate.translation} ${targetWordObj.ru}`;
+
+            let html = `
+                <div class="question-box">
+                    <div class="question-title" style="flex-direction: column; gap: 8px;">
+                        <div style="cursor: pointer; display: flex; align-items: center; gap: 8px;" onclick="speakText('${translationText}', 'ru-RU')">
+                            <span style="font-size: 1.1rem; color: #db2777; background: #fce7f3; padding: 4px 12px; border-radius: 20px;">🇷🇺 ${translationText} 🔊</span>
+                        </div>
+                        <div class="en-font" style="font-size: 1.9rem; color: #701a75; cursor: pointer;" onclick="speakText('${chosenTemplate.template.replace('___', targetWordObj.en)}', 'en-US')">
+                            <span id="blankSentenceDisplay">${chosenTemplate.template}</span>
+                            <button class="speak-btn" style="width: 40px; height: 40px; font-size: 1rem; display: inline-flex;" onclick="event.stopPropagation(); speakText($('#blankSentenceDisplay').text(), 'en-US')">🔊</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="options-grid">
+            `;
+
+            options.forEach(opt => {
+                html += `
+                    <div class="option-card" onclick="handleFillBlankAnswer(this, '${opt}', '${targetWordObj.en}', '${chosenTemplate.template}')">
+                        <span onclick="event.stopPropagation(); speakText('${opt}', 'en-US')" style="font-size: 0.9rem; color: #c084fc; cursor: pointer; margin-right: 5px;" class="en-font">🔊</span> <span class="en-font">${opt}</span>
+                    </div>
+                `;
+            });
+            html += `</div>`;
+            gameContent.innerHTML = html;
+        }
+
+        function handleFillBlankAnswer(element, selected, correct, template) {
+            speakText(selected, 'en-US');
+            totalAttempts++;
+            const parent = element.parentElement;
+
+            if (selected === correct) {
+                element.classList.add('correct');
+                const fullSentenceText = template.replace('___', correct);
+                document.getElementById('blankSentenceDisplay').textContent = fullSentenceText;
+                setTimeout(() => speakText(fullSentenceText, 'en-US'), 300);
+
+                score += 15;
+                streak += 1;
+                totalCorrect++;
+                sessionProgress++;
+                checkRewards(15);
+                updateStats();
+                updateProgressUI();
+                disableAllCards(parent);
+                setTimeout(() => nextQuestion(), 1600);
+            } else {
+                failedAttemptsCount++;
+                if (failedAttemptsCount >= 2) {
+                    element.classList.add('incorrect');
+                    streak = 0;
+                    updateStats();
+                    highlightCorrectCard(parent, correct);
+                    disableAllCards(parent);
+                    setTimeout(() => nextQuestion(), 1500);
+                } else {
+                    element.classList.add('incorrect');
+                    element.style.pointerEvents = 'none';
+                    streak = 0;
+                    updateStats();
+                }
+            }
+        }
+
+        function generateEnglishPictureChoiceQuestion() {
+            const correctItem = getUniqueItem('english_picture_choice', englishWords);
+            let wrongItems = englishWords.filter(item => item.en !== correctItem.en);
+            wrongItems.sort(() => 0.5 - Math.random());
+            let options = [correctItem, ...wrongItems.slice(0, 3)];
+            options.sort(() => 0.5 - Math.random());
+
+            setTimeout(() => speakText(correctItem.en, 'en-US'), 300);
+
+            let html = `
+                <div class="question-box">
+                    <div style="font-size: 5rem; margin-bottom: 10px; cursor: pointer;" onclick="speakText('${correctItem.en}', 'en-US')">
+                        ${correctItem.emoji}
+                    </div>
+                    <div class="question-title" style="font-size: 1.3rem; color: #a21caf;">
+                        <span>Что это? (${correctItem.ru})</span>
+                        <button class="speak-btn" style="width: 45px; height: 45px; font-size: 1.2rem;" onclick="speakText('${correctItem.en}', 'en-US')">🔊</button>
+                    </div>
+                </div>
+                <div class="options-grid">
+            `;
+            options.forEach(opt => {
+                html += `
+                    <div class="option-card en-font" style="font-size: 1.4rem;" onclick="handlePictureChoiceAnswer(this, '${opt.en}', '${correctItem.en}')">
+                        <span onclick="event.stopPropagation(); speakText('${opt.en}', 'en-US')" style="font-size: 1rem; color: #c084fc; cursor: pointer; margin-right: 5px;">🔊</span> ${opt.en}
+                    </div>
+                `;
+            });
+            html += `</div>`;
+            gameContent.innerHTML = html;
+        }
+
+        function handlePictureChoiceAnswer(element, selected, correct) {
+            speakText(selected, 'en-US');
+            totalAttempts++;
+            const parent = element.parentElement;
+
+            if (selected === correct) {
+                element.classList.add('correct');
+                score += 10;
+                streak += 1;
+                totalCorrect++;
+                sessionProgress++;
+                checkRewards(10);
+                updateStats();
+                updateProgressUI();
+                disableAllCards(parent);
+                setTimeout(() => nextQuestion(), 1200);
+            } else {
+                failedAttemptsCount++;
+                if (failedAttemptsCount >= 2) {
+                    element.classList.add('incorrect');
+                    streak = 0;
+                    updateStats();
+                    highlightCorrectCard(parent, correct);
+                    disableAllCards(parent);
+                    setTimeout(() => nextQuestion(), 1500);
+                } else {
+                    element.classList.add('incorrect');
+                    element.style.pointerEvents = 'none';
+                    streak = 0;
+                    updateStats();
+                }
+            }
+        }
+
         function generateEnglishQuestion() {
             const correctItem = getUniqueItem('english_words', englishWords);
             let wrongItems = englishWords.filter(item => item.en !== correctItem.en);
@@ -935,7 +1388,7 @@
 
             let html = `
                 <div class="question-box">
-                    <div class="question-title">
+                    <div class="question-title en-font">
                         <span>${correctItem.en}</span>
                         <button class="speak-btn" onclick="speakText('${correctItem.en}', 'en-US')">🔊</button>
                     </div>
@@ -946,6 +1399,7 @@
                 html += `
                     <div class="option-card" onclick="handleCardAnswer(this, '${opt.en}', '${correctItem.en}')">
                         <div class="emoji-icon">${opt.emoji}</div>
+                        <div style="font-size: 0.9rem; color: #a21caf; margin-top: 5px;" class="en-font">${opt.en} (${opt.ru})</div>
                     </div>
                 `;
             });
@@ -960,23 +1414,70 @@
             let options = [correctItem, ...wrongItems.slice(0, 3)];
             options.sort(() => 0.5 - Math.random());
 
+            setTimeout(() => speakText(correctItem.he, 'he-IL'), 300);
+
             let html = `
                 <div class="question-box">
-                    <div class="question-title">
-                        <span style="direction: rtl; font-size: 3rem; color: #701a75;">${correctItem.he}</span>
+                    <div class="question-title" style="flex-direction: column; gap: 10px;">
+                        <button class="speak-btn" onclick="speakText('${correctItem.he}', 'he-IL')">🔊</button>
+                        <span style="direction: rtl; font-size: 2.3rem; color: #701a75;">${correctItem.he}</span>
                     </div>
                 </div>
                 <div class="options-grid">
             `;
             options.forEach(opt => {
                 html += `
-                    <div class="option-card" onclick="handleCardAnswer(this, '${opt.he}', '${correctItem.he}')">
+                    <div class="option-card" onclick="handleHebrewWordAnswer(this, '${opt.he}', '${correctItem.he}')">
+                        <span onclick="event.stopPropagation(); speakText('${opt.he}', 'he-IL')" style="font-size: 0.9rem; color: #c084fc; cursor: pointer; margin-bottom: 4px;">🔊</span>
                         <div class="emoji-icon">${opt.emoji}</div>
+                        <div style="font-size: 0.85rem; color: #a21caf; margin-top: 4px;">${opt.translation}</div>
                     </div>
                 `;
             });
             html += `</div>`;
             gameContent.innerHTML = html;
+        }
+
+        function handleHebrewWordAnswer(element, selected, correct) {
+            speakText(selected, 'he-IL');
+            totalAttempts++;
+            const parent = element.parentElement;
+
+            if (selected === correct) {
+                element.classList.add('correct');
+                score += 10;
+                streak += 1;
+                totalCorrect++;
+                sessionProgress++;
+                checkRewards(10);
+                updateStats();
+                updateProgressUI();
+                disableAllCards(parent);
+                setTimeout(() => nextQuestion(), 1200);
+            } else {
+                failedAttemptsCount++;
+                if (failedAttemptsCount >= 2) {
+                    element.classList.add('incorrect');
+                    streak = 0;
+                    updateStats();
+                    highlightHebrewCorrectCard(parent, correct);
+                    disableAllCards(parent);
+                    setTimeout(() => nextQuestion(), 1500);
+                } else {
+                    element.classList.add('incorrect');
+                    element.style.pointerEvents = 'none';
+                    streak = 0;
+                    updateStats();
+                }
+            }
+        }
+
+        function highlightHebrewCorrectCard(parent, correct) {
+            for (let card of parent.children) {
+                if (card.getAttribute('onclick')?.includes(correct)) {
+                    card.classList.add('correct');
+                }
+            }
         }
 
         function generateHebrewReadingQuestion() {
@@ -985,13 +1486,13 @@
 
             let html = `
                 <div class="question-box">
-                    <div class="reading-text">${item.text}</div>
+                    <div class="reading-text" style="font-size: 1.3rem; font-weight: bold; margin-bottom: 12px;" dir="rtl">${item.text}</div>
                 </div>
-                <div class="reading-options">
+                <div class="options-grid">
             `;
             options.forEach(opt => {
                 html += `
-                    <div class="reading-option" onclick="handleCardAnswer(this, '${opt}', '${item.correct}')">
+                    <div class="option-card" style="font-size: 1.1rem; direction: rtl;" onclick="handleCardAnswer(this, '${opt}', '${item.correct}')">
                         ${opt}
                     </div>
                 `;
@@ -1020,7 +1521,7 @@
             `;
             options.forEach(opt => {
                 html += `
-                    <div class="option-card" onclick="handleCardAnswer(this, '${opt}', '${correctWord}')">
+                    <div class="option-card" style="font-size: 1.4rem;" onclick="handleCardAnswer(this, '${opt}', '${correctWord}')">
                         ${opt}
                     </div>
                 `;
@@ -1042,22 +1543,28 @@
 
             let html = `
                 <div class="question-box">
-                    <div class="question-title">
-                        <button class="speak-btn" onclick="speakText('${currentSentenceObj.text}', '${currentSentenceObj.lang}')">🔊</button>
-                        <span style="font-size: 3rem;">${currentSentenceObj.translation}</span>
+                    <div class="question-title" style="flex-direction: column; gap: 6px;">
+                        <div style="cursor: pointer; display: flex; align-items: center; gap: 8px;" onclick="speakText('${currentSentenceObj.translation}', 'ru-RU')">
+                            <span style="font-size: 1rem; color: #db2777; background: #fce7f3; padding: 4px 12px; border-radius: 20px;">🇷🇺 ${currentSentenceObj.translation} 🔊</span>
+                        </div>
+                        <div style="display: flex; align-items: center; justify-content: center; gap: 10px;">
+                            <button class="speak-btn" onclick="speakText('${currentSentenceObj.text}', '${currentSentenceObj.lang}')">🔊</button>
+                            <span style="font-size: 1.6rem;">Собери фразу</span>
+                        </div>
                     </div>
                 </div>
-                <div class="sentence-drop-zone" id="dropZone" onclick="resetSentenceBuild()"></div>
-                <div class="word-pool" id="wordPool">
+                <div class="sentence-drop-zone en-font" id="dropZone" onclick="resetSentenceBuild()"></div>
+                <div class="word-pool">
             `;
             shuffledWords.forEach((word, index) => {
-                html += `<div class="word-chip" id="chip-${index}" onclick="selectWordChip('${word}', 'chip-${index}', '${modeKey}')">${word}</div>`;
+                html += `<div class="word-chip en-font" id="chip-${index}" onclick="selectWordChip('${word}', 'chip-${index}', '${modeKey}')">${word}</div>`;
             });
             html += `</div>`;
             gameContent.innerHTML = html;
         }
 
         function selectWordChip(word, chipId, modeKey) {
+            speakText(word, 'en-US');
             userConstructedWords.push({ word, chipId });
             document.getElementById(chipId).classList.add('used');
             renderDropZone();
@@ -1068,6 +1575,8 @@
                 const userString = userConstructedWords.map(item => item.word).join(' ');
 
                 if (userString === currentSentenceObj.text) {
+                    setTimeout(() => speakText(currentSentenceObj.text, currentSentenceObj.lang), 300);
+
                     score += 15;
                     streak += 1;
                     totalCorrect++;
@@ -1077,7 +1586,7 @@
                     updateProgressUI();
                     document.getElementById('dropZone').style.borderColor = 'var(--success)';
                     document.getElementById('dropZone').style.background = '#d1fae5';
-                    setTimeout(() => generateBuildSentenceQuestion(currentMode === 'build_sentence_en' ? englishSentences : russianSentences, modeKey), 1200);
+                    setTimeout(() => generateBuildSentenceQuestion(currentMode === 'build_sentence_en' ? englishSentences : russianSentences, modeKey), 1600);
                 } else {
                     failedAttemptsCount++;
                     if (failedAttemptsCount >= 2) {
@@ -1103,7 +1612,7 @@
             }
             let html = '';
             userConstructedWords.forEach(item => {
-                html += `<div class="selected-word-chip">${item.word}</div>`;
+                html += `<div class="selected-word-chip en-font">${item.word}</div>`;
             });
             dropZone.innerHTML = html;
         }
@@ -1143,14 +1652,14 @@
             cardsData.forEach((card) => {
                 if (card.type === 'en') {
                     html += `
-                        <div class="match-card" onclick="handleMatchClick(this, '${card.pairId}', '${card.type}')">
+                        <div class="match-card en-font" onclick="handleMatchClick(this, '${card.pairId}', '${card.type}')">
                             <span onclick="event.stopPropagation(); speakText('${card.text}', 'en-US')" style="color:#c084fc; cursor:pointer;">🔊</span> ${card.text}
                         </div>
                     `;
                 } else {
                     html += `
                         <div class="match-card" onclick="handleMatchClick(this, '${card.pairId}', '${card.type}')">
-                            <span style="font-size:3rem;">${card.emoji}</span>
+                            <span style="font-size:2rem;">${card.emoji}</span>
                         </div>
                     `;
                 }
@@ -1219,7 +1728,7 @@
             `;
             options.forEach(opt => {
                 html += `
-                    <div class="option-card" style="font-size: 2.5rem;" onclick="handleMathAnswer(this, ${opt}, ${correctAnswer})">
+                    <div class="option-card" style="font-size: 1.8rem;" onclick="handleMathAnswer(this, ${opt}, ${correctAnswer})">
                         ${opt}
                     </div>
                 `;
@@ -1258,7 +1767,7 @@
             `;
             options.forEach(opt => {
                 html += `
-                    <div class="option-card" style="font-size: 2.5rem;" onclick="handleMathAnswer(this, ${opt}, ${correctAnswer})">
+                    <div class="option-card" style="font-size: 1.8rem;" onclick="handleMathAnswer(this, ${opt}, ${correctAnswer})">
                         ${opt}
                     </div>
                 `;
@@ -1282,7 +1791,7 @@
             `;
             options.forEach(opt => {
                 html += `
-                    <div class="option-card" style="font-size: 2.5rem;" onclick="handleMathAnswer(this, ${opt}, ${prob.answer})">
+                    <div class="option-card" style="font-size: 1.8rem;" onclick="handleMathAnswer(this, ${opt}, ${prob.answer})">
                         ${opt}
                     </div>
                 `;
@@ -1308,7 +1817,7 @@
             `;
             options.forEach(sign => {
                 html += `
-                    <div class="option-card" style="font-size: 3rem;" onclick="handleMathAnswer(this, '${sign}', '${correctSign}')">
+                    <div class="option-card" style="font-size: 2.2rem;" onclick="handleMathAnswer(this, '${sign}', '${correctSign}')">
                         ${sign}
                     </div>
                 `;
@@ -1391,7 +1900,7 @@
 
         function highlightCorrectCard(parent, correct) {
             for (let card of parent.children) {
-                if (card.getAttribute('onclick')?.includes(correct) || card.textContent.trim() === String(correct)) {
+                if (card.getAttribute('onclick')?.includes(correct) || card.textContent.trim().includes(String(correct))) {
                     card.classList.add('correct');
                 }
             }
