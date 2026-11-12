@@ -1315,19 +1315,16 @@
 
             let html = `
                 <div class="question-box">
-                    <div style="font-size: 5rem; margin-bottom: 10px; cursor: pointer;" onclick="speakText('${correctItem.en}', 'en-US')">
-                        ${correctItem.emoji}
-                    </div>
-                    <div class="question-title" style="font-size: 1.3rem; color: #a21caf;">
-                        <span>Найди картинку (${correctItem.ru})</span>
-                        <button class="speak-btn" style="width: 45px; height: 45px; font-size: 1.2rem;" onclick="speakText('${correctItem.en}', 'en-US')">🔊</button>
+                    <div class="question-title en-font">
+                        <span>${correctItem.en}</span>
+                        <button class="speak-btn" onclick="speakText('${correctItem.en}', 'en-US')">🔊</button>
                     </div>
                 </div>
                 <div class="options-grid">
             `;
             options.forEach(opt => {
                 html += `
-                    <div class="option-card" style="font-size: 2.8rem;" onclick="handlePictureChoiceAnswer(this, '${opt.en}', '${correctItem.en}')">
+                    <div class="option-card" style="font-size: 2.8rem;" onclick="handlePictureChoiceAnswer(this, '${opt.en}', '${correctItem.en}')" data-en="${opt.en}">
                         ${opt.emoji}
                     </div>
                 `;
@@ -1372,8 +1369,9 @@
 
         function highlightCorrectEmojiCard(parent, correctEn) {
             for (let card of parent.children) {
-                // Найдем опцию с нужным английским словом
-                // (можно сверить через хранящийся объект или просто подсветить верную)
+                if (card.getAttribute('data-en') === correctEn) {
+                    card.classList.add('correct');
+                }
             }
         }
 
