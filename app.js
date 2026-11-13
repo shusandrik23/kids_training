@@ -260,7 +260,7 @@ const MODES = {
     find_letter:    { title: '🔤 Найди букву', desc: 'Слушай и найди букву', icon: '🗣️' },
     find_syllable:  { title: '🔠 Найди слог', desc: 'Слушай и найди слог', icon: '🎧' },
     word_syllables: { title: '🧩 Слово из слогов', desc: 'Собери слово по частям', icon: '📦' },
-    words:          { title: '🖼️ Слова (500 слов)', desc: 'Прочитай слово — найди картинку', icon: '🍎', topics: true },
+    words:          { title: '🖼️ Слова (500 слов)', desc: 'Прочитай сам — найди картинку', icon: '🍎', topics: true },
     picture:        { title: '🎴 Выбери слово по картинке', desc: 'Картинка → слово', icon: '🌞', topics: true },
     listen:         { title: '🔊 Слова на слух', desc: 'Звук → как пишется', icon: '👂', topics: true },
     spell:          { title: '⌨️ Собери слово по буквам', desc: 'Послушай и напиши', icon: '✏️', topics: true, spell: true },
@@ -869,14 +869,14 @@ function genWordToPicture(lang) {
     const pool = wordsForMode('words', lang, currentTopic);
     const w = pickItem(pool, x => wordKey(lang, x));
     const options = shuffle([w, ...distractors(w, pool, 3)]);
-    setTimeout(() => speak(w[lang], lang), 300);
+    // Здесь ребёнок читает сам: слово не озвучивается, пока не дан ответ.
     choiceQuestion({
-        headerHTML: `<div class="question-title"><span class="${langClass(lang)} word-big" ${dirAttr(lang)}>${esc(w[lang])}</span>${speakBtn(w[lang], lang)}</div>`,
+        headerHTML: `<div class="question-title"><span class="${langClass(lang)} word-big" ${dirAttr(lang)}>${esc(w[lang])}</span></div>`,
         options, correctIdx: options.indexOf(w),
         renderOption: o => picHTML(o),
         gridClass: 'pic-grid',
-        onPick: o => speak(o[lang], lang),
-        info: wordInfo(lang, w)
+        info: wordInfo(lang, w),
+        after: () => setTimeout(() => speak(w[lang], lang), 250)
     });
 }
 
