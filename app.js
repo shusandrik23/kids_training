@@ -517,7 +517,17 @@ function updateStats() {
     $('streakVal').textContent = streak;
     $('accuracyVal').textContent = (totalAttempts ? Math.round(totalCorrect / totalAttempts * 100) : 100) + '%';
 }
+// Игры со словами идут без конца; праздник — каждые ROUND_LEN ответов.
+function isEndless() { return !!(MODES[currentMode] && MODES[currentMode].topics); }
+
 function updateProgressUI() {
+    if (isEndless()) {
+        const inTen = sessionProgress % ROUND_LEN;
+        const pct = inTen === 0 && sessionProgress > 0 ? 100 : inTen / ROUND_LEN * 100;
+        $('progressBarFill').style.width = pct + '%';
+        $('progressText').textContent = `♾️ Слов: ${sessionProgress} · до 🎉 ещё ${ROUND_LEN - inTen}`;
+        return;
+    }
     $('progressBarFill').style.width = Math.min(100, sessionProgress / ROUND_LEN * 100) + '%';
     $('progressText').textContent = Math.min(sessionProgress, ROUND_LEN) + ' / ' + ROUND_LEN;
 }
@@ -580,14 +590,34 @@ function answerWrong(el, opts) {
     }
 }
 
-function finishQuestion(delay) {
+// Шаг засчитан: в бесконечном режиме каждые 10 шагов — праздник без остановки игры.
+function stepDone() {
     sessionProgress++;
     updateProgressUI();
+    if (isEndless() && sessionProgress % ROUND_LEN === 0) celebrateMilestone();
+}
+function celebrateMilestone() {
+    const t = today(); t.r++; saveDays();
+    sfx('win');
+    confetti(null, 140);
+    const n = sessionProgress;
+    showToast(`🎉 Ура! Уже ${n} ${plural(n, 'слово', 'слова', 'слов')}! Так держать!`);
+    const flash = document.createElement('div');
+    flash.className = 'ura-flash';
+    flash.textContent = '🎉 Ура! 🎉';
+    document.body.appendChild(flash);
+    setTimeout(() => flash.remove(), 1600);
+}
+function goNext(delay) {
     clearTimeout(advanceTimer);
     advanceTimer = setTimeout(() => {
-        if (sessionProgress >= ROUND_LEN) showRoundEnd();
+        if (!isEndless() && sessionProgress >= ROUND_LEN) showRoundEnd();
         else nextQuestion();
     }, delay);
+}
+function finishQuestion(delay) {
+    stepDone();
+    goNext(isEndless() && sessionProgress % ROUND_LEN === 0 ? Math.max(delay, 1700) : delay);
 }
 
 function showRoundEnd() {
@@ -869,9 +899,12 @@ function genWordToPicture(lang) {
     const pool = wordsForMode('words', lang, currentTopic);
     const w = pickItem(pool, x => wordKey(lang, x));
     const options = shuffle([w, ...distractors(w, pool, 3)]);
-    // Здесь ребёнок читает сам: слово не озвучивается, пока не дан ответ.
+    // Русский и иврит ребёнок читает сам: слово не звучит, пока не дан ответ.
+    // В английском слово озвучивается сразу и есть кнопка 🔊.
+    const withSound = lang === 'en';
+    if (withSound) setTimeout(() => speak(w[lang], lang), 300);
     choiceQuestion({
-        headerHTML: `<div class="question-title"><span class="${langClass(lang)} word-big" ${dirAttr(lang)}>${esc(w[lang])}</span></div>`,
+        headerHTML: `<div class="question-title"><span class="${langClass(lang)} word-big" ${dirAttr(lang)}>${esc(w[lang])}</span>${withSound ? speakBtn(w[lang], lang) : ''}</div>`,
         options, correctIdx: options.indexOf(w),
         renderOption: o => picHTML(o),
         gridClass: 'pic-grid',
@@ -959,7 +992,7 @@ function genSpell(lang) {
 // ============================================================
 function genMatch(lang) {
     const pool = wordsForMode('match', lang, currentTopic);
-    const need = Math.min(5, ROUND_LEN - sessionProgress);
+    const need = isEndless() ? 5 : Math.min(5, ROUND_LEN - sessionProgress);
     const chosen = [];
     while (chosen.length < need) {
         const w = pickItem(pool, x => wordKey(lang, x));
@@ -1001,14 +1034,10 @@ function genMatch(lang) {
                 matched++;
                 if (firstTry[c.i]) { recordItem(wordInfo(lang, c.w), true); firstTryCount++; }
                 answerCorrect(el, { partial: true, pts: 5 });
-                sessionProgress++;
-                updateProgressUI();
+                stepDone();
                 if (matched === chosen.length) {
                     Q.done = true;
-                    clearTimeout(advanceTimer);
-                    advanceTimer = setTimeout(() => {
-                        if (sessionProgress >= ROUND_LEN) showRoundEnd(); else nextQuestion();
-                    }, 900);
+                    goNext(900);
                 }
             } else {
                 a.el.classList.add('incorrect'); el.classList.add('incorrect');

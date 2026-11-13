@@ -991,6 +991,28 @@
         .reading-q-ru { font-size: 0.95rem; color: #a855f7; margin-top: 4px; }
         .problem-text { font-size: 1.1rem; color: #86198f; margin-top: 4px; }
 
+        .ura-flash {
+            position: fixed;
+            left: 50%;
+            top: 42%;
+            transform: translate(-50%, -50%);
+            z-index: 1500;
+            font-size: 3.2rem;
+            font-weight: 900;
+            color: #db2777;
+            text-shadow: 3px 3px 0 #fbcfe8, 0 0 20px #fff;
+            pointer-events: none;
+            white-space: nowrap;
+            animation: uraPop 1.6s ease-out forwards;
+        }
+
+        @keyframes uraPop {
+            0% { transform: translate(-50%, -50%) scale(0.3); opacity: 0; }
+            20% { transform: translate(-50%, -50%) scale(1.15); opacity: 1; }
+            75% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+            100% { transform: translate(-50%, -60%) scale(1); opacity: 0; }
+        }
+
         .round-end { text-align: center; padding: 10px 0 20px; }
         .ura {
             font-size: 3rem;
