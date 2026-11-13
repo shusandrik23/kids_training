@@ -5,7 +5,7 @@
  * увеличьте VERSION. Браузер увидит, что sw.js изменился, скачает всё заново,
  * а старый кэш удалит — так обновление дойдёт до всех телефонов.
  */
-const VERSION = '2.0.5';
+const VERSION = '2.1.0';
 const CACHE = 'sladkaya-ucheba-' + VERSION;
 const ASSETS = [
     './',

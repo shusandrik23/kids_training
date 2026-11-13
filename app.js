@@ -25,6 +25,17 @@ let items = store.get('kt_items', {});      // статистика по сло�
 let days = store.get('kt_days', {});        // по дням: {'2026-11-12': {a, c, sec, r}}
 let settings = Object.assign({ goal: 20, sound: true, onlyPics: false }, store.get('kt_settings', {}));
 let totalScoreAllTime = parseInt(store.get('kids_total_score', 0), 10) || 0;
+let profile = store.get('kt_profile', null);   // {name, gender: 'boy' | 'girl', age}
+
+// Слово по полу ребёнка: g('Молодец', 'Умница')
+function g(boy, girl) { return profile && profile.gender === 'girl' ? girl : boy; }
+function childName() { return profile && profile.name ? profile.name : ''; }
+// Уровень математики по возрасту: 1 — до 6 лет, 2 — 7–8 лет, 3 — 9 и старше
+function mathLevel() {
+    const age = profile && profile.age;
+    if (!age) return 3;
+    return age <= 6 ? 1 : age <= 8 ? 2 : 3;
+}
 
 function saveItems() { store.set('kt_items', items); }
 function saveDays() { store.set('kt_days', days); }
@@ -81,9 +92,37 @@ function findVoice(lang) {
         voices.find(v => norm(v).startsWith(short)) ||
         (short === 'he' ? voices.find(v => norm(v).startsWith('iw')) : null) || null;
 }
-function hasVoice(lang) { return !!findVoice(lang); }
+// В Android-приложении (Capacitor) озвучивает синтезатор речи телефона через плагин.
+const NATIVE = !!(window.Capacitor && window.Capacitor.isNativePlatform && window.Capacitor.isNativePlatform());
+function nativePlugin(name) {
+    if (!NATIVE) return null;
+    const C = window.Capacitor;
+    if (C.Plugins && C.Plugins[name]) return C.Plugins[name];
+    return C.registerPlugin ? C.registerPlugin(name) : null;
+}
+const nativeTTS = nativePlugin('TextToSpeech');
+const nativeLangOk = {};
+if (nativeTTS) {
+    ['en', 'ru', 'he'].forEach(l => {
+        nativeTTS.isLanguageSupported({ lang: TTS_LANG[l] })
+            .then(r => { nativeLangOk[l] = !!(r && r.supported); })
+            .catch(() => { nativeLangOk[l] = true; });
+    });
+}
+
+function hasVoice(lang) {
+    if (nativeTTS) return nativeLangOk[lang] !== false;
+    return !!findVoice(lang);
+}
 function speak(text, lang) {
-    if (!('speechSynthesis' in window) || !text) return;
+    if (!text) return;
+    if (nativeTTS) {
+        nativeTTS.stop().catch(() => {}).then(() =>
+            nativeTTS.speak({ text: String(text), lang: TTS_LANG[lang] || lang, rate: 0.9, pitch: 1.0, volume: 1.0, category: 'playback' })
+        ).catch(() => {});
+        return;
+    }
+    if (!('speechSynthesis' in window)) return;
     try {
         speechSynthesis.cancel();
         const u = new SpeechSynthesisUtterance(String(text));
@@ -317,7 +356,7 @@ let advanceTimer = null;
 let lastActivity = 0;
 let pendingReload = false;
 
-const screens = ['menuScreen', 'exercisesScreen', 'topicScreen', 'gameScreen', 'parentScreen'];
+const screens = ['welcomeScreen', 'menuScreen', 'exercisesScreen', 'topicScreen', 'gameScreen', 'parentScreen'];
 function showScreen(id) {
     screens.forEach(s => { $(s).style.display = s === id ? 'block' : 'none'; });
     const inGame = id === 'gameScreen';
@@ -376,6 +415,8 @@ function renderDaily() {
     const pct = Math.min(100, Math.round(t.c / settings.goal * 100));
     const streakN = dayStreak();
     const done = t.c >= settings.goal;
+    const name = childName();
+    $('greeting').innerHTML = name ? `${g('👦', '👧')} Привет, <b>${esc(name)}</b>!` : '';
     $('dailyCard').innerHTML = `
         <div class="daily-row">
             <div class="daily-goal">
@@ -416,7 +457,7 @@ function openCategory(cat) {
     const c = CATEGORIES[cat];
     $('categoryTitle').textContent = c.title;
     let html = '';
-    if (cat !== 'math' && voices.length && !hasVoice(cat)) {
+    if (cat !== 'math' && (voices.length || nativeTTS) && !hasVoice(cat)) {
         html += `<div class="voice-warning">🔇 На этом устройстве нет голоса для языка «${c.title}». Задания на слух будут без звука — голос можно добавить в настройках телефона (Синтез речи).</div>`;
     }
     c.modes.forEach(m => {
@@ -497,6 +538,7 @@ function backFromGame() {
 function stopTimers() {
     clearTimeout(advanceTimer);
     advanceTimer = null;
+    if (nativeTTS) { nativeTTS.stop().catch(() => {}); return; }
     try { speechSynthesis.cancel(); } catch (e) { /* */ }
 }
 
@@ -601,7 +643,8 @@ function celebrateMilestone() {
     sfx('win');
     confetti(null, 140);
     const n = sessionProgress;
-    showToast(`🎉 Ура! Уже ${n} ${plural(n, 'слово', 'слова', 'слов')}! Так держать!`);
+    const nm = childName();
+    showToast(`🎉 Ура${nm ? ', ' + nm : ''}! Уже ${n} ${plural(n, 'слово', 'слова', 'слов')}! ${g('Молодец', 'Умница')}!`);
     const flash = document.createElement('div');
     flash.className = 'ura-flash';
     flash.textContent = '🎉 Ура! 🎉';
@@ -626,11 +669,12 @@ function showRoundEnd() {
     sfx('win');
     confetti(null, 160);
     setTimeout(() => confetti(null, 100), 700);
-    const praise = firstTryCount >= 9 ? 'Ты супер-звезда! 🌟' : firstTryCount >= 6 ? 'Отлично получается! 💪' : 'Молодец, ты стараешься! 💖';
+    const praise = firstTryCount >= 9 ? 'Ты супер-звезда! 🌟' : firstTryCount >= 6 ? 'Отлично получается! 💪' : g('Молодец', 'Умница') + ', ты стараешься! 💖';
+    const name = childName();
     const goalLeft = Math.max(0, settings.goal - t.c);
     gameContent.innerHTML = `
         <div class="round-end">
-            <div class="ura">🎉 Ура! 🎉</div>
+            <div class="ura">🎉 Ура${name ? ', ' + esc(name) : ''}! 🎉</div>
             <div class="round-sub">Раунд пройден!</div>
             <div class="round-stats">
                 <div><b>${firstTryCount}</b> из ${ROUND_LEN}<br><span>с первой попытки</span></div>
@@ -643,9 +687,18 @@ function showRoundEnd() {
                 <button class="big-btn secondary" id="toListBtn">📋 К списку</button>
             </div>
         </div>`;
-    speak(currentCategory === 'en' ? 'Hooray! Great job!' : currentCategory === 'he' ? 'יֵשׁ! כׇּל הַכָּבוֹד!' : 'Ура! Молодец!', currentCategory === 'math' ? 'ru' : currentCategory);
+    speak(praiseSpeech(), currentCategory === 'math' ? 'ru' : currentCategory);
     $('againBtn').onclick = startGame;
     $('toListBtn').onclick = backFromGame;
+}
+
+// Похвала голосом: имя называем только тем голосом, который его прочитает
+function praiseSpeech() {
+    const name = childName();
+    const latin = /^[a-z\s'-]+$/i.test(name), cyr = /[а-яё]/i.test(name), heb = /[\u05D0-\u05EA]/.test(name);
+    if (currentCategory === 'en') return 'Hooray' + (latin ? ', ' + name : '') + '! Great job!';
+    if (currentCategory === 'he') return 'יֵשׁ' + (heb ? ', ' + name : '') + '! כׇּל הַכָּבוֹד!';
+    return 'Ура' + (cyr || latin ? ', ' + name : '') + '! ' + g('Молодец!', 'Умница!');
 }
 
 function nextQuestion() {
@@ -1156,7 +1209,9 @@ function mathQuestion(title, options, correct, info, extraHeader) {
 }
 function genMathTable() {
     const facts = [];
-    for (let a = 2; a <= 9; a++) for (let b = 2; b <= 9; b++) facts.push({ a, b });
+    const lvl = mathLevel();
+    const maxA = lvl === 1 ? 5 : lvl === 2 ? 6 : 9, maxB = lvl === 1 ? 5 : 9;
+    for (let a = 2; a <= maxA; a++) for (let b = 2; b <= maxB; b++) facts.push({ a, b });
     const f = pickItem(facts, x => `math:x:${x.a}x${x.b}`);
     const ans = f.a * f.b;
     mathQuestion(`${f.a} × ${f.b} = ?`, numberOptions(ans, 8, 1), ans,
@@ -1165,8 +1220,9 @@ function genMathTable() {
 function genMathPlusMinus() {
     const plus = Math.random() > 0.5;
     let a, b, ans;
-    if (plus) { a = Math.floor(Math.random() * 70) + 10; b = Math.floor(Math.random() * (90 - a)) + 1; ans = a + b; }
-    else { a = Math.floor(Math.random() * 70) + 20; b = Math.floor(Math.random() * (a - 5)) + 1; ans = a - b; }
+    const max = [0, 20, 50, 100][mathLevel()];          // ответ не больше max
+    if (plus) { a = Math.floor(Math.random() * (max * 0.7)) + 1; b = Math.floor(Math.random() * (max - a)) + 1; ans = a + b; }
+    else { a = Math.floor(Math.random() * (max * 0.8)) + Math.ceil(max * 0.2); b = Math.floor(Math.random() * a) + 1; if (b === a) b = a - 1; ans = a - b; }
     mathQuestion(`${a} ${plus ? '+' : '−'} ${b} = ?`, numberOptions(ans, 10, 0), ans, null);
 }
 function genMathProblem() {
@@ -1177,10 +1233,65 @@ function genMathProblem() {
         `<div class="problem-text">${esc(p.text)}</div>`);
 }
 function genMathCompare() {
-    const a = Math.floor(Math.random() * 90) + 10;
-    const b = Math.random() < 0.15 ? a : Math.floor(Math.random() * 90) + 10;
+    const lvl = mathLevel();
+    const lo = lvl === 1 ? 1 : 10, span = lvl === 1 ? 20 : 90;
+    const a = Math.floor(Math.random() * span) + lo;
+    const b = Math.random() < 0.15 ? a : Math.floor(Math.random() * span) + lo;
     const sign = a > b ? '>' : a < b ? '<' : '=';
     mathQuestion(`${a} &nbsp;?&nbsp; ${b}`, ['>', '<', '='], sign, null);
+}
+
+// ============================================================
+//  Знакомство: при первом входе (и из «Для родителей»)
+// ============================================================
+const AGES = [3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+function openWelcome(fromParent) {
+    const draft = Object.assign({ name: '', gender: '', age: 0 }, profile || {});
+    $('welcomeScreen').innerHTML = `
+        <div class="welcome-card">
+            <div class="welcome-title">${fromParent ? '✏️ Профиль ребёнка' : '👋 Привет! Давай познакомимся'}</div>
+            <div class="welcome-label">Кто будет играть?</div>
+            <div class="gender-row">
+                <button type="button" class="gender-btn boy" data-gender="boy"><span>👦</span>Мальчик</button>
+                <button type="button" class="gender-btn girl" data-gender="girl"><span>👧</span>Девочка</button>
+            </div>
+            <div class="welcome-label">Как тебя зовут?</div>
+            <input id="nameInput" class="name-input" type="text" maxlength="20" autocomplete="off" placeholder="Имя" value="${esc(draft.name)}">
+            <div class="welcome-label">Сколько тебе лет?</div>
+            <div class="age-row">${AGES.map(a => `<button type="button" class="age-btn" data-age="${a}">${a === 12 ? '12+' : a}</button>`).join('')}</div>
+            <button class="big-btn" id="welcomeGo" disabled>${fromParent ? '💾 Сохранить' : '🚀 Поехали!'}</button>
+            <div class="welcome-note">Имя и возраст хранятся только на этом устройстве. По возрасту подбирается сложность математики.</div>
+            ${fromParent ? '<button class="small-btn" id="welcomeCancel" style="margin-top:10px">Отмена</button>' : ''}
+        </div>`;
+    showScreen('welcomeScreen');
+    const refresh = () => {
+        document.querySelectorAll('.gender-btn').forEach(b => b.classList.toggle('active', b.dataset.gender === draft.gender));
+        document.querySelectorAll('.age-btn').forEach(b => b.classList.toggle('active', +b.dataset.age === draft.age));
+        document.querySelector('.welcome-card').classList.toggle('girl-theme', draft.gender === 'girl');
+        document.querySelector('.welcome-card').classList.toggle('boy-theme', draft.gender === 'boy');
+        $('welcomeGo').disabled = !(draft.gender && draft.name.trim() && draft.age);
+    };
+    document.querySelectorAll('.gender-btn').forEach(b => b.onclick = () => { draft.gender = b.dataset.gender; sfx('tap'); refresh(); });
+    document.querySelectorAll('.age-btn').forEach(b => b.onclick = () => { draft.age = +b.dataset.age; sfx('tap'); refresh(); });
+    $('nameInput').oninput = e => { draft.name = e.target.value; refresh(); };
+    $('welcomeGo').onclick = () => {
+        const first = !profile;
+        profile = { name: draft.name.trim().slice(0, 20), gender: draft.gender, age: draft.age };
+        store.set('kt_profile', profile);
+        if (first) {            // цель дня по возрасту — только при первом знакомстве
+            settings.goal = profile.age <= 5 ? 10 : profile.age <= 7 ? 20 : 30;
+            saveSettings();
+        }
+        if (fromParent) renderParent();
+        else {
+            goMenu();
+            confetti(null, 80);
+            sfx('win');
+            speak('Привет, ' + profile.name + '! Давай играть!', 'ru');
+        }
+    };
+    if (fromParent) $('welcomeCancel').onclick = renderParent;
+    refresh();
 }
 
 // ============================================================
@@ -1283,6 +1394,12 @@ function renderParent() {
             `<tr><td>${x.d.toLocaleDateString('ru-RU', { day: 'numeric', month: 'short' })}</td><td>${fmtMin(x.v.sec)}</td><td>${x.v.c} из ${x.v.a}</td><td>${x.v.r}</td></tr>`).join('') +
         '</table></div>';
 
+    // профиль
+    html += `<div class="parent-card"><h3>${g('👦', '👧')} Профиль ребёнка</h3>
+        <p>${profile ? `<b>${esc(profile.name)}</b>, ${g('мальчик', 'девочка')}, ${profile.age}${profile.age === 12 ? '+' : ''} ${plural(profile.age, 'год', 'года', 'лет')}` : 'Не заполнен'}</p>
+        <p class="muted">Математика: ${['', 'до 20, умножение до 5×5', 'до 50, умножение до 6×9', 'до 100, вся таблица умножения'][mathLevel()]}</p>
+        <button class="small-btn" id="editProfileBtn">✏️ Изменить</button></div>`;
+
     // настройки
     html += `<div class="parent-card"><h3>⚙️ Настройки</h3>
         <label class="set-row">Цель на день (правильных ответов):
@@ -1292,11 +1409,12 @@ function renderParent() {
         <p class="muted" style="margin-top:10px">Данные хранятся только на этом устройстве.</p></div>`;
 
     $('parentContent').innerHTML = html;
+    $('editProfileBtn').onclick = () => openWelcome(true);
     $('goalSelect').onchange = e => { settings.goal = +e.target.value; saveSettings(); renderParent(); };
     $('soundToggle').onchange = e => { settings.sound = e.target.checked; saveSettings(); };
     $('resetBtn').onclick = () => {
         if (!confirm('Удалить всю статистику, звёзды и историю занятий?')) return;
-        items = {}; days = {}; totalScoreAllTime = 0;
+        items = {}; days = {}; totalScoreAllTime = 0;   // профиль ребёнка остаётся
         saveItems(); saveDays(); store.set('kids_total_score', 0);
         renderParent(); updateRewardsDisplay();
     };
@@ -1313,12 +1431,26 @@ $('parentBtn').onclick = openParentGate;
 $('parentBackBtn').onclick = goMenu;
 window.addEventListener('pagehide', () => { if ($('gameScreen').style.display === 'block') { trackTime(); saveDays(); } });
 
+if (NATIVE) document.querySelector('.app-version').textContent = 'Работает без интернета';
 buildAchievements();
-renderDaily();
-showScreen('menuScreen');
+if (profile) { renderDaily(); showScreen('menuScreen'); }
+else openWelcome(false);
 
-// PWA: офлайн-режим и обновления
-if ('serviceWorker' in navigator && location.protocol !== 'file:') {
+// Android: аппаратная кнопка «Назад» возвращает на предыдущий экран, из меню — выход
+const nativeApp = nativePlugin('App');
+if (nativeApp) {
+    nativeApp.addListener('backButton', () => {
+        const visible = id => $(id).style.display === 'block';
+        if (visible('gameScreen')) backFromGame();
+        else if (visible('topicScreen')) openCategory(currentCategory);
+        else if (visible('exercisesScreen') || visible('parentScreen')) goMenu();
+        else if (visible('welcomeScreen') && profile) goMenu();
+        else nativeApp.exitApp();
+    });
+}
+
+// PWA: офлайн-режим и обновления (в Android-приложении не нужен — всё уже внутри)
+if (!NATIVE && 'serviceWorker' in navigator && location.protocol !== 'file:') {
     window.addEventListener('load', () => {
         navigator.serviceWorker.register('sw.js', { updateViaCache: 'none' }).then(reg => {
             reg.update().catch(() => {});

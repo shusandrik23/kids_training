@@ -1,0 +1,83 @@
+# Сборка Android-приложения «Сладкая Учёба».
+# Запускается при каждом изменении в main и вручную (Actions → Android → Run workflow).
+# Результат — во вкладке Actions, раздел Artifacts:
+#   sladkaya-ucheba-apk  — APK для установки на телефон;
+#   sladkaya-ucheba-aab  — пакет для Google Play (только если заданы секреты подписи, см. ANDROID.md).
+name: Android
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      VERSION_CODE: ${{ github.run_number }}
+      HAS_KEYSTORE: ${{ secrets.ANDROID_KEYSTORE_BASE64 != '' }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+          cache: gradle
+
+      - name: Версия из package.json
+        run: echo "VERSION_NAME=$(node -p "require('./package.json').version")" >> "$GITHUB_ENV"
+
+      - name: Установить зависимости
+        run: npm ci
+
+      - name: Собрать веб-часть и перенести в Android
+        run: npm run sync
+
+      - name: Подготовить ключ подписи
+        if: env.HAS_KEYSTORE == 'true'
+        env:
+          KEYSTORE_B64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+        run: |
+          echo "$KEYSTORE_B64" | base64 -d > "$RUNNER_TEMP/release.jks"
+          echo "ANDROID_KEYSTORE_FILE=$RUNNER_TEMP/release.jks" >> "$GITHUB_ENV"
+
+      - name: Собрать APK
+        working-directory: android
+        env:
+          ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+          ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+        run: |
+          chmod +x gradlew
+          if [ -n "$ANDROID_KEYSTORE_FILE" ]; then
+            ./gradlew --no-daemon assembleRelease bundleRelease
+          else
+            ./gradlew --no-daemon assembleDebug
+          fi
+
+      - name: Переименовать APK
+        run: |
+          mkdir -p out
+          APK=$(ls android/app/build/outputs/apk/release/*.apk 2>/dev/null | head -1)
+          [ -z "$APK" ] && APK=$(ls android/app/build/outputs/apk/debug/*.apk | head -1)
+          cp "$APK" "out/sladkaya-ucheba-${VERSION_NAME}-${VERSION_CODE}.apk"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: sladkaya-ucheba-apk
+          path: out/*.apk
+
+      - uses: actions/upload-artifact@v4
+        if: env.HAS_KEYSTORE == 'true'
+        with:
+          name: sladkaya-ucheba-aab
+          path: android/app/build/outputs/bundle/release/*.aab
