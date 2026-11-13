@@ -11,7 +11,7 @@
 | `app.js` | логика игры |
 | `words.js` | **500 слов** (en / ru / he с огласовками / эмодзи / тема) и все задания. В начале файла — инструкция, как добавлять слова |
 | `sw.js` | офлайн-режим. **После любого изменения увеличьте `VERSION`** |
-| `manifest.json`, `icons/` | иконка и установка на главный экран |
+| `manifest.json`, `icons/` | иконка и установка на главный экран (иконка рисуется из `icons/icon.svg`: `node scripts/make-icons.js`) |
 | `privacy.html` | политика конфиденциальности (для Google Play) |
 | `android/`, `package.json`, `capacitor.config.json` | Android-приложение — см. **[ANDROID.md](ANDROID.md)** |
 
