@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">Сладкая Учёба</string>
-    <string name="title_activity_main">Сладкая Учёба</string>
-    <string name="package_name">io.github.shusandrik23.sladkayaucheba</string>
-    <string name="custom_url_scheme">io.github.shusandrik23.sladkayaucheba</string>
+    <string name="app_name">АБВ·ABC·אבג</string>
+    <string name="title_activity_main">АБВ·ABC·אבג</string>
+    <string name="package_name">io.github.shusandrik23.abcalefbet</string>
+    <string name="custom_url_scheme">io.github.shusandrik23.abcalefbet</string>
 </resources>

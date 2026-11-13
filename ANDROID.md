@@ -1,4 +1,4 @@
-# 📱 «Сладкая Учёба» для Android
+# 📱 «АБВ·ABC·אבג» для Android
 
 Приложение собрано на Capacitor: игра (`index.html`, `app.js`, `words.js`) целиком лежит внутри,
 работает без интернета, озвучка — синтезатор речи телефона (Google TTS).
@@ -7,7 +7,7 @@
 
 1. Любое изменение в ветке `main` автоматически собирает приложение (GitHub → вкладка **Actions** → **Android**).
    Можно запустить и вручную: Actions → Android → **Run workflow**.
-2. Откройте завершённый запуск (зелёная галочка) → внизу **Artifacts** → скачайте `sladkaya-ucheba-apk`
+2. Откройте завершённый запуск (зелёная галочка) → внизу **Artifacts** → скачайте `abv-abc-alef-apk`
    (это zip, внутри файл `.apk`).
 3. Перекиньте `.apk` на телефон и откройте его. Android попросит разрешить установку из этого источника — разрешите.
 4. Новые версии ставятся поверх старых, прогресс ребёнка сохраняется.
@@ -37,7 +37,7 @@ GitHub → репозиторий → Settings → Secrets and variables → Act
 | `ANDROID_KEY_ALIAS` | `upload` |
 | `ANDROID_KEY_PASSWORD` | пароль ключа |
 
-После этого сборка выдаёт ещё и `sladkaya-ucheba-aab` — файл для Google Play.
+После этого сборка выдаёт ещё и `abv-abc-alef-aab` — файл для Google Play.
 
 ### 3. Google Play Console
 
@@ -59,6 +59,6 @@ npm run sync          # собрать www/ и перенести в android/
 npm run apk           # собрать APK локально (нужен Android SDK)
 ```
 
-- `applicationId`: `io.github.shusandrik23.sladkayaucheba` — после первой публикации в Google Play менять нельзя.
+- `applicationId`: `io.github.shusandrik23.abcalefbet` — после первой публикации в Google Play менять нельзя.
 - Номер версии — поле `version` в `package.json`.
 - Иконки и заставка — `android/app/src/main/res/`.

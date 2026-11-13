@@ -1,12 +1,12 @@
 /*
- * Service worker «Сладкой Учёбы»: игра работает без интернета.
+ * Service worker «АБВ·ABC·אבג»: игра работает без интернета.
  *
  * ВАЖНО: после ЛЮБОГО изменения файлов игры (index.html, app.js, words.js, иконки)
  * увеличьте VERSION. Браузер увидит, что sw.js изменился, скачает всё заново,
  * а старый кэш удалит — так обновление дойдёт до всех телефонов.
  */
-const VERSION = '2.2.0';
-const CACHE = 'sladkaya-ucheba-' + VERSION;
+const VERSION = '3.0.0';
+const CACHE = 'abv-abc-alef-' + VERSION;
 const ASSETS = [
     './',
     './index.html',
@@ -32,7 +32,7 @@ self.addEventListener('activate', event => {
     event.waitUntil(
         caches.keys()
             .then(keys => Promise.all(keys
-                .filter(k => k.startsWith('sladkaya-ucheba-') && k !== CACHE)
+                .filter(k => k !== CACHE)   // старые версии и старое название «Сладкая Учёба»
                 .map(k => caches.delete(k))))
             .then(() => self.clients.claim())
     );

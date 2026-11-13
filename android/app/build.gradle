@@ -1,15 +1,15 @@
 apply plugin: 'com.android.application'
 
 android {
-    namespace = "io.github.shusandrik23.sladkayaucheba"
+    namespace = "io.github.shusandrik23.abcalefbet"
     compileSdk = rootProject.ext.compileSdkVersion
     defaultConfig {
-        applicationId "io.github.shusandrik23.sladkayaucheba"
+        applicationId "io.github.shusandrik23.abcalefbet"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         // В GitHub Actions номер сборки растёт сам (VERSION_CODE), версия берётся из package.json
         versionCode((System.getenv("VERSION_CODE") ?: "1") as Integer)
-        versionName(System.getenv("VERSION_NAME") ?: "2.1.0")
+        versionName(System.getenv("VERSION_NAME") ?: "3.0.0")
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         aaptOptions {
              // Files and dirs to omit from the packaged assets dir, modified to accommodate modern web apps.

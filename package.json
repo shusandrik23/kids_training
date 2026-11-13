@@ -1,8 +1,8 @@
 {
-  "name": "sladkaya-ucheba",
-  "version": "2.1.0",
+  "name": "abv-abc-alef",
+  "version": "3.0.0",
   "private": true,
-  "description": "Сладкая Учёба — обучающая игра для детей (веб + Android)",
+  "description": "АБВ·ABC·אבג — обучающая игра для детей (веб + Android)",
   "scripts": {
     "build:web": "node scripts/build-web.js",
     "sync": "npm run build:web && npx cap sync android",

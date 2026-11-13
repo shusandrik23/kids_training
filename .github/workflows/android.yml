@@ -1,8 +1,8 @@
-# Сборка Android-приложения «Сладкая Учёба».
+# Сборка Android-приложения «АБВ·ABC·אבג».
 # Запускается при каждом изменении в main и вручную (Actions → Android → Run workflow).
 # Результат — во вкладке Actions, раздел Artifacts:
-#   sladkaya-ucheba-apk  — APK для установки на телефон;
-#   sladkaya-ucheba-aab  — пакет для Google Play (только если заданы секреты подписи, см. ANDROID.md).
+#   abv-abc-alef-apk  — APK для установки на телефон;
+#   abv-abc-alef-aab  — пакет для Google Play (только если заданы секреты подписи, см. ANDROID.md).
 name: Android
 
 on:
@@ -69,15 +69,15 @@ jobs:
           mkdir -p out
           APK=$(ls android/app/build/outputs/apk/release/*.apk 2>/dev/null | head -1)
           [ -z "$APK" ] && APK=$(ls android/app/build/outputs/apk/debug/*.apk | head -1)
-          cp "$APK" "out/sladkaya-ucheba-${VERSION_NAME}-${VERSION_CODE}.apk"
+          cp "$APK" "out/abv-abc-alef-${VERSION_NAME}-${VERSION_CODE}.apk"
 
       - uses: actions/upload-artifact@v4
         with:
-          name: sladkaya-ucheba-apk
+          name: abv-abc-alef-apk
           path: out/*.apk
 
       - uses: actions/upload-artifact@v4
         if: env.HAS_KEYSTORE == 'true'
         with:
-          name: sladkaya-ucheba-aab
+          name: abv-abc-alef-aab
           path: android/app/build/outputs/bundle/release/*.aab
