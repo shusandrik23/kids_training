@@ -30,6 +30,14 @@ let profile = store.get('kt_profile', null);   // {name, gender: 'boy' | 'girl',
 // Слово по полу ребёнка: g('Молодец', 'Умница')
 function g(boy, girl) { return profile && profile.gender === 'girl' ? girl : boy; }
 function childName() { return profile && profile.name ? profile.name : ''; }
+// Оформление: розовое для девочек, синее для мальчиков
+function applyTheme(gender) {
+    const boy = gender === 'boy';
+    document.documentElement.classList.toggle('theme-boy', boy);
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.setAttribute('content', boy ? '#3b82f6' : '#ec4899');
+}
+applyTheme(profile && profile.gender);
 // Уровень математики по возрасту: 1 — до 6 лет, 2 — 7–8 лет, 3 — 9 и старше
 function mathLevel() {
     const age = profile && profile.age;
@@ -1271,13 +1279,14 @@ function openWelcome(fromParent) {
         document.querySelector('.welcome-card').classList.toggle('boy-theme', draft.gender === 'boy');
         $('welcomeGo').disabled = !(draft.gender && draft.name.trim() && draft.age);
     };
-    document.querySelectorAll('.gender-btn').forEach(b => b.onclick = () => { draft.gender = b.dataset.gender; sfx('tap'); refresh(); });
+    document.querySelectorAll('.gender-btn').forEach(b => b.onclick = () => { draft.gender = b.dataset.gender; applyTheme(draft.gender); sfx('tap'); refresh(); });
     document.querySelectorAll('.age-btn').forEach(b => b.onclick = () => { draft.age = +b.dataset.age; sfx('tap'); refresh(); });
     $('nameInput').oninput = e => { draft.name = e.target.value; refresh(); };
     $('welcomeGo').onclick = () => {
         const first = !profile;
         profile = { name: draft.name.trim().slice(0, 20), gender: draft.gender, age: draft.age };
         store.set('kt_profile', profile);
+        applyTheme(profile.gender);
         if (first) {            // цель дня по возрасту — только при первом знакомстве
             settings.goal = profile.age <= 5 ? 10 : profile.age <= 7 ? 20 : 30;
             saveSettings();
@@ -1290,7 +1299,7 @@ function openWelcome(fromParent) {
             speak('Привет, ' + profile.name + '! Давай играть!', 'ru');
         }
     };
-    if (fromParent) $('welcomeCancel').onclick = renderParent;
+    if (fromParent) $('welcomeCancel').onclick = () => { applyTheme(profile && profile.gender); renderParent(); };
     refresh();
 }
 
